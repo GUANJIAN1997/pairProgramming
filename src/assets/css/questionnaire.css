@@ -1,0 +1,17 @@
+.questionnaire-box {
+  border: solid;
+  font-size: 20px;
+  position: relative;
+}
+.questionnaire-box h2 {
+  text-align: center;
+}
+.questionnaire-content {
+  margin: 20px
+}
+.questionnaire-content li{
+  margin: 10px
+}
+.questionnaire-A {
+  float: right;
+}
