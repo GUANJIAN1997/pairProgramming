@@ -1,17 +1,20 @@
 .questionnaire-box {
   border: solid;
-  font-size: 20px;
+  font-size: 2rem;
   position: relative;
 }
 .questionnaire-box h2 {
   text-align: center;
 }
 .questionnaire-content {
-  margin: 20px
+  margin: 2rem
 }
 .questionnaire-content li{
-  margin: 10px
+  margin: 1rem
 }
 .questionnaire-A {
   float: right;
+}
+.infor {
+  font-size: 2rem;
 }

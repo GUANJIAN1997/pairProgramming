@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div>
+      <div class="infor">
         <span>名前：{{userName}}</span>
         <span>席番号：{{seatNum}}</span>
       </div>

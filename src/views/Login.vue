@@ -29,7 +29,7 @@
 
            <!-- 登録ボタン -->
            <div class="login-btn">
-               <button type="button" @click="login">登録</button>
+               <button type="button" @click.stop="login">登録</button>
            </div>
        </div>
  </div>
@@ -66,7 +66,8 @@ export default {
       } else {
         alert('入力不完全')
       }
-    }
+
+    },
   }
 }
 </script>

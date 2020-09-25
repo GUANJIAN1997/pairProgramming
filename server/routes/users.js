@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var mongoose = require('mongoose')
 var User = require('../models/user')
+var Step = require('../models/step')
 
 mongoose.connect('mongodb://127.0.0.1:27017/pairprogramming')
 mongoose.connection.on('connected', function () {
@@ -84,4 +85,22 @@ router.post('/questionnaire', function (req, res, next) {
   })
 })
 
+router.get('/stepProject',function (req,res,next) {
+  let stepsNum = req.param('stepsNum')
+  Step.findOne({stepsNum:stepsNum}, function (err,doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: res.message,
+        result: ''
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: doc.imgAddr
+      })
+    }
+  })
+})
 module.exports = router

@@ -1,27 +1,35 @@
 <template>
   <div>
-    <Header>
-      <span slot="steps">Step1</span>
-    </Header>
-    <div>
+    <div class="infor">
       <span>名前：{{userName}}</span>
       <span>席番号：{{seatNum}}</span>
     </div>
-    programming
+    <step-project :stepsNum="stepsNum">
+      <span slot="steps" class="stepNum">{{'ステップ'+stepsNum}}</span>
+    </step-project>
+    <div class="next-step-btn">
+      <button type="button" @click.stop="next">次のステップ</button>
+    </div>
   </div>
 </template>
 
 <script>
-import Header from '../components/Header'
+import StepProject from '../components/StepProject'
 export default {
   name: 'Programming.vue',
   components: {
-    Header
+    StepProject
   },
   data () {
     return {
       userName: '',
-      seatNum: ''
+      seatNum: '',
+      stepsNum: 2
+    }
+  },
+  computed: {
+    stepsNum : function () {
+      return this.stepsNum
     }
   },
   mounted () {
@@ -40,6 +48,9 @@ export default {
       if (!(this.userName && this.seatNum)) {
         alert('もう一度登録してください')
       }
+    },
+    next () {
+      this.stepsNum += 1
     }
   }
 }
