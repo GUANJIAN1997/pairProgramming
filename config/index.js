@@ -11,7 +11,16 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/users': {target: 'http://localhost:3000'}
+      '/users': {target: 'http://localhost:3000'},
+      '/test': {
+        target: 'ws://localhost:3000',//后端目标接口地址
+        changeOrigin: true,//是否允许跨域
+        pathRewrite: {
+          '^/test': '',//重写,
+        },
+        ws: true //开启ws, 如果是http代理此处可以不用设置
+      }
+
     },
 
     // Various Dev Server settings

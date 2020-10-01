@@ -5,6 +5,7 @@ var userSchema = new mongoose.Schema({
   "seatNum": String,
   "userPwd": String,
   "gender": String,
+  "progress": Number,
   "questionnaire": [{
     "talkative": String,
     "like": String

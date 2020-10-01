@@ -1,0 +1,19 @@
+.progress-container {
+  float: left;
+  margin-left: 5%;
+  width: 25%;
+}
+.progress-title {
+  width: 100%;
+  font-size: 2rem;
+  background: #ccc;
+  height: 8rem;
+  line-height: 8rem;
+  text-align: center;
+  overflow: auto;
+}
+.list {
+  font-size: 2rem;
+  list-style-type:none;
+  padding-inline-start: 0px;
+}
