@@ -1,0 +1,23 @@
+.modal-container {
+  visibility: hidden;
+  border: solid black .2rem;
+  width: 50%;
+  height: 30%;
+  position: fixed;
+  top: 35%;
+  left: 25%;
+  background: #ccc;
+}
+.md-infor {
+  font-size: 2rem;
+  text-align: center;
+  margin: 1.5rem 0rem;
+}
+.md-show {
+  visibility: visible;
+}
+.OK-btn {
+  width: 5rem;
+  text-align: center;
+  font-size: 2rem;
+}

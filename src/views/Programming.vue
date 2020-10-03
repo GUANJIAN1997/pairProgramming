@@ -17,20 +17,21 @@
 
 
 
-    <div class="next-step-btn">
+    <div class="btn-container">
       <button type="button" @click.stop="Return" class="button1">前に戻る</button>
-      <button type="button" @click.stop="" class="button2">ディスカッション</button>
+      <button type="button" @click.stop="Discussion" class="button2">ディスカッション</button>
       <button type="button" @click.stop="Next" class="button3">次のステップ</button>
     </div>
 
-    <test></test>
+
+    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow" @close="closeModal"></Modal>
   </div>
 </template>
 
 <script>
-import test from '../components/test'
 import StepProject from '../components/StepProject'
 import Progress from '../components/Progress'
+import Modal from '../components/Modal'
 import '../assets/css/programming.css'
 import axios from 'axios'
 export default {
@@ -38,13 +39,15 @@ export default {
   components: {
     Progress,
     StepProject,
-    test
+    Modal
   },
   data () {
     return {
       userName: '',
       seatNum: '',
-      stepsNum: 1,
+      stepsNum: null,
+      mdShow: false,
+      discussionPartner: {},
       progressList: []
     }
   },
@@ -57,7 +60,6 @@ export default {
       var reg2 = new RegExp(`seatNum=([^;]*)`,'i');
       const res1 = document.cookie.match(reg1)
       const res2 = document.cookie.match(reg2)
-      console.log(res1,res2)
       if (!res1 || !res2) {
         console.log('not found')
       } else {
@@ -82,13 +84,6 @@ export default {
           }
         })
       }
-      // var socket = new WebSocket('ws://localhost:3000/test');
-      // socket.addEventListener('open', function (event) {
-      //   console.log('socket is open')
-      // })
-      // socket.addEventListener('message', function (event) {
-      //   console.log('Message from server', event.data);
-      // });
       axios.get('/users/stepProject/getOthersProgress').then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -116,7 +111,7 @@ export default {
     },
     Return () {
       if (this.stepsNum <= 1) {
-        return function (stepsNum) {
+        return function(stepsNum){
           alert(stepsNum+'は最初の課題ですよ')
         }(this.stepsNum)
       } else {
@@ -128,6 +123,18 @@ export default {
           }
         })
       }
+    },
+    Discussion () {
+      var stepsNum = this.stepsNum
+      this.discussionPartner = this.progressList.filter((item) => {
+       return  item.progress >= stepsNum
+      }).sort(function (a,b) {
+        return a.discussionTimes - b.discussionTimes
+      })[0]
+      this.mdShow = true
+    },
+    closeModal () {
+      this.mdShow = false
     }
   }
 }

@@ -6,6 +6,7 @@ var userSchema = new mongoose.Schema({
   "userPwd": String,
   "gender": String,
   "progress": Number,
+  "discussionTimes": Number,
   "questionnaire": [{
     "talkative": String,
     "like": String

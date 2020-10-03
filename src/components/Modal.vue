@@ -1,0 +1,27 @@
+<template>
+  <div class="modal-container" :class="{'md-show': mdShow}">
+    <div class="md-infor">ディスカッションする子供の情報</div>
+    <div class="md-infor">席番号: {{discussionPartner.seatNum}}</div>
+    <div class="md-infor">名前: {{discussionPartner.userName}}</div>
+    <div class="btn-container">
+      <button class="OK-btn" @click="discussionScreen">OK</button>
+    </div>
+  </div>
+</template>
+
+<script>
+  import '../assets/css/modal.css'
+  export default {
+    name: 'modal',
+    props: ['discussionPartner', 'mdShow'],
+    methods: {
+      discussionScreen () {
+        this.$emit('close')
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

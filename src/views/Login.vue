@@ -3,7 +3,7 @@
    <div class="login-box">
      <div class="login-title">
        <h1>
-         ようこそ
+         学習支援システム
        </h1>
      </div>
            <!-- 席番号 -->

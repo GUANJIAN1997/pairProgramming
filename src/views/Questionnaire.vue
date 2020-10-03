@@ -8,7 +8,7 @@
       <h2>性格アンケート</h2>
       <ul class="questionnaire-content">
         <li>
-          おしゃべりな子供ですか？
+          項目１
           <div class="questionnaire-A">
             <input type="radio" name="talkative" value="yes" v-model="talkative" >はい
             &nbsp;&nbsp;
@@ -16,7 +16,7 @@
           </div>
         </li>
         <li>
-          プログラミング好きですか？
+          項目２
           <div class="questionnaire-A">
             <input type="radio" name="like" value="yes" v-model="like" >はい
             &nbsp;&nbsp;
@@ -66,14 +66,17 @@ export default {
       }
     },
     init () {
-      document.cookie.split(';').map((item) => {
-        if (item.slice(1, 9) === 'userName') {
-          this.userName = item.slice(10)
-        }
-        if (item.slice(1, 8) === 'seatNum') {
-          this.seatNum = item.slice(9)
-        }
-      })
+      var reg1 = new RegExp(`userName=([^;]*)`,'i');
+      var reg2 = new RegExp(`seatNum=([^;]*)`,'i');
+      const res1 = document.cookie.match(reg1)
+      const res2 = document.cookie.match(reg2)
+
+      if (!res1 || !res2) {
+        console.log('not found')
+      } else {
+        this.userName = res1[1]
+        this.seatNum = res2[1]
+      }
       if (!(this.userName && this.seatNum)) {
         alert('もう一度登録してください')
       }

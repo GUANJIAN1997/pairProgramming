@@ -1,7 +1,5 @@
 var express = require('express')
-var expressWS = require('express-ws')
 var router = express.Router()
-expressWS(router)
 var mongoose = require('mongoose')
 var User = require('../models/user')
 var Step = require('../models/step')
