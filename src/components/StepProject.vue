@@ -4,7 +4,9 @@
       <div class="title">
         <slot name="steps"></slot>
       </div>
+      <div >
 
+      </div>
         <img class="img" :src="'/static/' + imgAddr">
 
     </div>
@@ -34,14 +36,17 @@ export default {
   methods: {
     getImg () {
       var param = {stepsNum: this.stepsNum}
-      axios.get('/users/stepProject',{params: param}).then((result) => {
-        let res = result.data
-        if (res.status === '0') {
-          this.imgAddr = res.result
-        } else {
-          console.log(res.msg)
-        }
-      })
+      if (this.stepsNum) {
+        axios.get('/users/stepProject',{params: param}).then((result) => {
+          let res = result.data
+          if (res.status === '0') {
+            this.imgAddr = res.result
+            this.$emit('getImgAddr',this.imgAddr)
+          } else {
+            console.log(res.msg)
+          }
+        })
+      }
     }
   }
  }

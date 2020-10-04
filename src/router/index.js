@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '../views/Login'
 import Questionnaire from '../views/Questionnaire'
 import Programming from '../views/Programming'
+import Discussion from '../views/Discussion'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/programming',
       name: 'Programming',
       component: Programming
-    }
+    },
+    {
+      path: '/discussion',
+      name: 'Discussion',
+      component: Discussion
+    },
   ]
 })

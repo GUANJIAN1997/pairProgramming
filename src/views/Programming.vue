@@ -6,8 +6,8 @@
     </div>
     <div class="container">
 
-        <step-project :stepsNum="stepsNum">
-          <span slot="steps" class="stepNum">{{'ステップ'+stepsNum}}</span>
+        <step-project :stepsNum="stepsNum" @getImgAddr="getImgAddr">
+          <span slot="steps" class="stepNum" >{{'ステップ'+stepsNum}}</span>
         </step-project>
 
 
@@ -24,7 +24,7 @@
     </div>
 
 
-    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow" @close="closeModal"></Modal>
+    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow" :imgAddr="imgAddr" :userName="userName" @close="closeModal"></Modal>
   </div>
 </template>
 
@@ -47,6 +47,7 @@ export default {
       seatNum: '',
       stepsNum: null,
       mdShow: false,
+      imgAddr: '',
       discussionPartner: {},
       progressList: []
     }
@@ -135,6 +136,9 @@ export default {
     },
     closeModal () {
       this.mdShow = false
+    },
+    getImgAddr (imgAddr) {
+      this.imgAddr = imgAddr
     }
   }
 }
