@@ -40,11 +40,11 @@ router.post('/', function (req, res, next) {
       if (doc.n) {
         res.cookie('userName', userName, {
           path: '/',
-          maxAge: 1000*60*60
+          maxAge: 24*60*60*1000
         });
         res.cookie('seatNum', seatNum, {
           path: '/',
-          maxAge: 1000*60*60
+          maxAge: 24*60*60*1000
         });
         res.json({
           status: '0',

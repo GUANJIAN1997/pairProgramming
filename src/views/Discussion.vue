@@ -7,6 +7,9 @@
 
       <img class="img" :src="'/static/' + imgAddr">
     </div>
+    <div class="btn-container">
+      <button type="button" @click.stop="discussionEnd" class="button1">完了</button>
+    </div>
   </div>
 
 </template>
@@ -24,13 +27,16 @@
       }
     },
     mounted () {
-      this.getImg()
+      this.init()
     },
     methods: {
-      getImg () {
+      init () {
         this.imgAddr = this.$route.query.imgAddr
         this.userName = this.$route.query.userName
         this.discussionPartner = this.$route.query.discussionPartner
+      },
+      discussionEnd () {
+        this.$router.push({path:"/feedback"})
       }
     }
   }

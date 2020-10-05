@@ -4,11 +4,8 @@
       <div class="title">
         <slot name="steps"></slot>
       </div>
-      <div >
 
-      </div>
         <img class="img" :src="'/static/' + imgAddr">
-
     </div>
   </div>
 
