@@ -66,8 +66,7 @@ export default {
       } else {
         alert('入力不完全')
       }
-
-    },
+    }
   }
 }
 </script>

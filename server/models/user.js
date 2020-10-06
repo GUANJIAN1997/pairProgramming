@@ -7,6 +7,7 @@ var userSchema = new mongoose.Schema({
   "gender": String,
   "progress": Number,
   "discussionTimes": Number,
+  "discussionDetails": [],
   "questionnaire": [{
     "talkative": String,
     "like": String

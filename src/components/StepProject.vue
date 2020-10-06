@@ -34,11 +34,11 @@ export default {
     getImg () {
       var param = {stepsNum: this.stepsNum}
       if (this.stepsNum) {
-        axios.get('/users/stepProject',{params: param}).then((result) => {
+        axios.get('/users/stepProject', {params: param}).then((result) => {
           let res = result.data
           if (res.status === '0') {
             this.imgAddr = res.result
-            this.$emit('getImgAddr',this.imgAddr)
+            this.$emit('getImgAddr', this.imgAddr)
           } else {
             console.log(res.msg)
           }
@@ -46,7 +46,7 @@ export default {
       }
     }
   }
- }
+}
 </script>
 
 <style scoped>

@@ -9,13 +9,9 @@
         <step-project :stepsNum="stepsNum" @getImgAddr="getImgAddr">
           <span slot="steps" class="stepNum" >{{'ステップ'+stepsNum}}</span>
         </step-project>
-
-
       <Progress :progressList="progressList"></Progress>
 
     </div>
-
-
 
     <div class="btn-container">
       <button type="button" @click.stop="Return" class="button1">前に戻る</button>
@@ -23,8 +19,7 @@
       <button type="button" @click.stop="Next" class="button3">次のステップ</button>
     </div>
 
-
-    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow" :imgAddr="imgAddr" :userName="userName" @close="closeModal"></Modal>
+    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" @close="closeModal"></Modal>
   </div>
 </template>
 
@@ -57,8 +52,8 @@ export default {
   },
   methods: {
     init () {
-      var reg1 = new RegExp(`userName=([^;]*)`,'i');
-      var reg2 = new RegExp(`seatNum=([^;]*)`,'i');
+      var reg1 = new RegExp(`userName=([^;]*)`, 'i')
+      var reg2 = new RegExp(`seatNum=([^;]*)`, 'i')
       const res1 = document.cookie.match(reg1)
       const res2 = document.cookie.match(reg2)
       if (!res1 || !res2) {
@@ -78,7 +73,7 @@ export default {
       if (!(this.userName && this.seatNum)) {
         alert('もう一度登録してください')
       } else {
-        axios.post('/users/stepProject/getProgress',{seatNum: this.seatNum}).then((response) => {
+        axios.post('/users/stepProject/getProgress', {seatNum: this.seatNum}).then((response) => {
           var res = response.data
           if (res.status === '0') {
             this.stepsNum = res.result
@@ -88,7 +83,7 @@ export default {
       axios.get('/users/stepProject/getOthersProgress').then((response) => {
         let res = response.data
         if (res.status === '0') {
-          res.result.sort(function (a,b) {
+          res.result.sort(function (a, b) {
             return b.progress - a.progress
           })
           this.progressList = res.result
@@ -96,13 +91,13 @@ export default {
       })
     },
     Next () {
-      if (this.stepsNum >=3) {
-        return function (stepsNum) {
-          alert(stepsNum+'は最後の課題ですよ！')
-        }(this.stepsNum)
+      if (this.stepsNum >= 3) {
+        return (function (stepsNum) {
+          alert(stepsNum + 'は最後の課題ですよ！')
+        })(this.stepsNum)
       } else {
         this.stepsNum += 1
-        axios.post('/users/stepProject/updateProgress',{seatNum: this.seatNum, progress: this.stepsNum}).then((response)=>{
+        axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             console.log('進捗更新成功')
@@ -112,12 +107,12 @@ export default {
     },
     Return () {
       if (this.stepsNum <= 1) {
-        return function(stepsNum){
-          alert(stepsNum+'は最初の課題ですよ')
-        }(this.stepsNum)
+        return (function (stepsNum) {
+          alert(stepsNum + 'は最初の課題ですよ')
+        })(this.stepsNum)
       } else {
-        this.stepsNum -=1
-        axios.post('/users/stepProject/updateProgress',{seatNum: this.seatNum, progress: this.stepsNum}).then((response)=>{
+        this.stepsNum -= 1
+        axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             console.log('進捗更新成功')
@@ -128,8 +123,8 @@ export default {
     Discussion () {
       var stepsNum = this.stepsNum
       this.discussionPartner = this.progressList.filter((item) => {
-       return  item.progress >= stepsNum
-      }).sort(function (a,b) {
+        return item.progress >= stepsNum
+      }).sort(function (a, b) {
         return a.discussionTimes - b.discussionTimes
       })[0]
       this.mdShow = true

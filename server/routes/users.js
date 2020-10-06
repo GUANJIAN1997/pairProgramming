@@ -177,6 +177,47 @@ router.get('/stepProject/getOthersProgress', function (req,res,next) {
   })
 })
 
+router.post('/updateDiscussionTimes', function (req,res,next) {
+  var discussionPartner = req.body.discussionPartner, userName = req.body.userName
+  User.updateOne({userName:userName}, {$inc:{discussionTimes:1}},function (err,doc) {
+    if (!err && doc.n) {
+      User.updateOne({userName: discussionPartner}, {$inc:{discussionTimes:1}}, function (err1, doc1) {
+        if (!err1 && doc1.n) {
+          res.json({
+            status: '0',
+            msg: '',
+            result: ''
+          })
+        } else {
+          res.json({
+            status: '1',
+            msg: '',
+            result: ''
+          })
+        }
+      })
+    }
 
+  })
+})
+
+router.post('/updateDiscussionInfor', function (req,res,next) {
+  var discussionPartner = req.body.discussionPartner, stepsNum = req.body.stepsNum, feedbackValue = req.body.feedbackValue, userName = req.body.userName
+  User.updateOne({userName: userName}, {$push:{discussionDetails:[{discussionPartner:discussionPartner, stepsNum: stepsNum, feedbackValue: feedbackValue}]}}, function (err, doc) {
+    if (!err && doc.n) {
+      res.json({
+        status: '0',
+        msg: '',
+        result: ''
+      })
+    } else {
+      res.json({
+        status: '1',
+        msg: '',
+        result: ''
+      })
+    }
+  })
+})
 
 module.exports = router

@@ -66,8 +66,8 @@ export default {
       }
     },
     init () {
-      var reg1 = new RegExp(`userName=([^;]*)`,'i');
-      var reg2 = new RegExp(`seatNum=([^;]*)`,'i');
+      var reg1 = new RegExp(`userName=([^;]*)`, 'i')
+      var reg2 = new RegExp(`seatNum=([^;]*)`, 'i')
       const res1 = document.cookie.match(reg1)
       const res2 = document.cookie.match(reg2)
 

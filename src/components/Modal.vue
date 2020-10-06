@@ -10,17 +10,17 @@
 </template>
 
 <script>
-  import '../assets/css/modal.css'
-  export default {
-    name: 'modal',
-    props: ['discussionPartner', 'mdShow', 'imgAddr', 'userName'],
-    methods: {
-      discussionScreen () {
-        this.$emit('close')
-        this.$router.push({path: '/discussion',query:{imgAddr: this.imgAddr, discussionPartner: this.discussionPartner.userName, userName: this.userName}})
-      }
+import '../assets/css/modal.css'
+export default {
+  name: 'modal',
+  props: ['discussionPartner', 'mdShow', 'imgAddr', 'userName', 'stepsNum'],
+  methods: {
+    discussionScreen () {
+      this.$emit('close')
+      this.$router.push({path: '/discussion', query: {imgAddr: this.imgAddr, discussionPartner: this.discussionPartner.userName, userName: this.userName, stepsNum: this.stepsNum}})
     }
   }
+}
 </script>
 
 <style scoped>
