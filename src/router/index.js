@@ -5,6 +5,7 @@ import Questionnaire from '../views/Questionnaire'
 import Programming from '../views/Programming'
 import Discussion from '../views/Discussion'
 import Feedback from '../views/Feedback'
+import TA from '../views/TA'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/feedback',
       name: 'Feedback',
       component: Feedback
+    },
+    {
+      path: '/TA',
+      name: 'TA',
+      component: TA
     }
   ]
 })

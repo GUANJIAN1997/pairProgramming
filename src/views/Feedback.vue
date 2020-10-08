@@ -17,9 +17,18 @@
       </div>
       <div class="btn-container">
         <button type="button" @click.stop="programming" class="button1">課題画面に戻る</button>
-        <button type="button" @click.stop="discussionEnd" class="button1">TAに聞く</button>
+        <button type="button" @click.stop="ta" class="button1">TAに聞く</button>
       </div>
 
+      <div class="modal-container"  :class="{'md-show': mdShow}">
+        <div style="margin-top: 75px">
+          <div class="md-infor">TAが来ています．少々待ち下さい</div>
+          <div class="btn-container">
+            <button class="OK-btn" @click="closeModal">OK</button>
+          </div>
+        </div>
+
+      </div>
     </div>
 </template>
 
@@ -33,7 +42,8 @@ export default {
       feedbackValue: 0,
       stepsNum: null,
       discussionPartner: '',
-      userName: ''
+      userName: '',
+      mdShow: false
     }
   },
   methods: {
@@ -47,6 +57,18 @@ export default {
           console.log('update success')
         }
       })
+      this.$router.push({path: '/programming'})
+    },
+    ta () {
+      this.mdShow = true
+      axios.post('users/callTA', {userName: this.$route.query.userName}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('TAOK')
+        }
+      })
+    },
+    closeModal () {
       this.$router.push({path: '/programming'})
     }
   }

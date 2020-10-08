@@ -167,13 +167,24 @@ router.get('/stepProject/getOthersProgress', function (req,res,next) {
         result: ''
       })
     } else {
+      let othersProgressList = []
+      let content = {}
+      for (let i of doc) {
+        content.seatNum = i.seatNum
+        content.userName = i.userName
+        content.gender = i.gender
+        content.progress = i.progress
+        content.discussionTimes = i.discussionTimes
+        othersProgressList.push(content)
+        content = {}
+      }
+
       res.json({
         status: '0',
         msg: '',
-        result: doc
+        result: othersProgressList
       })
     }
-
   })
 })
 
@@ -197,7 +208,6 @@ router.post('/updateDiscussionTimes', function (req,res,next) {
         }
       })
     }
-
   })
 })
 
@@ -219,5 +229,18 @@ router.post('/updateDiscussionInfor', function (req,res,next) {
     }
   })
 })
+
+var waitingList = []
+
+router.post('/callTA', function (req, res, next) {
+  waitingList.push(req.body.userName)
+  console.log(waitingList)
+  res.json({
+    status: '0',
+    msg: '',
+    result: ''
+  })
+})
+
 
 module.exports = router

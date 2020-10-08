@@ -43,14 +43,36 @@ export default {
       stepsNum: null,
       mdShow: false,
       imgAddr: '',
+      InitSetInterval: '',
       discussionPartner: {},
       progressList: []
     }
   },
+  created () {
+    if (this.InitSetInterval) {
+      clearInterval(this.InitSetInterval)
+    }
+    this.test()
+    this.InitSetInterval = setInterval(this.test, 2000)
+  },
   mounted () {
     this.init()
   },
+  destroyed () {
+    clearInterval(this.InitSetInterval)
+  },
   methods: {
+    test () {
+      axios.get('/users/stepProject/getOthersProgress').then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          res.result.sort(function (a, b) {
+            return b.progress - a.progress
+          })
+          this.progressList = res.result
+        }
+      })
+    },
     init () {
       var reg1 = new RegExp(`userName=([^;]*)`, 'i')
       var reg2 = new RegExp(`seatNum=([^;]*)`, 'i')
@@ -80,15 +102,6 @@ export default {
           }
         })
       }
-      axios.get('/users/stepProject/getOthersProgress').then((response) => {
-        let res = response.data
-        if (res.status === '0') {
-          res.result.sort(function (a, b) {
-            return b.progress - a.progress
-          })
-          this.progressList = res.result
-        }
-      })
     },
     Next () {
       if (this.stepsNum >= 3) {

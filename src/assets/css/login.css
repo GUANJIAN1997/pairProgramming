@@ -10,6 +10,10 @@
   border:1px solid;
   border-radius: 2rem;
   margin: auto;
+  visibility: visible;
+}
+.login-box-hidden {
+  visibility: hidden;
 }
 .input{
   font-size: 2rem;
@@ -41,4 +45,10 @@
 }
 .login-btn button{
   font-size: 2rem;
+}
+.ta-btn {
+  border-radius: 50%;
+  height: 3.5rem;
+  width: 4rem;
+  margin-left: 5rem;
 }

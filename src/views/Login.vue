@@ -1,6 +1,6 @@
 <template>
  <div>
-   <div class="login-box">
+   <div class="login-box" :class="{'login-box-hidden': loginBoxHidden}">
      <div class="login-title">
        <h1>
          学習支援システム
@@ -30,8 +30,18 @@
            <!-- 登録ボタン -->
            <div class="login-btn">
                <button type="button" @click.stop="login">登録</button>
+               <button type="button" @click.stop="ta" class="ta-btn">TA</button>
            </div>
        </div>
+   <div class="modal-container" :class="{'md-show': mdShow}">
+     <div class="input" style="margin-top: 4rem">
+       <span class="input-name">パスワード</span><input type="password" class="input-content" v-model="TAPwd">
+       <div class="login-btn" style="margin-top: 5rem">
+         <button type="button" @click.stop="submitTAPwd">提出</button>
+       </div>
+     </div>
+   </div>
+
  </div>
 </template>
 
@@ -45,7 +55,10 @@ export default {
       seatNum: '',
       userName: '',
       userPwd: '',
-      gender: ''
+      gender: '',
+      loginBoxHidden: false,
+      mdShow: false,
+      TAPwd: null
     }
   },
   methods: {
@@ -65,6 +78,20 @@ export default {
         })
       } else {
         alert('入力不完全')
+      }
+    },
+    ta () {
+      this.loginBoxHidden = true
+      this.mdShow = true
+    },
+    submitTAPwd () {
+      if (this.TAPwd === '654321') {
+        this.$router.push({path: '/TA'})
+      } else {
+        alert('パスワードが違います')
+        this.loginBoxHidden = false
+        this.mdShow = false
+        this.TAPwd = null
       }
     }
   }
