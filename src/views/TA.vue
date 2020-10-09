@@ -1,5 +1,7 @@
 <template>
     <div>
+      <div class="container">
+        <div class="TA-title">児童進捗管理</div>
       <table>
         <tr>
           <th>席番号</th>
@@ -12,6 +14,27 @@
           <td>{{item.progress}}</td>
         </tr>
       </table>
+      </div>
+      <div class="modal-container" :class="{'md-show': mdShow1}">
+        <div class="md-infor">児童がTAを呼んでいます</div>
+        <div class="btn-container">
+          <button class="Detail-btn" @click="getWaitList">児童の情報をみる</button>
+        </div>
+      </div>
+      <div class="modal-container" :class="{'md-show': mdShow2}">
+          <div class="md-infor">TAを呼ぶ児童</div>
+          <div class="md-infor">席番号: {{seatNum}}</div>
+          <div class="md-infor">名前: {{childName}}</div>
+          <div class="btn-container">
+            <button class="OK-btn" @click="this.mdShow2 = false">OK</button>
+          </div>
+      </div>
+      <div class="modal-container" :class="{'md-show': mdShow3}">
+        <div class="md-infor">他のTAが行きました</div>
+        <div class="btn-container">
+          <button class="Detail-btn" @click="mdShow3 = false">了解</button>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -22,29 +45,56 @@ export default {
   name: 'TA',
   data () {
     return {
-      InitSetInterval: '',
+      InitSetInterval1: '',
+      InitSetInterval2: '',
+      mdShow1: false,
+      mdShow2: false,
+      mdShow3: false,
+      childName: '',
+      seatNum: '',
       progressList: []
     }
   },
   created () {
-    if (this.InitSetInterval) {
-      clearInterval(this.InitSetInterval)
-    }
-    this.test()
-    this.InitSetInterval = setInterval(this.test, 2000)
+    this.getAllProgress()
+    this.InitSetInterval1 = setInterval(this.getAllProgress, 2000)
+    this.waitListConfirm()
+    this.InitSetInterval2 = setInterval(this.waitListConfirm, 2000)
   },
   destroyed () {
-    clearInterval(this.InitSetInterval)
+    clearInterval(this.InitSetInterval1)
+    clearInterval(this.InitSetInterval2)
   },
   methods: {
-    test () {
-      axios.get('/users/stepProject/getOthersProgress').then((response) => {
+    getAllProgress () {
+      axios.get('/users/getAllProgress').then((response) => {
         let res = response.data
         if (res.status === '0') {
           res.result.sort(function (a, b) {
             return b.progress - a.progress
           })
           this.progressList = res.result
+        }
+      })
+    },
+    waitListConfirm () {
+      axios.post('/users/waitListConfirm').then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          this.mdShow1 = true
+        }
+      })
+    },
+    getWaitList () {
+      axios.get('/users/getWaitList').then((response) => {
+        let res = response.data
+        this.mdShow1 = false
+        if (res.status === '0' && res.result) {
+          this.mdShow2 = true
+          this.childName = res.result.userName
+          this.seatNum = res.result.seatNum
+        } else {
+          this.mdShow3 = true
         }
       })
     }

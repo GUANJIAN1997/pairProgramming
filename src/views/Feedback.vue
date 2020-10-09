@@ -43,6 +43,7 @@ export default {
       stepsNum: null,
       discussionPartner: '',
       userName: '',
+      seatNum: '',
       mdShow: false
     }
   },
@@ -61,10 +62,20 @@ export default {
     },
     ta () {
       this.mdShow = true
-      axios.post('users/callTA', {userName: this.$route.query.userName}).then((response) => {
+      var reg2 = new RegExp(`seatNum=([^;]*)`, 'i')
+      const res2 = document.cookie.match(reg2)
+
+      if (!res2) {
+        console.log('not found')
+      } else {
+        this.seatNum = res2[1]
+      }
+      axios.post('users/callTA', {userName: this.$route.query.userName, seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('TAOK')
+        } else {
+          console.log('すでに呼んだ')
         }
       })
     },

@@ -4,6 +4,7 @@ table,td,th
 }
 table
 {
+  padding: 5rem;
   width:100%;
 }
 th
@@ -12,5 +13,13 @@ th
   height:3.5rem;
 }
 td{
+  font-size: 2rem;
+}
+.TA-title {
+  font-size: 3rem;
+  text-align: center;
+}
+.Detail-btn {
+  text-align: center;
   font-size: 2rem;
 }

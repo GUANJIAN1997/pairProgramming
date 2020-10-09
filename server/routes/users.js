@@ -230,17 +230,94 @@ router.post('/updateDiscussionInfor', function (req,res,next) {
   })
 })
 
-var waitingList = []
+router.get('/getAllProgress', function (req,res,next) {
+  User.find({userName:{$ne:''}}, function (err,doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: res.message,
+        result: ''
+      })
+    } else if (!doc) {
+      res.json({
+        status: '1',
+        msg: 'not found',
+        result: ''
+      })
+    } else {
+      let ProgressList = []
+      let content = {}
+      for (let i of doc) {
+        content.seatNum = i.seatNum
+        content.userName = i.userName
+        content.progress = i.progress
+        content.discussionTimes = i.discussionTimes
+        ProgressList.push(content)
+        content = {}
+      }
 
-router.post('/callTA', function (req, res, next) {
-  waitingList.push(req.body.userName)
-  console.log(waitingList)
-  res.json({
-    status: '0',
-    msg: '',
-    result: ''
+      res.json({
+        status: '0',
+        msg: '',
+        result: ProgressList
+      })
+    }
   })
 })
 
+
+var waitingList = []
+router.post('/callTA', function (req, res, next) {
+  let item = {}
+  item.seatNum = req.body.seatNum
+  item.userName = req.body.userName
+  if (!(waitingList.some((i) => {return i.seatNum === item.seatNum}))){
+    waitingList.push(item)
+    res.json({
+      status: '0',
+      msg: '',
+      result: ''
+    })
+  } else {
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+  }
+  console.log(waitingList)
+
+})
+router.post('/waitListConfirm', function (req, res, next) {
+  if (waitingList.length) {
+    res.json({
+      status: '0',
+      msg: '',
+      result: ''
+    })
+  } else {
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+  }
+})
+
+router.get('/getWaitList', function (req,res,next) {
+  if (waitingList.length) {
+    res.json({
+      status: '0',
+      msg: '',
+      result: waitingList.shift()
+    })
+  } else {
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+  }
+})
 
 module.exports = router
