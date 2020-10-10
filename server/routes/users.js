@@ -265,7 +265,6 @@ router.get('/getAllProgress', function (req,res,next) {
   })
 })
 
-
 var waitingList = []
 router.post('/callTA', function (req, res, next) {
   let item = {}
@@ -286,8 +285,8 @@ router.post('/callTA', function (req, res, next) {
     })
   }
   console.log(waitingList)
-
 })
+
 router.post('/waitListConfirm', function (req, res, next) {
   if (waitingList.length) {
     res.json({

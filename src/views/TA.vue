@@ -26,7 +26,7 @@
           <div class="md-infor">席番号: {{seatNum}}</div>
           <div class="md-infor">名前: {{childName}}</div>
           <div class="btn-container">
-            <button class="OK-btn" @click="this.mdShow2 = false">OK</button>
+            <button class="OK-btn" @click="OK">OK</button>
           </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow3}">
@@ -90,13 +90,17 @@ export default {
         let res = response.data
         this.mdShow1 = false
         if (res.status === '0' && res.result) {
-          this.mdShow2 = true
           this.childName = res.result.userName
           this.seatNum = res.result.seatNum
+          this.mdShow2 = true
         } else {
           this.mdShow3 = true
         }
       })
+    },
+    OK () {
+      this.mdShow2 = false
+      this.$router.push({path: '/TA/teaching'})
     }
   }
 }

@@ -20,13 +20,14 @@
   margin: 2rem;
 }
 .input-name {
-  padding-left: 4rem;
+  padding-left: 2rem;
 }
 .input-content {
   position: absolute;
   right: 2.5rem;
   height: 2rem;
   font-size: 2rem;
+  width: 50%;
 }
 .input-select {
   text-align: center;
