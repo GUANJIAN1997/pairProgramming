@@ -70,7 +70,7 @@ export default {
           if (res.status === '0') {
             alert('登録成功')
             this.$router.push({
-              path: '/questionnaire'
+              path: '/programming'
             })
           } else {
             alert('パスワードが違います')

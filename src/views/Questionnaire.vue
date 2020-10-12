@@ -5,7 +5,7 @@
         <span>席番号：{{seatNum}}</span>
       </div>
     <div class="questionnaire-box">
-      <h2>性格アンケート</h2>
+      <h2>本システムについてのアンケート</h2>
       <ul class="questionnaire-content">
         <li>
           項目１
@@ -56,7 +56,7 @@ export default {
           let res = response.data
           if (res.status === '0') {
             alert('アンケート提出完了')
-            this.$router.push({path: '/programming'})
+            this.$router.push({path: '/'})
           } else {
             console.log(res.msg)
           }

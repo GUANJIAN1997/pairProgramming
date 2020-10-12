@@ -47,11 +47,16 @@ export default {
       mdShow: false
     }
   },
+  created () {
+    this.init()
+  },
   methods: {
-    programming () {
+    init () {
       this.stepsNum = this.$route.query.stepsNum
       this.discussionPartner = this.$route.query.discussionPartner
       this.userName = this.$route.query.userName
+    },
+    programming () {
       axios.post('/users/updateDiscussionInfor', {userName: this.userName, discussionPartner: this.discussionPartner, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue}).then((response) => {
         let res = response.data
         if (res.status === '0') {

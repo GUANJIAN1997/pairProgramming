@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="shangkezhong" unicode="&#58907;" d="M512 896a512 512 0 1 0 0-1024A512 512 0 0 0 512 896zM448 640a64 64 0 0 1-64-64v-256a64 64 0 0 1 36.16-57.6l162.56-93.824a64 64 0 1 1 64 110.848L512 357.248V576a64 64 0 0 1-64 64z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

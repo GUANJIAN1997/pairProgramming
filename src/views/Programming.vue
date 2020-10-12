@@ -19,7 +19,20 @@
       <button type="button" @click.stop="Next" class="button3">次のステップ</button>
     </div>
 
-    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" @close="closeModal"></Modal>
+    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" @close="mdShow2 = false"></Modal>
+    <div class="modal-container" :class="{'md-show': mdShow2}">
+      <div class="md-infor">ステップ{{stepsNum}}は最後の課題ですよ！<br>全部の課題ができましたか？</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="end">はい</button>
+        <button class="OK-btn" @click="mdShow2 = false">いいえ</button>
+      </div>
+    </div>
+    <div class="modal-container" :class="{'md-show': mdShow3}">
+      <div class="md-infor">ステップ{{stepsNum}}は最初の課題ですよ！</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="mdShow3 = false">了解</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -41,7 +54,9 @@ export default {
       userName: '',
       seatNum: '',
       stepsNum: null,
-      mdShow: false,
+      mdShow1: false,
+      mdShow2: false,
+      mdShow3: false,
       imgAddr: '',
       InitSetInterval: '',
       discussionPartner: {},
@@ -49,9 +64,6 @@ export default {
     }
   },
   created () {
-    if (this.InitSetInterval) {
-      clearInterval(this.InitSetInterval)
-    }
     this.test()
     this.InitSetInterval = setInterval(this.test, 2000)
   },
@@ -105,9 +117,7 @@ export default {
     },
     Next () {
       if (this.stepsNum >= 3) {
-        return (function (stepsNum) {
-          alert(stepsNum + 'は最後の課題ですよ！')
-        })(this.stepsNum)
+        return this.mdShow2 = true
       } else {
         this.stepsNum += 1
         axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
@@ -120,9 +130,7 @@ export default {
     },
     Return () {
       if (this.stepsNum <= 1) {
-        return (function (stepsNum) {
-          alert(stepsNum + 'は最初の課題ですよ')
-        })(this.stepsNum)
+        return this.mdShow3 = true
       } else {
         this.stepsNum -= 1
         axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
@@ -140,13 +148,13 @@ export default {
       }).sort(function (a, b) {
         return a.discussionTimes - b.discussionTimes
       })[0]
-      this.mdShow = true
-    },
-    closeModal () {
-      this.mdShow = false
+      this.mdShow1 = true
     },
     getImgAddr (imgAddr) {
       this.imgAddr = imgAddr
+    },
+    end () {
+      this.$router.push({path: '/questionnaire'})
     }
   }
 }
