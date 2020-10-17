@@ -1,18 +1,17 @@
-table,td,th
-{
+.TA-table ,.TA-td, .TA-th{
   border:1px solid black;
 }
-table
+.TA-table
 {
   padding: 5rem;
   width:100%;
 }
-th
+.TA-th
 {
   font-size: 2rem;
   height:3.5rem;
 }
-td{
+.TA-td {
   font-size: 2rem;
 }
 .TA-title {

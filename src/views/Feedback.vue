@@ -34,6 +34,7 @@
 
 <script>
 import axios from 'axios'
+import {prevent} from '../util/preventBrowserBack'
 
 export default {
   name: 'Feedback.vue',
@@ -49,6 +50,9 @@ export default {
   },
   created () {
     this.init()
+  },
+  mounted () {
+    prevent()
   },
   methods: {
     init () {

@@ -2,12 +2,20 @@
   <div>
     <div class="progress-container">
       <div class="progress-title">ステップ課題の進捗</div>
-      <ul class="list">
-        <li>席番号  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名前    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;進捗</li>
-        <li v-for="(item) in progressList" :key="item.seatNum" >
-          {{item.seatNum}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.userName }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.progress}}
-        </li>
-      </ul>
+      <div>
+        <table style="font-size: 2rem; margin: auto; margin-top: 2rem">
+          <tr>
+            <th>席番号</th>
+            <th>名前</th>
+            <th>進捗</th>
+          </tr>
+          <tr v-for="item in progressList" :key="item.seatNum" style="text-align: center">
+            <td>{{item.seatNum}}</td>
+            <td>{{item.userName}}</td>
+            <td>{{item.progress}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
 
   </div>

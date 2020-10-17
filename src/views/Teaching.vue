@@ -9,8 +9,13 @@
 </template>
 
 <script>
+import {prevent} from '../util/preventBrowserBack'
+
 export default {
   name: 'Teaching',
+  mounted () {
+    prevent()
+  },
   methods: {
     finishTeaching () {
       this.$router.push({path: '/TA'})

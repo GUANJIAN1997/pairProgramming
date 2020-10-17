@@ -10,10 +10,6 @@
   height: 8rem;
   line-height: 8rem;
   text-align: center;
-  overflow: auto;
+  overflow: hidden;
 }
-.list {
-  font-size: 2rem;
-  list-style-type:none;
-  padding-inline-start: 0px;
-}
+

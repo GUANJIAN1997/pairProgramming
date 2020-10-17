@@ -178,7 +178,6 @@ router.get('/stepProject/getOthersProgress', function (req,res,next) {
         othersProgressList.push(content)
         content = {}
       }
-
       res.json({
         status: '0',
         msg: '',
@@ -187,6 +186,76 @@ router.get('/stepProject/getOthersProgress', function (req,res,next) {
     }
   })
 })
+
+var discussionList = []
+
+router.post('/updateDiscussionList', function (req, res, next) {
+  var seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
+  discussionList.push(seatNum_teaching, seatNum_learning)
+  res.json({
+    status: '0',
+    msg: '',
+    result: ''
+  })
+  console.log('------------------------discussionListConfirm-------------------------')
+  console.log(discussionList)
+  console.log('----------------------------------------------------------------------')
+})
+
+router.post('/deleteDiscussionList', function (req, res, next) {
+  var seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
+  //修正如果服务器关了之后学生没讨论完 注意discussionList.indexOf(seatNum_teaching)为-1的情况
+  discussionList.splice(discussionList.indexOf(seatNum_teaching),1)
+  discussionList.splice(discussionList.indexOf(seatNum_learning),1)
+  res.json({
+    status: '0',
+    msg: '',
+    result: ''
+  })
+  console.log('------------------------discussionListAfterDeleted-------------------------')
+  console.log(discussionList)
+  console.log('---------------------------------------------------------------------------')
+})
+
+router.post('/discussionChildListConfirm', function (req, res, next) {
+  var discussionChildList = req.body.discussionChildList
+  console.log(discussionChildList)
+  if (discussionChildList.length === 1) {
+    if (discussionList.indexOf(discussionChildList[0].seatNum) > -1) {
+      res.json({
+        status: '1',
+        msg: '',
+        result: ''
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: discussionChildList[0]
+      })
+    }
+  } else {
+    var sorted = discussionChildList.sort(function (a, b) {
+      return a.discussionTimes - b.discussionTimes
+    })
+    for (let item of sorted) {
+      if (discussionList.indexOf(item.seatNum) === -1) {
+        return res.json({
+          status: '0',
+          msg: '',
+          result: item
+        })
+      }
+    }
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+  }
+
+})
+
 
 router.post('/updateDiscussionTimes', function (req,res,next) {
   var discussionPartner = req.body.discussionPartner, userName = req.body.userName
@@ -284,7 +353,9 @@ router.post('/callTA', function (req, res, next) {
       result: ''
     })
   }
+  console.log('-------------------------waitingList------------------------')
   console.log(waitingList)
+  console.log('------------------------------------------------------------')
 })
 
 router.post('/waitListConfirm', function (req, res, next) {

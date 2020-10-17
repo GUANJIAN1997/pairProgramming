@@ -1,12 +1,15 @@
 .modal-container {
   visibility: hidden;
   border: solid black .2rem;
-  width: 50%;
-  height: 30%;
+  width: 41rem;
+  height: 20rem;
   position: fixed;
-  top: 35%;
-  left: 25%;
+  top: 50%;
+  margin-top: -10rem;
+  left: 50%;
+  margin-left: -20.5rem;
   background: #ccc;
+
 }
 .md-infor {
   font-size: 2rem;

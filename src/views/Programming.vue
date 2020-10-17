@@ -14,12 +14,12 @@
     </div>
 
     <div class="btn-container">
-      <button type="button" @click.stop="Return" class="button1">前に戻る</button>
+      <button type="button" @click.stop="Return" class="button1">前のステップ</button>
       <button type="button" @click.stop="Discussion" class="button2">ディスカッション</button>
       <button type="button" @click.stop="Next" class="button3">次のステップ</button>
     </div>
 
-    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" @close="mdShow2 = false"></Modal>
+    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
     <div class="modal-container" :class="{'md-show': mdShow2}">
       <div class="md-infor">ステップ{{stepsNum}}は最後の課題ですよ！<br>全部の課題ができましたか？</div>
       <div class="btn-container">
@@ -33,6 +33,13 @@
         <button class="OK-btn" @click="mdShow3 = false">了解</button>
       </div>
     </div>
+    <div class="modal-container" :class="{'md-show': mdShow4}">
+      <div class="md-infor">ディスカッションできる児童がいません！</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="mdShow4 = false">待ちます</button>
+        <button class="OK-btn" @click="ta">TAに聞く</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,6 +49,7 @@ import Progress from '../components/Progress'
 import Modal from '../components/Modal'
 import '../assets/css/programming.css'
 import axios from 'axios'
+import {prevent} from '../util/preventBrowserBack'
 export default {
   name: 'Programming.vue',
   components: {
@@ -57,6 +65,7 @@ export default {
       mdShow1: false,
       mdShow2: false,
       mdShow3: false,
+      mdShow4: false,
       imgAddr: '',
       InitSetInterval: '',
       discussionPartner: {},
@@ -69,6 +78,7 @@ export default {
   },
   mounted () {
     this.init()
+    prevent()
   },
   destroyed () {
     clearInterval(this.InitSetInterval)
@@ -143,18 +153,50 @@ export default {
     },
     Discussion () {
       var stepsNum = this.stepsNum
-      this.discussionPartner = this.progressList.filter((item) => {
+      var discussionChildList = this.progressList.filter((item) => {
         return item.progress >= stepsNum
-      }).sort(function (a, b) {
-        return a.discussionTimes - b.discussionTimes
-      })[0]
-      this.mdShow1 = true
+      })
+      if (discussionChildList.length === 0) {
+        this.mdShow4 = true
+      } else if (discussionChildList.length === 1) {
+        console.log("有一个可以讨论的孩子")
+        axios.post('users/discussionChildListConfirm',{discussionChildList: discussionChildList}).then((response) => {
+          let res = response.data
+          if (res.status === '0') {
+            this.discussionPartner = res.result
+            this.mdShow1 = true
+          } else {
+            this.mdShow4 = true
+          }
+        })
+      } else {
+        axios.post('users/discussionChildListConfirm',{discussionChildList: discussionChildList}).then((response) => {
+          let res = response.data
+          if (res.status === '0') {
+            this.discussionPartner = res.result
+            this.mdShow1 = true
+          } else {
+            this.mdShow4 = true
+          }
+        })
+      }
     },
     getImgAddr (imgAddr) {
       this.imgAddr = imgAddr
     },
     end () {
       this.$router.push({path: '/questionnaire'})
+    },
+    ta () {
+      this.mdShow4 = false
+      axios.post('users/callTA', {userName: this.userName, seatNum: this.seatNum}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('TAOK')
+        } else {
+          console.log('すでに呼んだ')
+        }
+      })
     }
   }
 }

@@ -48,6 +48,7 @@
 <script>
 import '../assets/css/login.css'
 import axios from 'axios'
+import {prevent} from '../util/preventBrowserBack'
 export default {
   name: 'login.vue',
   data () {
@@ -60,6 +61,9 @@ export default {
       mdShow: false,
       TAPwd: null
     }
+  },
+  mounted () {
+    prevent()
   },
   methods: {
     login () {

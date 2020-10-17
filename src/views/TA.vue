@@ -2,16 +2,16 @@
     <div>
       <div class="container">
         <div class="TA-title">児童進捗管理</div>
-      <table>
-        <tr>
-          <th>席番号</th>
-          <th>名前</th>
-          <th>進捗</th>
+      <table class="TA-table">
+        <tr class="TA-tr">
+          <th class="TA-th">席番号</th>
+          <th class="TA-th">名前</th>
+          <th class="TA-th">進捗</th>
         </tr>
-        <tr v-for="item in progressList" :key="item.seatNum">
-          <td>{{item.seatNum}}</td>
-          <td>{{item.userName}}</td>
-          <td>{{item.progress}}</td>
+        <tr v-for="item in progressList" :key="item.seatNum" class="TA-tr">
+          <td class="TA-td">{{item.seatNum}}</td>
+          <td class="TA-td">{{item.userName}}</td>
+          <td class="TA-td">{{item.progress}}</td>
         </tr>
       </table>
       </div>
@@ -41,6 +41,7 @@
 <script>
 import axios from 'axios'
 import '../assets/css/TA.css'
+import {prevent} from '../util/preventBrowserBack'
 export default {
   name: 'TA',
   data () {
@@ -60,6 +61,9 @@ export default {
     this.InitSetInterval1 = setInterval(this.getAllProgress, 2000)
     this.waitListConfirm()
     this.InitSetInterval2 = setInterval(this.waitListConfirm, 2000)
+  },
+  mounted () {
+    prevent()
   },
   destroyed () {
     clearInterval(this.InitSetInterval1)

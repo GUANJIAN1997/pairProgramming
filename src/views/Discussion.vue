@@ -17,6 +17,7 @@
 <script>
 import '../assets/css/discussion.css'
 import axios from 'axios'
+import {prevent} from '../util/preventBrowserBack'
 export default {
   name: 'Discussion.vue',
   data () {
@@ -24,11 +25,14 @@ export default {
       imgAddr: '',
       userName: '',
       discussionPartner: '',
-      stepsNum: null
+      stepsNum: null,
+      seatNum_teaching: '',
+      seatNum_learning: ''
     }
   },
   mounted () {
     this.init()
+    prevent()
   },
   methods: {
     init () {
@@ -36,8 +40,16 @@ export default {
       this.userName = this.$route.query.userName
       this.discussionPartner = this.$route.query.discussionPartner
       this.stepsNum = this.$route.query.stepsNum
+      this.seatNum_teaching = this.$route.query.seatNum_teaching
+      this.seatNum_learning = this.$route.query.seatNum_learning
     },
     discussionEnd () {
+      axios.post('users/deleteDiscussionList', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('deleted')
+        }
+      })
       axios.post('/users/updateDiscussionTimes', {discussionPartner: this.discussionPartner, userName: this.userName}).then((response) => {
         let res = response.data
         if (res.status === '0') {

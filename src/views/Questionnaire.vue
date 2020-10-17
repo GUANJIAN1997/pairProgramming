@@ -35,6 +35,7 @@
 import axios from 'axios'
 import '../assets/css/questionnaire.css'
 import '../assets/css/login.css'
+import {prevent} from '../util/preventBrowserBack'
 export default {
   name: 'Questionnaire',
   data () {
@@ -46,6 +47,7 @@ export default {
     }
   },
   mounted () {
+    prevent()
     this.init()
   },
   methods: {
