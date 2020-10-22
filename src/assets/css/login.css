@@ -48,8 +48,6 @@
   font-size: 2rem;
 }
 .ta-btn {
-  border-radius: 50%;
-  height: 3.5rem;
-  width: 4rem;
-  margin-left: 5rem;
+  font-size: 2rem;
+  margin-left: 10px;
 }

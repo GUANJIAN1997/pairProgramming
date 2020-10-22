@@ -16,13 +16,13 @@
       </table>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow1}">
-        <div class="md-infor">児童がTAを呼んでいます</div>
+        <div class="md-infor">児童がサポーターを呼んでいます</div>
         <div class="btn-container">
           <button class="Detail-btn" @click="getWaitList">児童の情報をみる</button>
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow2}">
-          <div class="md-infor">TAを呼ぶ児童</div>
+          <div class="md-infor">サポーターを呼ぶ児童</div>
           <div class="md-infor">席番号: {{seatNum}}</div>
           <div class="md-infor">名前: {{childName}}</div>
           <div class="btn-container">
@@ -30,7 +30,7 @@
           </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow3}">
-        <div class="md-infor">他のTAが行きました</div>
+        <div class="md-infor">他のサポーターが行きました</div>
         <div class="btn-container">
           <button class="Detail-btn" @click="mdShow3 = false">了解</button>
         </div>

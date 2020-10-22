@@ -7,7 +7,7 @@
         <div style="text-align: center; margin-top: 10rem">
           <input style="width: 70%" type="range" id="range1" min="-2" max="2" step="1" v-model="feedbackValue"/>
           <div style="width: 85%; margin: auto; display: flex; justify-content: space-between">
-            <div style="width: 15%; font-size: 2rem">非常に難しかった</div>
+            <div style="width: 15%; font-size: 2rem">全然理解できない</div>
             <div style="width: 15%; font-size: 2rem">あまり理解できなかった</div>
             <div style="width: 15%; font-size: 2rem">どちらとも言えない</div>
             <div style="width: 15%; font-size: 2rem">ある程度理解できた</div>
@@ -17,12 +17,12 @@
       </div>
       <div class="btn-container">
         <button type="button" @click.stop="programming" class="button1">課題画面に戻る</button>
-        <button type="button" @click.stop="ta" class="button1">TAに聞く</button>
+        <button type="button" @click.stop="ta" class="button1">サポーターに聞く</button>
       </div>
 
       <div class="modal-container"  :class="{'md-show': mdShow}">
         <div style="margin-top: 75px">
-          <div class="md-infor">TAが来ています．少々待ち下さい</div>
+          <div class="md-infor">サポーターが来ています．少々待ち下さい</div>
           <div class="btn-container">
             <button class="OK-btn" @click="closeModal">OK</button>
           </div>
@@ -70,6 +70,12 @@ export default {
       this.$router.push({path: '/programming'})
     },
     ta () {
+      axios.post('/users/updateDiscussionInfor', {userName: this.userName, discussionPartner: this.discussionPartner, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('update success')
+        }
+      })
       this.mdShow = true
       var reg2 = new RegExp(`seatNum=([^;]*)`, 'i')
       const res2 = document.cookie.match(reg2)

@@ -30,7 +30,7 @@
            <!-- 登録ボタン -->
            <div class="login-btn">
                <button type="button" @click.stop="login">登録</button>
-               <button type="button" @click.stop="ta" class="ta-btn">TA</button>
+               <button type="button" @click.stop="ta" class="ta-btn">サポーター</button>
            </div>
        </div>
    <div class="modal-container" :class="{'md-show': mdShow}">

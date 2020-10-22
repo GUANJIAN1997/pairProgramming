@@ -37,7 +37,7 @@
       <div class="md-infor">ディスカッションできる児童がいません！</div>
       <div class="btn-container">
         <button class="OK-btn" @click="mdShow4 = false">待ちます</button>
-        <button class="OK-btn" @click="ta">TAに聞く</button>
+        <button class="OK-btn" @click="ta">サポーターに聞く</button>
       </div>
     </div>
   </div>
