@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 var User = require('../models/user')
 var Step = require('../models/step')
 
-mongoose.connect('mongodb://127.0.0.1:27017/pairprogramming',{useNewUrlParser:true, useUnifiedTopology: true},function(err){
+mongoose.connect('mongodb://127.0.0.1:27017/exp',{useNewUrlParser:true, useUnifiedTopology: true},function(err){
   if(err){
     console.log('Connection Error:' + err)
   }else{
