@@ -189,7 +189,7 @@ export default {
     },
     ta () {
       this.mdShow4 = false
-      axios.post('users/callTA', {userName: this.userName, seatNum: this.seatNum}).then((response) => {
+      axios.post('/users/callTA', {userName: this.userName, seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('TAOK')
