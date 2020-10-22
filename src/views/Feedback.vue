@@ -85,7 +85,7 @@ export default {
       } else {
         this.seatNum = res2[1]
       }
-      axios.post('users/callTA', {userName: this.$route.query.userName, seatNum: this.seatNum}).then((response) => {
+      axios.post('/users/callTA', {userName: this.$route.query.userName, seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('TAOK')
