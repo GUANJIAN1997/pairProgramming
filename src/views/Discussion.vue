@@ -44,7 +44,7 @@ export default {
       this.seatNum_learning = this.$route.query.seatNum_learning
     },
     discussionEnd () {
-      axios.post('users/deleteDiscussionList', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
+      axios.post('/users/deleteDiscussionList', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('deleted')
