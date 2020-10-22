@@ -2,7 +2,7 @@
 .login-box {
   width: 41rem;
   position: absolute;
-  height: 33rem;
+  height: 35rem;
   top: 0;
   right: 0;
   bottom: 0;
@@ -34,6 +34,7 @@
   font-size: 2rem;
 }
 .login-title {
+  font-size: 2rem;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
   padding: 2rem 2rem;

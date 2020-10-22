@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="progress-container">
-      <div class="progress-title">ステップ課題の進捗</div>
+      <div class="progress-title">できたステップ</div>
       <div>
         <table style="font-size: 2rem; margin: auto; margin-top: 2rem">
           <tr>
-            <th>席番号</th>
-            <th>名前</th>
-            <th>進捗</th>
+            <th><ruby>席番号<rt>せきばんごう</rt></ruby></th>
+            <th><ruby>名前<rt>なまえ</rt></ruby></th>
+            <th>ステップ</th>
           </tr>
           <tr v-for="item in progressList" :key="item.seatNum" style="text-align: center">
             <td>{{item.seatNum}}</td>

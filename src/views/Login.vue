@@ -2,18 +2,18 @@
  <div>
    <div class="login-box" :class="{'login-box-hidden': loginBoxHidden}">
      <div class="login-title">
-       <h1>
-         学習支援システム
-       </h1>
+       <ruby>
+         学習支援<rt>がくしゅうしえん</rt>システム
+       </ruby>
      </div>
            <!-- 席番号 -->
            <div class="input">
-                 <span class="input-name">席番号</span><input type="text" class="input-content" v-model="seatNum">
+                 <ruby class="input-name">席番号<rt>せきばんごう</rt></ruby><input type="text" class="input-content" v-model="seatNum">
            </div>
 
            <!-- 名前 -->
           <div class="input">
-              <span class="input-name">名前</span><input type="text" class="input-content" v-model="userName">
+              <ruby class="input-name">名前<rt>なまえ</rt></ruby><input type="text" class="input-content" v-model="userName">
            </div>
           <!-- パスワード -->
           <div class="input">
@@ -22,14 +22,14 @@
 
            <!-- 性別 -->
            <div class="input-select">
-              <input type="radio" name="gender" value="male" v-model="gender">男性
+             <input type="radio" name="gender" value="male" v-model="gender"><ruby>男<rt>おとこ</rt></ruby>の<ruby>子<rt>こ</rt></ruby>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="radio" name="gender" value="female" v-model="gender">女性
+              <input type="radio" name="gender" value="female" v-model="gender"><ruby>女<rt>おんな</rt></ruby>の<ruby>子<rt>こ</rt></ruby>
            </div>
 
            <!-- 登録ボタン -->
            <div class="login-btn">
-               <button type="button" @click.stop="login">登録</button>
+               <button type="button" @click.stop="login"><ruby>登録<rt>とうろく</rt></ruby></button>
                <button type="button" @click.stop="ta" class="ta-btn">サポーター</button>
            </div>
        </div>

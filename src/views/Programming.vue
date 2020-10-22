@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="infor">
-      <span>名前：{{userName}}</span>
-      <span>席番号：{{seatNum}}</span>
+      <ruby>名前<rt>なまえ</rt>：{{userName}}</ruby>
+      <ruby>席番号<rt>せきばんごう</rt>：{{seatNum}}</ruby>
     </div>
     <div class="container">
 
@@ -14,30 +14,30 @@
     </div>
 
     <div class="btn-container">
-      <button type="button" @click.stop="Return" class="button1">前のステップ</button>
-      <button type="button" @click.stop="Discussion" class="button2">ディスカッション</button>
-      <button type="button" @click.stop="Next" class="button3">次のステップ</button>
+      <button type="button" @click.stop="Return" class="button1"><ruby>前<rt>まえ</rt></ruby>のステップ</button>
+      <button type="button" @click.stop="Discussion" class="button2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
+      <button type="button" @click.stop="Next" class="button3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
     </div>
 
     <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
     <div class="modal-container" :class="{'md-show': mdShow2}">
-      <div class="md-infor">ステップ{{stepsNum}}は最後の課題ですよ！<br>全部の課題ができましたか？</div>
+      <div class="md-infor">これが<ruby>最後<rt>さいご</rt></ruby>のステップです<br><ruby>課題<rt>かだい</rt></ruby>は<ruby>全部<rt>ぜんぶ</rt></ruby>できましたか？</div>
       <div class="btn-container">
         <button class="OK-btn" @click="end">はい</button>
         <button class="OK-btn" @click="mdShow2 = false">いいえ</button>
       </div>
     </div>
     <div class="modal-container" :class="{'md-show': mdShow3}">
-      <div class="md-infor">ステップ{{stepsNum}}は最初の課題ですよ！</div>
+      <div class="md-infor"><ruby>前<rt>まえ</rt></ruby>のステップはありません！</div>
       <div class="btn-container">
-        <button class="OK-btn" @click="mdShow3 = false">了解</button>
+        <button class="OK-btn" @click="mdShow3 = false">はい</button>
       </div>
     </div>
     <div class="modal-container" :class="{'md-show': mdShow4}">
-      <div class="md-infor">ディスカッションできる児童がいません！</div>
+      <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>できる<ruby>友達<rt>ともだち</rt></ruby>がいません！</div>
       <div class="btn-container">
-        <button class="OK-btn" @click="mdShow4 = false">待ちます</button>
-        <button class="OK-btn" @click="ta">サポーターに聞く</button>
+        <button class="OK-btn" @click="mdShow4 = false"><ruby>待<rt>ま</rt></ruby>ちます</button>
+        <button class="OK-btn" @click="ta">サポーターに<ruby>聞<rt>き</rt></ruby>く</button>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 .modal-container {
   visibility: hidden;
   border: solid black .2rem;
-  width: 41rem;
+  width: 45rem;
   height: 20rem;
   position: fixed;
   top: 50%;

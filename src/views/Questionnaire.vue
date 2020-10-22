@@ -1,11 +1,11 @@
 <template>
   <div>
       <div class="infor">
-        <span>名前：{{userName}}</span>
-        <span>席番号：{{seatNum}}</span>
+        <ruby>名前<rt>なまえ</rt>：{{userName}}</ruby>
+        <ruby>席番号<rt>せきばんごう</rt>：{{seatNum}}</ruby>
       </div>
     <div class="questionnaire-box">
-      <h2>本システムについてのアンケート</h2>
+      <h2>アンケートに<ruby>答<rt>こた</rt></ruby>えてください</h2>
       <ul class="questionnaire-content">
         <li>
           項目１
@@ -25,7 +25,7 @@
         </li>
       </ul>
       <div class="login-btn">
-        <button @click="submit">提出</button>
+        <button @click="submit"><ruby>提出<rt>ていしゅつ</rt></ruby></button>
       </div>
     </div>
   </div>
