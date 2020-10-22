@@ -160,7 +160,7 @@ export default {
         this.mdShow4 = true
       } else if (discussionChildList.length === 1) {
         console.log("有一个可以讨论的孩子")
-        axios.post('users/discussionChildListConfirm',{discussionChildList: discussionChildList}).then((response) => {
+        axios.post('/users/discussionChildListConfirm',{discussionChildList: discussionChildList}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             this.discussionPartner = res.result
@@ -170,7 +170,7 @@ export default {
           }
         })
       } else {
-        axios.post('users/discussionChildListConfirm',{discussionChildList: discussionChildList}).then((response) => {
+        axios.post('/users/discussionChildListConfirm',{discussionChildList: discussionChildList}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             this.discussionPartner = res.result
@@ -189,7 +189,7 @@ export default {
     },
     ta () {
       this.mdShow4 = false
-      axios.post('users/callTA', {userName: this.userName, seatNum: this.seatNum}).then((response) => {
+      axios.post('/users/callTA', {userName: this.userName, seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('TAOK')

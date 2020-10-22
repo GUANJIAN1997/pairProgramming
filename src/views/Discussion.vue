@@ -5,7 +5,7 @@
         {{this.discussionPartner}}と{{this.userName}}が<ruby>相談中<rt>そうだんちゅう</rt></ruby>
       </div>
 
-      <img class="img" :src="'/static/' + imgAddr">
+      <img class="img" :src="'static/' + imgAddr">
     </div>
     <div class="btn-container">
       <button type="button" @click.stop="discussionEnd" class="button1">おわり</button>

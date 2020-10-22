@@ -17,7 +17,7 @@ export default {
   props: ['discussionPartner', 'mdShow', 'imgAddr', 'userName', 'stepsNum', 'seatNum'],
   methods: {
     discussionScreen () {
-      axios.post('users/updateDiscussionList', {seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
+      axios.post('/users/updateDiscussionList', {seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('discussionList updated')

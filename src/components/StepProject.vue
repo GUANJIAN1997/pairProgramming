@@ -5,7 +5,7 @@
         <slot name="steps"></slot>
       </div>
 
-        <img class="img" :src="'/static/' + imgAddr">
+        <img class="img" :src="'static/' + imgAddr">
     </div>
   </div>
 
