@@ -10,14 +10,17 @@
   text-align: center;
 }
 .button1{
+  height: 4rem;
   font-size: 2rem;
   margin-right: 10%;
 }
 .button2{
+  height: 4rem;
   font-size: 2rem;
   margin-right: 10%;
 }
 .button3{
+  height: 4rem;
   font-size: 2rem;
 }
 

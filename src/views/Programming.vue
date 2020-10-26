@@ -127,7 +127,8 @@ export default {
     },
     Next () {
       if (this.stepsNum >= 3) {
-        return this.mdShow2 = true
+        this.mdShow2 = true
+        return 0
       } else {
         this.stepsNum += 1
         axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
@@ -140,7 +141,8 @@ export default {
     },
     Return () {
       if (this.stepsNum <= 1) {
-        return this.mdShow3 = true
+        this.mdShow3 = true
+        return 0
       } else {
         this.stepsNum -= 1
         axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {

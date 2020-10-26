@@ -2,8 +2,7 @@
   /*background: #42b983;*/
   border: solid black .2rem;
   /*height: 700px;*/
-  /*overflow: hidden;*/
-  float: left;
+  overflow: hidden;
   margin: 5% 5% 0% 5%;
 }
 .discussion-title {

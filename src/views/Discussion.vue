@@ -8,8 +8,11 @@
       <img class="img" :src="'static/' + imgAddr">
     </div>
     <div class="btn-container">
-      <button type="button" @click.stop="discussionEnd" class="button1">おわり</button>
+      <button type="button" @click.stop="discussionEnd" class="button1"><ruby>終<rt>お</rt></ruby>わり</button>
+      <button type="button" @click.stop="writingBoardShow = true" class="button1">テキストを<ruby>書<rt>か</rt></ruby>く</button>
     </div>
+
+    <hand-writing-board v-show="writingBoardShow" @showWritingBoard="writingBoardShow = false"></hand-writing-board>
   </div>
 
 </template>
@@ -18,6 +21,7 @@
 import '../assets/css/discussion.css'
 import axios from 'axios'
 import {prevent} from '../util/preventBrowserBack'
+import handWritingBoard from '../components/HandwritingBoard'
 export default {
   name: 'Discussion.vue',
   data () {
@@ -27,8 +31,12 @@ export default {
       discussionPartner: '',
       stepsNum: null,
       seatNum_teaching: '',
-      seatNum_learning: ''
+      seatNum_learning: '',
+      writingBoardShow: false
     }
+  },
+  components: {
+    handWritingBoard
   },
   mounted () {
     this.init()
@@ -62,6 +70,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style  scoped>
 
 </style>
