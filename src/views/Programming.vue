@@ -161,8 +161,8 @@ export default {
       if (discussionChildList.length === 0) {
         this.mdShow4 = true
       } else if (discussionChildList.length === 1) {
-        console.log("有一个可以讨论的孩子")
-        axios.post('/users/discussionChildListConfirm',{discussionChildList: discussionChildList}).then((response) => {
+        console.log('有一个可以讨论的孩子')
+        axios.post('/users/discussionChildListConfirm', {discussionChildList: discussionChildList}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             this.discussionPartner = res.result
@@ -172,7 +172,7 @@ export default {
           }
         })
       } else {
-        axios.post('/users/discussionChildListConfirm',{discussionChildList: discussionChildList}).then((response) => {
+        axios.post('/users/discussionChildListConfirm', {discussionChildList: discussionChildList}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             this.discussionPartner = res.result
