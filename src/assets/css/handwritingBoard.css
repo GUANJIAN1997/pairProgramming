@@ -1,0 +1,90 @@
+
+.board-box {
+  width: 100%;
+  height: 112px;
+  border: 1px solid #fbd3de;
+  border-radius: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.board-box canvas,
+.board-box img {
+  width: 100%;
+  height: 100%;
+}
+
+.handle-box {
+  padding: 6px 0px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.handle-box .color-box {
+  display: flex;
+}
+.handle-box .color-box .color-item {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin: 0px 5px;
+  transition: 0.3s;
+}
+.handle-box .color-box .color-item.active {
+  position: relative;
+  transform: scale(0.8);
+}
+.handle-box .color-box .color-item.active::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  transform: scale(1.25);
+  box-sizing: border-box;
+}
+.handle-box button {
+  font-size: 1rem;
+  width: 130px;
+  height: 40px;
+  padding: 0;
+  border-radius: 3px;
+  color: #666;
+  outline: none;
+  background: #fff;
+}
+.handle-box button:active {
+  background: #ececec;
+}
+.horizontal {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  flex-flow: row-reverse;
+}
+.horizontal .board-box {
+  width: 100vw;
+  height: 90vh;
+}
+.horizontal .handle-box {
+  height: 90vh;
+  width: 25px;
+  flex-direction: column;
+  padding: 0px 10px;
+}
+.horizontal .handle-box .color-box {
+  flex-direction: column;
+}
+.horizontal .handle-box .color-box .color-item {
+  margin: 10px 0px;
+}
+.horizontal .handle-box button {
+  transform: rotate(90deg);
+  margin: 100px 0px 10px;
+}
+
