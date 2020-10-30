@@ -95,7 +95,7 @@ export default {
       })
     },
     closeModal () {
-      this.$router.push({path: '/programming'})
+      this.$router.push({path: '/'})
     }
   }
 }

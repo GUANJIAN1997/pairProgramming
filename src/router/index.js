@@ -7,6 +7,7 @@ import Discussion from '../views/Discussion'
 import Feedback from '../views/Feedback'
 import TA from '../views/TA'
 import Teaching from '../views/Teaching'
+import ChildTeaching from '../views/ChildTeaching'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       path: '/TA/teaching',
       name: 'Teaching',
       component: Teaching
+    },
+    {
+      path: '/childTeaching',
+      name: 'ChildTeaching',
+      component: ChildTeaching
     }
   ]
 })

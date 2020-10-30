@@ -151,6 +151,9 @@ router.post('/stepProject/getProgress', function (req,res,next) {
   })
 })
 
+
+var discussionList = []
+
 router.get('/stepProject/getOthersProgress', function (req,res,next) {
   var seatNum = req.cookies.seatNum
   User.find({userName:{$ne:''},seatNum:{$ne:seatNum}}, function (err,doc) {
@@ -180,14 +183,13 @@ router.get('/stepProject/getOthersProgress', function (req,res,next) {
       }
       res.json({
         status: '0',
-        msg: '',
+        msg: discussionList,
         result: othersProgressList
       })
     }
   })
 })
 
-var discussionList = []
 
 router.post('/updateDiscussionList', function (req, res, next) {
   var seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning

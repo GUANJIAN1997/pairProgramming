@@ -40,6 +40,14 @@
         <button class="OK-btn" @click="ta">サポーターに<ruby>聞<rt>き</rt></ruby>く</button>
       </div>
     </div>
+    <div class="modal-container" :class="{'md-show': mdShow5}">
+      <div class="md-infor"><ruby>君<rt>きみ</rt></ruby>の<ruby>助<rt>たす</rt></ruby>けがほしいともだち：</div>
+      <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
+      <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="goToTeach">OK</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,10 +74,13 @@ export default {
       mdShow2: false,
       mdShow3: false,
       mdShow4: false,
+      mdShow5: false,
       imgAddr: '',
       InitSetInterval: '',
       discussionPartner: {},
-      progressList: []
+      progressList: [],
+      child_learning_seatNum: '',
+      child_learning_Name: ''
     }
   },
   created () {
@@ -92,6 +103,21 @@ export default {
             return b.progress - a.progress
           })
           this.progressList = res.result
+          let discussionList = res.msg
+          for (let i = 0; i < discussionList.length; i += 2) {
+            if (discussionList[i] === this.seatNum) {
+              this.child_learning_seatNum = discussionList[i + 1]
+              this.mdShow5 = true
+              break
+            }
+          }
+          for (let item of this.progressList) {
+            if (item.seatNum === this.child_learning_seatNum) {
+              this.child_learning_Name = item.userName
+              console.log(item)
+              break
+            }
+          }
         }
       })
     },
@@ -199,6 +225,10 @@ export default {
           console.log('すでに呼んだ')
         }
       })
+    },
+    goToTeach () {
+      this.mdShow5 = false
+      this.$router.push({path: '/childTeaching'})
     }
   }
 }
