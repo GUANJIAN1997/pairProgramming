@@ -193,15 +193,28 @@ router.get('/stepProject/getOthersProgress', function (req,res,next) {
 
 router.post('/updateDiscussionList', function (req, res, next) {
   var seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
-  discussionList.push(seatNum_teaching, seatNum_learning)
-  res.json({
-    status: '0',
-    msg: '',
-    result: ''
-  })
-  console.log('------------------------discussionListConfirm-------------------------')
-  console.log(discussionList)
-  console.log('----------------------------------------------------------------------')
+  if (discussionList.indexOf(seatNum_learning) == -1) {
+    discussionList.push(seatNum_teaching, seatNum_learning)
+    res.json({
+      status: '0',
+      msg: '',
+      result: ''
+    })
+    console.log('------------------------discussionListConfirm-------------------------')
+    console.log(discussionList)
+    console.log('----------------------------------------------------------------------')
+  } else {
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+    console.log('------------------------discussionListConfirm-------------------------')
+    console.log(discussionList)
+    console.log('----------------------------------------------------------------------')
+  }
+
+
 })
 
 router.post('/deleteDiscussionList', function (req, res, next) {

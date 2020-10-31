@@ -196,11 +196,12 @@ export default {
               let res = response.data
               if (res.status === '0') {
                 console.log('discussionList updated')
+                this.mdShow1 = true
               } else {
-                console.log('discussionList updated failed')
+                console.log('discussionList updated failed (you are in discussionList now)')
+                alert('ただいま，君は相談中です')
               }
             })
-            this.mdShow1 = true
           } else {
             this.mdShow4 = true
           }
@@ -213,12 +214,13 @@ export default {
             axios.post('/users/updateDiscussionList', {seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
               let res = response.data
               if (res.status === '0') {
+                this.mdShow1 = true
                 console.log('discussionList updated')
               } else {
-                console.log('discussionList updated failed')
+                console.log('discussionList updated failed (you are in discussionList now)')
+                alert('ただいま，君は相談中です')
               }
             })
-            this.mdShow1 = true
           } else {
             this.mdShow4 = true
           }
