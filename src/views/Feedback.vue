@@ -89,13 +89,21 @@ export default {
         let res = response.data
         if (res.status === '0') {
           console.log('TAOK')
+          axios.post('/users/updateDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.seatNum}).then((response) => {
+            let res = response.data
+            if (res.status === '0') {
+              console.log('discussionList updated')
+            } else {
+              console.log('discussionList updated failed')
+            }
+          })
         } else {
           console.log('すでに呼んだ')
         }
       })
     },
     closeModal () {
-      this.$router.push({path: '/'})
+      this.$router.push({path: '/programming'})
     }
   }
 }

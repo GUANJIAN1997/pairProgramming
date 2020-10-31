@@ -104,7 +104,7 @@ export default {
     },
     OK () {
       this.mdShow2 = false
-      this.$router.push({path: '/TA/teaching'})
+      this.$router.push({path: '/TA/teaching', query: {seatNum: this.seatNum}})
     }
   }
 }

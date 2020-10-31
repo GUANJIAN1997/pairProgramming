@@ -10,6 +10,7 @@
 
 <script>
 import {prevent} from '../util/preventBrowserBack'
+import axios from 'axios'
 
 export default {
   name: 'Teaching',
@@ -18,6 +19,12 @@ export default {
   },
   methods: {
     finishTeaching () {
+      axios.post('/users/deleteDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.$route.query.seatNum}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('deleted')
+        }
+      })
       this.$router.push({path: '/TA'})
     }
   }

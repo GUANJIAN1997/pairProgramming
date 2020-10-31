@@ -207,8 +207,11 @@ router.post('/updateDiscussionList', function (req, res, next) {
 router.post('/deleteDiscussionList', function (req, res, next) {
   var seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
   //修正如果服务器关了之后学生没讨论完 注意discussionList.indexOf(seatNum_teaching)为-1的情况
-  discussionList.splice(discussionList.indexOf(seatNum_teaching),1)
-  discussionList.splice(discussionList.indexOf(seatNum_learning),1)
+  // discussionList.splice(discussionList.indexOf(seatNum_teaching),1)
+  let index_learning = discussionList.indexOf(seatNum_learning)
+  let index_teaching = index_learning - 1
+  discussionList.splice(index_learning,1)
+  discussionList.splice(index_teaching,1)
   res.json({
     status: '0',
     msg: '',

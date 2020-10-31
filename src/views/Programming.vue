@@ -192,6 +192,14 @@ export default {
           let res = response.data
           if (res.status === '0') {
             this.discussionPartner = res.result
+            axios.post('/users/updateDiscussionList', {seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
+              let res = response.data
+              if (res.status === '0') {
+                console.log('discussionList updated')
+              } else {
+                console.log('discussionList updated failed')
+              }
+            })
             this.mdShow1 = true
           } else {
             this.mdShow4 = true
@@ -202,6 +210,14 @@ export default {
           let res = response.data
           if (res.status === '0') {
             this.discussionPartner = res.result
+            axios.post('/users/updateDiscussionList', {seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
+              let res = response.data
+              if (res.status === '0') {
+                console.log('discussionList updated')
+              } else {
+                console.log('discussionList updated failed')
+              }
+            })
             this.mdShow1 = true
           } else {
             this.mdShow4 = true
@@ -221,6 +237,14 @@ export default {
         let res = response.data
         if (res.status === '0') {
           console.log('TAOK')
+          axios.post('/users/updateDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.seatNum}).then((response) => {
+            let res = response.data
+            if (res.status === '0') {
+              console.log('discussionList updated')
+            } else {
+              console.log('discussionList updated failed')
+            }
+          })
         } else {
           console.log('すでに呼んだ')
         }
