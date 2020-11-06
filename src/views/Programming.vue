@@ -85,7 +85,7 @@ export default {
   },
   created () {
     this.test()
-    this.InitSetInterval = setInterval(this.test, 2000)
+    this.InitSetInterval = setInterval(this.test, 1000)
   },
   mounted () {
     this.init()
