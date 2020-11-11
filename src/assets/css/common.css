@@ -1,5 +1,26 @@
-html{
-  touch-action: manipulation;
-  color:#000;
-  font-size:12px
+@media only screen and (max-width: 768px) {
+  /* ipad的竖屏幕 或者更小的尺寸，以 ipad 的宽度（768px）比例设置 font-size */
+  html {
+    touch-action: manipulation;
+    color:#000;
+    font-size: 10px;
+  }
 }
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  /* ipad的横屏幕 或者ipad pro的竖屏，以 ipad 的宽度（1024px）比例设置 font-size */
+  html {
+    touch-action: manipulation;
+    color:#000;
+    font-size: 11px;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  /* ipad pro的横屏幕 或者更大，以 ipad 的宽度（1024px）比例设置 font-size */
+  html {
+    touch-action: manipulation;
+    color:#000;
+    font-size: 15px;
+  }
+}
+
+

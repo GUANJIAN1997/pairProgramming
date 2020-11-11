@@ -3,7 +3,7 @@
     <div class="progress-container">
       <div class="progress-title">できたステップ</div>
       <div>
-        <table style="font-size: 2rem; margin: auto; margin-top: 2rem">
+        <table class="table-style">
           <tr>
             <th><ruby>席番号<rt>せきばんごう</rt></ruby></th>
             <th><ruby>名前<rt>なまえ</rt></ruby></th>

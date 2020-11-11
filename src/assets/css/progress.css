@@ -12,4 +12,8 @@
   text-align: center;
   overflow: hidden;
 }
+.table-style {
+  font-size: 2rem;
+  margin: 2rem auto auto;
+}
 
