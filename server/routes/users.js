@@ -153,7 +153,7 @@ router.post('/stepProject/getProgress', function (req,res,next) {
 })
 
 
-var discussionList = []
+const discussionList = []
 
 router.get('/stepProject/getOthersProgress', function (req,res,next) {
   var seatNum = req.cookies.seatNum
@@ -193,7 +193,7 @@ router.get('/stepProject/getOthersProgress', function (req,res,next) {
 
 
 router.post('/updateDiscussionList', function (req, res, next) {
-  var seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
+  const seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
   if (discussionList.indexOf(seatNum_learning) == -1) {
     discussionList.push(seatNum_teaching, seatNum_learning)
     res.json({
@@ -219,7 +219,7 @@ router.post('/updateDiscussionList', function (req, res, next) {
 })
 
 router.post('/deleteDiscussionList', function (req, res, next) {
-  var seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
+  const seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
   //修正如果服务器关了之后学生没讨论完 注意discussionList.indexOf(seatNum_teaching)为-1的情况
   // discussionList.splice(discussionList.indexOf(seatNum_teaching),1)
   let index_learning = discussionList.indexOf(seatNum_learning)
@@ -281,7 +281,7 @@ router.post('/checkChildListConfirm', function (req, res, next) {
   var checkChildList = req.body.checkChildList
   console.log(checkChildList)
   if (checkChildList.length === 1) {
-    if (discussionList.indexOf(checkChildList[0].seatNum) > -1) {
+    if ((discussionList.indexOf(checkChildList[0].seatNum) > -1) || (checkList.indexOf(checkChildList[0].seatNum) > -1)) {
       res.json({
         status: '1',
         msg: '',
@@ -298,11 +298,11 @@ router.post('/checkChildListConfirm', function (req, res, next) {
       })
     }
   } else {
-    var sorted = checkChildList.sort(function (a, b) {
+    const sorted = checkChildList.sort(function (a, b) {
       return a.discussionTimes - b.discussionTimes
     })
     for (let item of sorted) {
-      if (discussionList.indexOf(item.seatNum) === -1) {
+      if ((discussionList.indexOf(item.seatNum) === -1 && (checkList.indexOf(item.seatNum) === -1)) ) {
         const checkPwd = util.random(100000,999999).toString()
         checkPwdList.push(checkPwd)
         console.log(checkPwdList)
@@ -338,6 +338,50 @@ router.post('/checkPwdListConfirm', function (req, res, next) {
       result: ''
     })
   }
+})
+
+const checkList = []
+
+router.post('/updateCheckList', function (req, res, next) {
+  const seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
+  if (checkList.indexOf(seatNum_learning) == -1) {
+    checkList.push(seatNum_teaching, seatNum_learning)
+    res.json({
+      status: '0',
+      msg: '',
+      result: ''
+    })
+    console.log('------------------------checkListConfirm-------------------------')
+    console.log(checkList)
+    console.log('----------------------------------------------------------------------')
+  } else {
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+    console.log('------------------------checkListConfirm-------------------------')
+    console.log(checkList)
+    console.log('----------------------------------------------------------------------')
+  }
+})
+
+router.post('/deleteCheckList', function (req, res, next) {
+  const seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
+  //修正如果服务器关了之后学生没讨论完 注意discussionList.indexOf(seatNum_teaching)为-1的情况
+  // discussionList.splice(discussionList.indexOf(seatNum_teaching),1)
+  let index_learning = checkList.indexOf(seatNum_learning)
+  let index_teaching = index_learning - 1
+  checkList.splice(index_learning,1)
+  checkList.splice(index_teaching,1)
+  res.json({
+    status: '0',
+    msg: '',
+    result: ''
+  })
+  console.log('------------------------checkListAfterDeleted-------------------------')
+  console.log(checkList)
+  console.log('---------------------------------------------------------------------------')
 })
 
 router.post('/updateDiscussionTimes', function (req,res,next) {

@@ -55,6 +55,14 @@
         <button class="OK-btn" @click="mdShow6 = false">いいえ</button>
       </div>
     </div>
+    <div class="modal-container" :class="{'md-show': mdShow7}">
+      <div class="md-infor">チェックしてほしいともだち：</div>
+      <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
+      <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="goToTeach">OK</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -255,10 +263,10 @@ export default {
         if (res.status === '0') {
           this.checkPartner = res.result
           this.checkPwd = res.msg
-          axios.post('/users/updateDiscussionList', {seatNum_teaching: this.checkPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
+          axios.post('/users/updateCheckList', {seatNum_teaching: this.checkPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
             let res = response.data
             if (res.status === '0') {
-              console.log('discussionList updated(check)')
+              console.log('checkList updated')
               this.$router.push({path: '/check', query: {checkPwd: this.checkPwd, checkPartnerSeatNum: this.checkPartner.seatNum, checkPartnerName: this.checkPartner.userName, seatNum: this.seatNum, stepsNum: this.stepsNum}})
             } else {
               console.log('discussionList updated failed (you are in discussionList now)')

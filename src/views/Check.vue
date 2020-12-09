@@ -73,7 +73,7 @@ export default {
         let res = result.data
         if (res.status === '0') {
           this.$router.push({path: '/programming'})
-          axios.post('/users/deleteDiscussionList', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum}).then((result) => {
+          axios.post('/users/deleteCheckList', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum}).then((result) => {
             let res = result.data
             if (res.status === '0') {
               console.log('deleted')
