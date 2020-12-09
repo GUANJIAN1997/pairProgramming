@@ -3,6 +3,7 @@ var router = express.Router()
 var mongoose = require('mongoose')
 var User = require('../models/user')
 var Step = require('../models/step')
+var util = require('../util/radom')
 
 mongoose.connect('mongodb://127.0.0.1:27017/exp',{useNewUrlParser:true, useUnifiedTopology: true},function(err){
   if(err){
@@ -274,6 +275,70 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
 
 })
 
+const checkPwdList = []
+
+router.post('/checkChildListConfirm', function (req, res, next) {
+  var checkChildList = req.body.checkChildList
+  console.log(checkChildList)
+  if (checkChildList.length === 1) {
+    if (discussionList.indexOf(checkChildList[0].seatNum) > -1) {
+      res.json({
+        status: '1',
+        msg: '',
+        result: ''
+      })
+    } else {
+      const checkPwd = util.random(100000,999999).toString()
+      checkPwdList.push(checkPwd)
+      console.log(checkPwdList)
+      res.json({
+        status: '0',
+        msg: checkPwd,
+        result: checkChildList[0]
+      })
+    }
+  } else {
+    var sorted = checkChildList.sort(function (a, b) {
+      return a.discussionTimes - b.discussionTimes
+    })
+    for (let item of sorted) {
+      if (discussionList.indexOf(item.seatNum) === -1) {
+        const checkPwd = util.random(100000,999999).toString()
+        checkPwdList.push(checkPwd)
+        console.log(checkPwdList)
+        return res.json({
+          status: '0',
+          msg: checkPwd,
+          result: item
+        })
+      }
+    }
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+  }
+
+})
+
+router.post('/checkPwdListConfirm', function (req, res, next) {
+  let checkPwd = req.body.checkPwd
+  let index = checkPwdList.indexOf(checkPwd)
+  if (index === -1) {
+    res.json({
+      status: '0',
+      msg: '',
+      result: ''
+    })
+  } else {
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+  }
+})
 
 router.post('/updateDiscussionTimes', function (req,res,next) {
   var discussionPartner = req.body.discussionPartner, userName = req.body.userName
@@ -407,5 +472,52 @@ router.get('/getWaitList', function (req,res,next) {
     })
   }
 })
+
+
+router.get('/getContent', function (req,res,next) {
+  let stepsNum = req.query.stepsNum
+  Step.findOne({stepsNum: stepsNum}, function (err,doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: res.message,
+        result: ''
+      })
+    } else if (!doc){
+      res.json({
+        status: '0',
+        msg: '',
+        result: 'not found'
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: doc.content
+      })
+    }
+  })
+})
+
+router.post('/kakinaoshi', function (req, res, next) {
+  let checkPwd = req.body.checkPwd
+  let index = checkPwdList.indexOf(checkPwd)
+  if (index > -1) {
+    checkPwdList.splice(index, 1)
+    res.json({
+      status: '0',
+      msg: '',
+      result: ''
+    })
+  } else {
+    res.json({
+      status: '1',
+      msg: '',
+      result: ''
+    })
+  }
+})
+
+
 
 module.exports = router

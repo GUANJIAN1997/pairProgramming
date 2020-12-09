@@ -48,6 +48,13 @@
         <button class="OK-btn" @click="goToTeach">OK</button>
       </div>
     </div>
+    <div class="modal-container" :class="{'md-show': mdShow6}">
+      <div class="md-infor">チェックしてほしいですか？</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="check">はい</button>
+        <button class="OK-btn" @click="mdShow6 = false">いいえ</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -75,12 +82,16 @@ export default {
       mdShow3: false,
       mdShow4: false,
       mdShow5: false,
+      mdShow6: false,
+      mdShow7: false,
       imgAddr: '',
       InitSetInterval: '',
       discussionPartner: {},
+      checkPartner: {},
       progressList: [],
       child_learning_seatNum: '',
-      child_learning_Name: ''
+      child_learning_Name: '',
+      checkPwd: ''
     }
   },
   created () {
@@ -114,7 +125,6 @@ export default {
           for (let item of this.progressList) {
             if (item.seatNum === this.child_learning_seatNum) {
               this.child_learning_Name = item.userName
-              console.log(item)
               break
             }
           }
@@ -156,13 +166,14 @@ export default {
         this.mdShow2 = true
         return 0
       } else {
-        this.stepsNum += 1
-        axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
-          let res = response.data
-          if (res.status === '0') {
-            console.log('進捗更新成功')
-          }
-        })
+        this.mdShow6 = true
+        // this.stepsNum += 1
+        // axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
+        //   let res = response.data
+        //   if (res.status === '0') {
+        //     console.log('進捗更新成功')
+        //   }
+        // })
       }
     },
     Return () {
@@ -186,26 +197,6 @@ export default {
       })
       if (discussionChildList.length === 0) {
         this.mdShow4 = true
-      } else if (discussionChildList.length === 1) {
-        console.log('有一个可以讨论的孩子')
-        axios.post('/users/discussionChildListConfirm', {discussionChildList: discussionChildList}).then((response) => {
-          let res = response.data
-          if (res.status === '0') {
-            this.discussionPartner = res.result
-            axios.post('/users/updateDiscussionList', {seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
-              let res = response.data
-              if (res.status === '0') {
-                console.log('discussionList updated')
-                this.mdShow1 = true
-              } else {
-                console.log('discussionList updated failed (you are in discussionList now)')
-                alert('ただいま，君は相談中です')
-              }
-            })
-          } else {
-            this.mdShow4 = true
-          }
-        })
       } else {
         axios.post('/users/discussionChildListConfirm', {discussionChildList: discussionChildList}).then((response) => {
           let res = response.data
@@ -214,8 +205,8 @@ export default {
             axios.post('/users/updateDiscussionList', {seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
               let res = response.data
               if (res.status === '0') {
-                this.mdShow1 = true
                 console.log('discussionList updated')
+                this.mdShow1 = true
               } else {
                 console.log('discussionList updated failed (you are in discussionList now)')
                 alert('ただいま，君は相談中です')
@@ -255,6 +246,29 @@ export default {
     goToTeach () {
       this.mdShow5 = false
       this.$router.push({path: '/childTeaching'})
+    },
+    check () {
+      this.mdShow6 = false
+      var checkChildList = this.progressList
+      axios.post('/users/checkChildListConfirm', {checkChildList: checkChildList}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          this.checkPartner = res.result
+          this.checkPwd = res.msg
+          axios.post('/users/updateDiscussionList', {seatNum_teaching: this.checkPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
+            let res = response.data
+            if (res.status === '0') {
+              console.log('discussionList updated(check)')
+              this.$router.push({path: '/check', query: {checkPwd: this.checkPwd, checkPartnerSeatNum: this.checkPartner.seatNum, checkPartnerName: this.checkPartner.userName, seatNum: this.seatNum, stepsNum: this.stepsNum}})
+            } else {
+              console.log('discussionList updated failed (you are in discussionList now)')
+              alert('ただいま，君は相談中です')
+            }
+          })
+        } else {
+          this.mdShow4 = true
+        }
+      })
     }
   }
 }
