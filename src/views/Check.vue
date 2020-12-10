@@ -14,6 +14,12 @@
       <button type="button" @click.stop="kakinaoshi" class="button_kakinaoshi"><ruby>書<rt>か</rt></ruby>き<ruby>直<rt>なお</rt></ruby>し</button>
 
     </div>
+    <div class="modal-container" :class="{'md-show': mdShow}">
+      <div class="md-infor">これが<ruby>最後<rt>さいご</rt></ruby>のステップです<br>アンケートにいきましょう</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="end">はい</button>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -28,7 +34,9 @@ export default {
       checkPartnerName: '',
       checkPartnerSeatNum: '',
       checkContent: '',
-      checkPwd: ''
+      checkPwd: '',
+      progress: '',
+      mdShow: false
     }
   },
   created () {
@@ -49,13 +57,18 @@ export default {
       this.checkPwd = this.$route.query.checkPwd
       this.stepsNum = this.$route.query.stepsNum
       this.seatNum = this.$route.query.seatNum
+      this.progress = this.$route.query.progress
     },
     test () {
       axios.post('/users/checkPwdListConfirm', {checkPwd: this.checkPwd}).then((result) => {
         let res = result.data
         if (res.status === '0') {
-          this.$router.push({path: '/programming'})
-          console.log('friend has checked this step, you can go to the next step')
+          if (this.progress < 3) {
+            this.$router.push({path: '/programming'})
+            console.log('friend has checked this step, you can go to the next step')
+          } else {
+            this.mdShow = true
+          }
         }
       })
     },
@@ -86,7 +99,10 @@ export default {
           console.log('kakinaoshi failed')
         }
       })
-    }
+    },
+    end () {
+      this.$router.push({path: '/questionnaire'})
+    },
   }
 }
 </script>

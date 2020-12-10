@@ -108,30 +108,30 @@ router.get('/stepProject',function (req,res,next) {
   })
 })
 
-router.post('/stepProject/updateProgress',function (req,res,next) {
-  var seatNum = req.body.seatNum, progress = req.body.progress
-  User.updateOne({seatNum: seatNum},{progress: progress}, function (err, doc) {
-    if (err) {
-      res.json({
-        status: '1',
-        msg: res.message,
-        result: ''
-      })
-    } else if (!doc.n) {
-      res.json({
-        status: '1',
-        msg: 'not found',
-        result: ''
-      })
-    } else {
-      res.json({
-        status: '0',
-        msg: '',
-        result: ''
-      })
-    }
-  })
-})
+// router.post('/stepProject/updateProgress',function (req,res,next) {
+//   var seatNum = req.body.seatNum, progress = req.body.progress
+//   User.updateOne({seatNum: seatNum},{progress: progress}, function (err, doc) {
+//     if (err) {
+//       res.json({
+//         status: '1',
+//         msg: res.message,
+//         result: ''
+//       })
+//     } else if (!doc.n) {
+//       res.json({
+//         status: '1',
+//         msg: 'not found',
+//         result: ''
+//       })
+//     } else {
+//       res.json({
+//         status: '0',
+//         msg: '',
+//         result: ''
+//       })
+//     }
+//   })
+// })
 
 router.post('/stepProject/getProgress', function (req,res,next) {
   var seatNum = req.body.seatNum
@@ -184,7 +184,8 @@ router.get('/stepProject/getOthersProgress', function (req,res,next) {
       }
       res.json({
         status: '0',
-        msg: discussionList,
+        msg1: discussionList,
+        msg2: checkList,
         result: othersProgressList
       })
     }
@@ -562,6 +563,51 @@ router.post('/kakinaoshi', function (req, res, next) {
   }
 })
 
+router.post('/submitCheckPwd', function (req, res, next) {
+  const checkPwd = req.body.checkPwd
+  const child_learning_seatNum = req.body.child_learning_seatNum
+  const progress =  req.body.progress
+  const index = checkPwdList.indexOf(checkPwd)
+  if (index > -1) {
+    checkPwdList.splice(index, 1)
+    if (progress > 3) {
+      res.json({
+        status: '1',
+        msg: '',
+        result: ''
+      })
+    } else {
+      User.updateOne({seatNum: child_learning_seatNum},{progress: progress}, function (err, doc) {
+        if (err) {
+          res.json({
+            status: '10',
+            msg: res.message,
+            result: ''
+          })
+        } else if (!doc.n) {
+          res.json({
+            status: '10',
+            msg: 'not found',
+            result: ''
+          })
+        } else {
+          res.json({
+            status: '0',
+            msg: '',
+            result: ''
+          })
+        }
+      })
+    }
+
+  } else {
+    res.json({
+      status: '2',
+      msg: '',
+      result: ''
+    })
+  }
+})
 
 
 module.exports = router

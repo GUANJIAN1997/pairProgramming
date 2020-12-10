@@ -20,13 +20,7 @@
     </div>
 
     <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
-    <div class="modal-container" :class="{'md-show': mdShow2}">
-      <div class="md-infor">これが<ruby>最後<rt>さいご</rt></ruby>のステップです<br><ruby>課題<rt>かだい</rt></ruby>は<ruby>全部<rt>ぜんぶ</rt></ruby>できましたか？</div>
-      <div class="btn-container">
-        <button class="OK-btn" @click="end">はい</button>
-        <button class="OK-btn" @click="mdShow2 = false">いいえ</button>
-      </div>
-    </div>
+
     <div class="modal-container" :class="{'md-show': mdShow3}">
       <div class="md-infor"><ruby>前<rt>まえ</rt></ruby>のステップはありません！</div>
       <div class="btn-container">
@@ -60,7 +54,7 @@
       <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
       <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
       <div class="btn-container">
-        <button class="OK-btn" @click="goToTeach">OK</button>
+        <button class="OK-btn" @click="goToCheck">OK</button>
       </div>
     </div>
   </div>
@@ -84,9 +78,9 @@ export default {
     return {
       userName: '',
       seatNum: '',
+      progress: null,
       stepsNum: null,
       mdShow1: false,
-      mdShow2: false,
       mdShow3: false,
       mdShow4: false,
       mdShow5: false,
@@ -99,6 +93,7 @@ export default {
       progressList: [],
       child_learning_seatNum: '',
       child_learning_Name: '',
+      child_learning_Progress: '',
       checkPwd: ''
     }
   },
@@ -122,7 +117,7 @@ export default {
             return b.progress - a.progress
           })
           this.progressList = res.result
-          let discussionList = res.msg
+          let discussionList = res.msg1
           for (let i = 0; i < discussionList.length; i += 2) {
             if (discussionList[i] === this.seatNum) {
               this.child_learning_seatNum = discussionList[i + 1]
@@ -130,9 +125,18 @@ export default {
               break
             }
           }
+          let checkList = res.msg2
+          for (let i = 0; i < checkList.length; i += 2) {
+            if (checkList[i] === this.seatNum) {
+              this.child_learning_seatNum = checkList[i + 1]
+              this.mdShow7 = true
+              break
+            }
+          }
           for (let item of this.progressList) {
             if (item.seatNum === this.child_learning_seatNum) {
               this.child_learning_Name = item.userName
+              this.child_learning_Progress = item.progress
               break
             }
           }
@@ -165,16 +169,18 @@ export default {
           var res = response.data
           if (res.status === '0') {
             this.stepsNum = res.result
+            this.progress = res.result
           }
         })
       }
     },
     Next () {
-      if (this.stepsNum >= 3) {
-        this.mdShow2 = true
-        return 0
+      if (this.progress > this.stepsNum) {
+        this.stepsNum += 1
       } else {
         this.mdShow6 = true
+      }
+
         // this.stepsNum += 1
         // axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
         //   let res = response.data
@@ -182,7 +188,6 @@ export default {
         //     console.log('進捗更新成功')
         //   }
         // })
-      }
     },
     Return () {
       if (this.stepsNum <= 1) {
@@ -190,12 +195,6 @@ export default {
         return 0
       } else {
         this.stepsNum -= 1
-        axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
-          let res = response.data
-          if (res.status === '0') {
-            console.log('進捗更新成功')
-          }
-        })
       }
     },
     Discussion () {
@@ -228,9 +227,6 @@ export default {
     },
     getImgAddr (imgAddr) {
       this.imgAddr = imgAddr
-    },
-    end () {
-      this.$router.push({path: '/questionnaire'})
     },
     ta () {
       this.mdShow4 = false
@@ -267,7 +263,7 @@ export default {
             let res = response.data
             if (res.status === '0') {
               console.log('checkList updated')
-              this.$router.push({path: '/check', query: {checkPwd: this.checkPwd, checkPartnerSeatNum: this.checkPartner.seatNum, checkPartnerName: this.checkPartner.userName, seatNum: this.seatNum, stepsNum: this.stepsNum}})
+              this.$router.push({path: '/check', query: {checkPwd: this.checkPwd, checkPartnerSeatNum: this.checkPartner.seatNum, checkPartnerName: this.checkPartner.userName, seatNum: this.seatNum, stepsNum: this.stepsNum, progress: this.stepsNum}})
             } else {
               console.log('discussionList updated failed (you are in discussionList now)')
               alert('ただいま，君は相談中です')
@@ -277,6 +273,10 @@ export default {
           this.mdShow4 = true
         }
       })
+    },
+    goToCheck () {
+      this.mdShow7 = false
+      this.$router.push({path:'/childChecking', query: {child_learning_seatNum: this.child_learning_seatNum, seatNum: this.seatNum, progress: this.child_learning_Progress}})
     }
   }
 }
