@@ -1,10 +1,19 @@
 <template>
   <div>
     <div style="font-size: 3rem; text-align: center"><div class="iconfont" style="display: inline-block; font-size: 5rem">&#xe61b;</div>指導中．．．</div>
-    <div class="btn-container" style="position: absolute; top: 50%; left: 0rem; right: 0rem; bottom: 0rem; margin: auto ">
-      <button class="Detail-btn" @click="finishTeaching">指導完了</button>
+    <div class="teaching-feedback-box">
+      <div>指導したステップと指導した内容を入力</div>
+      <span>ステップ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" class="teaching-feedback-content" v-model="stepsNum">
+      <br>
+      <span>指導した内容</span><input type="text" class="teaching-feedback-content" v-model="feedback">
+      <br>
+      <button class="teaching-end-btn" @click="finishTeaching">指導完了</button>
     </div>
-  </div>
+
+
+
+    </div>
+
 
 </template>
 
@@ -14,23 +23,53 @@ import axios from 'axios'
 
 export default {
   name: 'Teaching',
+  data () {
+    return {
+      stepsNum: '',
+      feedback: ''
+    }
+  },
   mounted () {
     prevent()
   },
   methods: {
     finishTeaching () {
-      axios.post('/users/deleteDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.$route.query.seatNum}).then((response) => {
-        let res = response.data
-        if (res.status === '0') {
-          console.log('deleted')
-        }
-      })
-      this.$router.push({path: '/TA'})
+      if (this.feedback) {
+        axios.post('/users/deleteDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.$route.query.seatNum}).then((response) => {
+          let res = response.data
+          if (res.status === '0') {
+            console.log('deleted')
+          }
+        })
+        axios.post('/users/updateDiscussionInfor', {seatNum_teaching: 'TA', stepsNum: this.stepsNum, feedbackValue: this.feedback, seatNum_learning: this.$route.query.seatNum}).then((response) => {
+          let res = response.data
+          if (res.status === '0') {
+            console.log('updated discussion information(TA)')
+          }
+        })
+        this.$router.push({path: '/TA'})
+      } else {
+        alert('入力してください')
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-
+.teaching-feedback-box {
+  margin-top: 2rem;
+  font-size: 2rem;
+  text-align: center;
+}
+.teaching-feedback-content {
+  font-size: 2rem;
+  margin-top: 2rem;
+  width: 50%;
+  height: 2rem;
+}
+.teaching-end-btn {
+  margin-top: 2rem;
+  font-size: 2rem;
+}
 </style>

@@ -8,6 +8,7 @@ var userSchema = new mongoose.Schema({
   "progress": Number,
   "discussionTimes": Number,
   "discussionDetails": [],
+  "checkDetails": [],
   "questionnaire": [{
     "talkative": String,
     "like": String

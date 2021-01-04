@@ -58,13 +58,13 @@ export default {
           console.log('deleted')
         }
       })
-      axios.post('/users/updateDiscussionTimes', {discussionPartner: this.discussionPartner, userName: this.userName}).then((response) => {
+      axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('update success')
         }
       })
-      this.$router.push({path: '/feedback', query: {stepsNum: this.stepsNum, discussionPartner: this.discussionPartner, userName: this.userName}})
+      this.$router.push({path: '/feedback', query: {stepsNum: this.stepsNum, seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning, userName: this.userName}})
     }
   }
 }

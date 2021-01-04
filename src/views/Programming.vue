@@ -198,9 +198,8 @@ export default {
       }
     },
     Discussion () {
-      var stepsNum = this.stepsNum
       var discussionChildList = this.progressList.filter((item) => {
-        return item.progress >= stepsNum
+        return item.progress >= this.progress
       })
       if (discussionChildList.length === 0) {
         this.mdShow4 = true

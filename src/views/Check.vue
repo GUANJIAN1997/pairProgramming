@@ -65,8 +65,26 @@ export default {
         if (res.status === '0') {
           if (this.progress < 3) {
             this.$router.push({path: '/programming'})
+            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum}).then((response) => {
+              let res = response.data
+              if (res.status === '0') {
+                console.log('updateCheckInfor ok')
+              } else {
+                console.log('updateCheckInfor failed')
+              }
+            })
             console.log('friend has checked this step, you can go to the next step')
+            axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
           } else {
+            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum}).then((response) => {
+              let res = response.data
+              if (res.status === '0') {
+                console.log('updateCheckInfor ok')
+              } else {
+                console.log('updateCheckInfor failed')
+              }
+            })
+            axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
             this.mdShow = true
           }
         }
@@ -95,6 +113,15 @@ export default {
             }
           })
           console.log('kakinaoshi successfully')
+          axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'failed', checkPartnerSeatNum: this.checkPartnerSeatNum}).then((response) => {
+            let res = response.data
+            if (res.status === '0') {
+              console.log('updateCheckInfor ok')
+            } else {
+              console.log('updateCheckInfor failed')
+            }
+          })
+          axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
         } else {
           console.log('kakinaoshi failed')
         }

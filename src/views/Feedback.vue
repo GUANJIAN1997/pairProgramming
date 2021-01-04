@@ -42,9 +42,9 @@ export default {
     return {
       feedbackValue: 0,
       stepsNum: null,
-      discussionPartner: '',
+      seatNum_teaching: '',
+      seatNum_learning: '',
       userName: '',
-      seatNum: '',
       mdShow: false
     }
   },
@@ -57,11 +57,12 @@ export default {
   methods: {
     init () {
       this.stepsNum = this.$route.query.stepsNum
-      this.discussionPartner = this.$route.query.discussionPartner
+      this.seatNum_teaching = this.$route.query.seatNum_teaching
+      this.seatNum_learning = this.$route.query.seatNum_learning
       this.userName = this.$route.query.userName
     },
     programming () {
-      axios.post('/users/updateDiscussionInfor', {userName: this.userName, discussionPartner: this.discussionPartner, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue}).then((response) => {
+      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('update success')
@@ -70,26 +71,18 @@ export default {
       this.$router.push({path: '/programming'})
     },
     ta () {
-      axios.post('/users/updateDiscussionInfor', {userName: this.userName, discussionPartner: this.discussionPartner, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue}).then((response) => {
+      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('update success')
         }
       })
       this.mdShow = true
-      var reg2 = new RegExp(`seatNum=([^;]*)`, 'i')
-      const res2 = document.cookie.match(reg2)
-
-      if (!res2) {
-        console.log('not found')
-      } else {
-        this.seatNum = res2[1]
-      }
-      axios.post('/users/callTA', {userName: this.$route.query.userName, seatNum: this.seatNum}).then((response) => {
+      axios.post('/users/callTA', {userName: this.$route.query.userName, seatNum: this.seatNum_learning}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('TAOK')
-          axios.post('/users/updateDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.seatNum}).then((response) => {
+          axios.post('/users/updateDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.seatNum_learning}).then((response) => {
             let res = response.data
             if (res.status === '0') {
               console.log('discussionList updated')

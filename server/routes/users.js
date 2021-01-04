@@ -386,10 +386,10 @@ router.post('/deleteCheckList', function (req, res, next) {
 })
 
 router.post('/updateDiscussionTimes', function (req,res,next) {
-  var discussionPartner = req.body.discussionPartner, userName = req.body.userName
-  User.updateOne({userName:userName}, {$inc:{discussionTimes:1}},function (err,doc) {
+  var seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
+  User.updateOne({seatNum:seatNum_learning}, {$inc:{discussionTimes:1}},function (err,doc) {
     if (!err && doc.n) {
-      User.updateOne({userName: discussionPartner}, {$inc:{discussionTimes:1}}, function (err1, doc1) {
+      User.updateOne({seatNum: seatNum_teaching}, {$inc:{discussionTimes:1}}, function (err1, doc1) {
         if (!err1 && doc1.n) {
           res.json({
             status: '0',
@@ -409,8 +409,27 @@ router.post('/updateDiscussionTimes', function (req,res,next) {
 })
 
 router.post('/updateDiscussionInfor', function (req,res,next) {
-  var discussionPartner = req.body.discussionPartner, stepsNum = req.body.stepsNum, feedbackValue = req.body.feedbackValue, userName = req.body.userName
-  User.updateOne({userName: userName}, {$push:{discussionDetails:[{discussionPartner:discussionPartner, stepsNum: stepsNum, feedbackValue: feedbackValue}]}}, function (err, doc) {
+  var seatNum_teaching = req.body.seatNum_teaching, stepsNum = req.body.stepsNum, feedbackValue = req.body.feedbackValue, seatNum_learning = req.body.seatNum_learning
+  User.updateOne({seatNum: seatNum_learning}, {$push:{discussionDetails:[{seatNum_teaching:seatNum_teaching, stepsNum: stepsNum, feedbackValue: feedbackValue}]}}, function (err, doc) {
+    if (!err && doc.n) {
+      res.json({
+        status: '0',
+        msg: '',
+        result: ''
+      })
+    } else {
+      res.json({
+        status: '1',
+        msg: '',
+        result: ''
+      })
+    }
+  })
+})
+
+router.post('/updateCheckInfor', function (req,res,next) {
+  var checkPartnerSeatNum = req.body.checkPartnerSeatNum, stepsNum = req.body.stepsNum, result = req.body.result, seatNum = req.body.seatNum
+  User.updateOne({seatNum: seatNum}, {$push:{checkDetails:[{checkPartnerSeatNum:checkPartnerSeatNum, stepsNum: stepsNum, result: result}]}}, function (err, doc) {
     if (!err && doc.n) {
       res.json({
         status: '0',
