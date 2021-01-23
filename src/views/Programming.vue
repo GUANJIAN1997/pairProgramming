@@ -180,14 +180,6 @@ export default {
       } else {
         this.mdShow6 = true
       }
-
-        // this.stepsNum += 1
-        // axios.post('/users/stepProject/updateProgress', {seatNum: this.seatNum, progress: this.stepsNum}).then((response) => {
-        //   let res = response.data
-        //   if (res.status === '0') {
-        //     console.log('進捗更新成功')
-        //   }
-        // })
     },
     Return () {
       if (this.stepsNum <= 1) {
@@ -275,7 +267,7 @@ export default {
     },
     goToCheck () {
       this.mdShow7 = false
-      this.$router.push({path:'/childChecking', query: {child_learning_seatNum: this.child_learning_seatNum, seatNum: this.seatNum, progress: this.child_learning_Progress}})
+      this.$router.push({path: '/childChecking', query: {child_learning_seatNum: this.child_learning_seatNum, seatNum: this.seatNum, progress: this.child_learning_Progress}})
     }
   }
 }

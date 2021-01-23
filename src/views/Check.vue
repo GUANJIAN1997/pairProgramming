@@ -28,7 +28,7 @@
 import '../assets/css/check.css'
 import axios from 'axios'
 export default {
-  name: "Check.vue",
+  name: 'Check.vue',
   data () {
     return {
       checkPartnerName: '',
@@ -129,7 +129,7 @@ export default {
     },
     end () {
       this.$router.push({path: '/questionnaire'})
-    },
+    }
   }
 }
 </script>

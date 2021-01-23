@@ -9,11 +9,7 @@
       <br>
       <button class="teaching-end-btn" @click="finishTeaching">指導完了</button>
     </div>
-
-
-
-    </div>
-
+  </div>
 
 </template>
 

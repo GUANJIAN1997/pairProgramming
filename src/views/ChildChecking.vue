@@ -12,7 +12,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: "ChildChecking",
+  name: 'ChildChecking',
   data () {
     return {
       checkPwd: ''
@@ -23,7 +23,7 @@ export default {
       const child_learning_seatNum = this.$route.query.child_learning_seatNum
       const progress = Number(this.$route.query.progress) + 1
       const seatNum = this.$route.query.seatNum
-      axios.post('/users/submitCheckPwd',{child_learning_seatNum: child_learning_seatNum, checkPwd: this.checkPwd, progress: progress}).then((result) => {
+      axios.post('/users/submitCheckPwd', {child_learning_seatNum: child_learning_seatNum, checkPwd: this.checkPwd, progress: progress}).then((result) => {
         let res = result.data
         if (res.status === '0') {
           this.$router.push({path: '/programming'})
@@ -36,7 +36,7 @@ export default {
             }
           })
           console.log('go to next successfully')
-        } else if (res.status === '1'){
+        } else if (res.status === '1') {
           this.$router.push({path: '/programming'})
           axios.post('/users/deleteCheckList', {seatNum_teaching: seatNum, seatNum_learning: child_learning_seatNum}).then((result) => {
             let res = result.data
@@ -47,7 +47,7 @@ export default {
             }
           })
           console.log('finished all steps')
-        } else if (res.status === '2'){
+        } else if (res.status === '2') {
           alert('チェックパスワードが違います,もう一度入力してください')
         }
       })
