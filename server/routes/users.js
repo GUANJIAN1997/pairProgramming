@@ -5,7 +5,7 @@ var User = require('../models/user')
 var Step = require('../models/step')
 var util = require('../util/radom')
 
-mongoose.connect('mongodb://127.0.0.1:27017/exp',{useNewUrlParser:true, useUnifiedTopology: true},function(err){
+mongoose.connect('mongodb://root:199783gj@127.0.0.1:27017/exp',{useNewUrlParser:true, useUnifiedTopology: true},function(err){
   if(err){
     console.log('Connection Error:' + err)
   }else{
