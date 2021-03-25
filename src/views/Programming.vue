@@ -1,60 +1,62 @@
 <template>
   <div>
-    <div class="infor">
-      <ruby>名前<rt>なまえ</rt>：{{userName}}</ruby>
-      <ruby>席番号<rt>せきばんごう</rt>：{{seatNum}}</ruby>
-    </div>
-    <div class="container">
-
-        <step-project :stepsNum="stepsNum" @getImgAddr="getImgAddr">
-          <span slot="steps" class="stepNum" >{{'ステップ'+stepsNum}}</span>
-        </step-project>
-      <Progress :progressList="progressList"></Progress>
-
-    </div>
-
-    <div class="btn-container">
-      <button type="button" @click.stop="Return" class="button1"><ruby>前<rt>まえ</rt></ruby>のステップ</button>
-      <button type="button" @click.stop="Discussion" class="button2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
-      <button type="button" @click.stop="Next" class="button3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
-    </div>
-
-    <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
-
-    <div class="modal-container" :class="{'md-show': mdShow3}">
-      <div class="md-infor"><ruby>前<rt>まえ</rt></ruby>のステップはありません！</div>
-      <div class="btn-container">
-        <button class="OK-btn" @click="mdShow3 = false">はい</button>
+    <div class="container-all">
+      <div class="infor">
+        <ruby>名前<rt>なまえ</rt>：{{userName}}</ruby>
+        <ruby>席番号<rt>せきばんごう</rt>：{{seatNum}}</ruby>
       </div>
-    </div>
-    <div class="modal-container" :class="{'md-show': mdShow4}">
-      <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>できる<ruby>友達<rt>ともだち</rt></ruby>がいません！</div>
-      <div class="btn-container">
-        <button class="OK-btn" @click="mdShow4 = false"><ruby>待<rt>ま</rt></ruby>ちます</button>
-        <button class="OK-btn" @click="ta">サポーターに<ruby>聞<rt>き</rt></ruby>く</button>
+      <div class="container">
+
+          <step-project :stepsNum="stepsNum" @getImgAddr="getImgAddr">
+            <span slot="steps" class="stepNum" >{{'ステップ'+stepsNum}}</span>
+          </step-project>
+        <Progress :progressList="progressList"></Progress>
+
       </div>
-    </div>
-    <div class="modal-container" :class="{'md-show': mdShow5}">
-      <div class="md-infor"><ruby>君<rt>きみ</rt></ruby>の<ruby>助<rt>たす</rt></ruby>けがほしいともだち：</div>
-      <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
-      <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
+
       <div class="btn-container">
-        <button class="OK-btn" @click="goToTeach">OK</button>
+        <button type="button" @click.stop="Return" class="button1"><ruby>前<rt>まえ</rt></ruby>のステップ</button>
+        <button type="button" @click.stop="Discussion" class="button2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
+        <button type="button" @click.stop="Next" class="button3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
       </div>
-    </div>
-    <div class="modal-container" :class="{'md-show': mdShow6}">
-      <div class="md-infor">チェックしてほしいですか？</div>
-      <div class="btn-container">
-        <button class="OK-btn" @click="check">はい</button>
-        <button class="OK-btn" @click="mdShow6 = false">いいえ</button>
+
+      <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
+
+      <div class="modal-container" :class="{'md-show': mdShow3}">
+        <div class="md-infor"><ruby>前<rt>まえ</rt></ruby>のステップはありません！</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="mdShow3 = false">はい</button>
+        </div>
       </div>
-    </div>
-    <div class="modal-container" :class="{'md-show': mdShow7}">
-      <div class="md-infor">チェックしてほしいともだち：</div>
-      <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
-      <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
-      <div class="btn-container">
-        <button class="OK-btn" @click="goToCheck">OK</button>
+      <div class="modal-container" :class="{'md-show': mdShow4}">
+        <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>できる<ruby>友達<rt>ともだち</rt></ruby>がいません！</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="mdShow4 = false"><ruby>待<rt>ま</rt></ruby>ちます</button>
+          <button class="OK-btn" @click="ta">サポーターに<ruby>聞<rt>き</rt></ruby>く</button>
+        </div>
+      </div>
+      <div class="modal-container" :class="{'md-show': mdShow5}">
+        <div class="md-infor"><ruby>君<rt>きみ</rt></ruby>の<ruby>助<rt>たす</rt></ruby>けがほしいともだち：</div>
+        <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
+        <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="goToTeach">OK</button>
+        </div>
+      </div>
+      <div class="modal-container" :class="{'md-show': mdShow6}">
+        <div class="md-infor">チェックしてほしいですか？</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="check">はい</button>
+          <button class="OK-btn" @click="mdShow6 = false">いいえ</button>
+        </div>
+      </div>
+      <div class="modal-container" :class="{'md-show': mdShow7}">
+        <div class="md-infor">チェックしてほしいともだち：</div>
+        <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
+        <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="goToCheck">OK</button>
+        </div>
       </div>
     </div>
   </div>

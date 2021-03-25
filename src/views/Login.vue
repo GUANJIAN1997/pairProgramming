@@ -29,7 +29,7 @@
 
            <!-- 登録ボタン -->
            <div class="login-btn">
-               <button type="button" @click.stop="login"><ruby>登録<rt>とうろく</rt></ruby></button>
+               <button type="button" @click.stop="login">ログイン</button>
                <button type="button" @click.stop="ta" class="ta-btn">サポーター</button>
            </div>
        </div>

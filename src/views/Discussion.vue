@@ -5,7 +5,7 @@
         {{this.discussionPartner}}と{{this.userName}}が<ruby>相談中<rt>そうだんちゅう</rt></ruby>
       </div>
 
-      <img class="img" :src="'static/' + imgAddr">
+      <img class="img-discussion" :src="'static/' + imgAddr">
     </div>
     <div class="btn-container">
       <button type="button" @click.stop="discussionEnd" class="button1"><ruby>終<rt>お</rt></ruby>わり</button>
@@ -22,6 +22,7 @@ import '../assets/css/discussion.css'
 import axios from 'axios'
 import {prevent} from '../util/preventBrowserBack'
 import handWritingBoard from '../components/HandwritingBoard'
+import {getTime} from '../util/getTime'
 export default {
   name: 'Discussion.vue',
   data () {
@@ -32,7 +33,9 @@ export default {
       stepsNum: null,
       seatNum_teaching: '',
       seatNum_learning: '',
-      writingBoardShow: false
+      writingBoardShow: false,
+      startTime: '',
+      endTime:''
     }
   },
   components: {
@@ -50,8 +53,10 @@ export default {
       this.stepsNum = this.$route.query.stepsNum
       this.seatNum_teaching = this.$route.query.seatNum_teaching
       this.seatNum_learning = this.$route.query.seatNum_learning
+      this.startTime = getTime()
     },
     discussionEnd () {
+      this.endTime = getTime()
       axios.post('/users/deleteDiscussionList', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -64,7 +69,7 @@ export default {
           console.log('update success')
         }
       })
-      this.$router.push({path: '/feedback', query: {stepsNum: this.stepsNum, seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning, userName: this.userName}})
+      this.$router.push({path: '/feedback', query: {stepsNum: this.stepsNum, seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning, userName: this.userName, startTime: this.startTime, endTime: this.endTime}})
     }
   }
 }

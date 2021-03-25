@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="discussion-container" style="height: 600px">
+      <div class="discussion-container">
         <div class="discussion-title">
           <ruby>相談<rt>そうだん</rt></ruby>してどうでしたか？
         </div>
@@ -45,7 +45,9 @@ export default {
       seatNum_teaching: '',
       seatNum_learning: '',
       userName: '',
-      mdShow: false
+      mdShow: false,
+      startTime: '',
+      endTime: ''
     }
   },
   created () {
@@ -60,9 +62,13 @@ export default {
       this.seatNum_teaching = this.$route.query.seatNum_teaching
       this.seatNum_learning = this.$route.query.seatNum_learning
       this.userName = this.$route.query.userName
+      this.startTime = this.$route.query.startTime
+      this.endTime = this.$route.query.endTime
+      alert(this.startTime)
+      alert(this.endTime)
     },
     programming () {
-      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue}).then((response) => {
+      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('update success')
@@ -71,7 +77,7 @@ export default {
       this.$router.push({path: '/programming'})
     },
     ta () {
-      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue}).then((response) => {
+      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('update success')
@@ -81,7 +87,7 @@ export default {
       axios.post('/users/callTA', {userName: this.$route.query.userName, seatNum: this.seatNum_learning}).then((response) => {
         let res = response.data
         if (res.status === '0') {
-          console.log('TAOK')
+          console.log('TAOK')、
           axios.post('/users/updateDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.seatNum_learning}).then((response) => {
             let res = response.data
             if (res.status === '0') {

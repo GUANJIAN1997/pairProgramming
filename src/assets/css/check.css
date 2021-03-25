@@ -1,3 +1,11 @@
+.check-container {
+  overflow: hidden;
+  height: 80vh;
+  border: solid black .2rem;
+  margin: 1rem 1rem 0rem 1rem;
+  border-radius: 2rem;
+  padding: 1rem;
+}
 .checkPartnerinfor {
   font-size: 1.5rem;
 }

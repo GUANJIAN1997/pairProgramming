@@ -68,11 +68,11 @@
   flex-flow: row-reverse;
 }
 .horizontal .board-box {
-  width: 100vw;
-  height: 90vh;
+  width: 90vw;
+  height: 80vh;
 }
 .horizontal .handle-box {
-  height: 90vh;
+  height: 70vh;
   width: 25px;
   flex-direction: column;
   padding: 0px 10px;

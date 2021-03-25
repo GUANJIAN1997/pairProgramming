@@ -1,5 +1,11 @@
+.container-all {
+  width: 95vw;
+  height: 85vh;
+  overflow: auto;
+}
 .container {
   overflow: hidden;
+  height: 80%;
   border: solid black .2rem;
   margin: 1rem 1rem 0rem 1rem;
   border-radius: 2rem;

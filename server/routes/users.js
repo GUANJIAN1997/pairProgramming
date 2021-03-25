@@ -409,8 +409,14 @@ router.post('/updateDiscussionTimes', function (req,res,next) {
 })
 
 router.post('/updateDiscussionInfor', function (req,res,next) {
-  var seatNum_teaching = req.body.seatNum_teaching, stepsNum = req.body.stepsNum, feedbackValue = req.body.feedbackValue, seatNum_learning = req.body.seatNum_learning
-  User.updateOne({seatNum: seatNum_learning}, {$push:{discussionDetails:[{seatNum_teaching:seatNum_teaching, stepsNum: stepsNum, feedbackValue: feedbackValue}]}}, function (err, doc) {
+  let seatNum_teaching = req.body.seatNum_teaching, stepsNum = req.body.stepsNum, feedbackValue = req.body.feedbackValue, seatNum_learning = req.body.seatNum_learning
+  let startTime = req.body.startTime, endTime = req.body.endTime
+  User.updateOne({seatNum: seatNum_learning}, {$push:{discussionDetails:[{
+    seatNum_teaching:seatNum_teaching,
+    stepsNum: stepsNum,
+    feedbackValue: feedbackValue,
+    startTime: startTime,
+    endTime: endTime}]}}, function (err, doc) {
     if (!err && doc.n) {
       res.json({
         status: '0',

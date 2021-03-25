@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="check-container">
     <div class="checkPartnerinfor">
       チェックしてもらう<ruby>児童<rt>じどう</rt>の</ruby><ruby>名前<rt>なまえ</rt>：{{checkPartnerName}}</ruby><br>
       チェックしてもらう<ruby>児童<rt>じどう</rt>の</ruby><ruby>席番号<rt>せきばんごう</rt>：{{checkPartnerSeatNum}}</ruby>
@@ -64,7 +64,7 @@ export default {
         let res = result.data
         if (res.status === '0') {
           if (this.progress < 3) {
-            this.$router.push({path: '/programming'})
+
             axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum}).then((response) => {
               let res = response.data
               if (res.status === '0') {
@@ -75,6 +75,7 @@ export default {
             })
             console.log('friend has checked this step, you can go to the next step')
             axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
+            this.$router.push({path: '/programming'})
           } else {
             axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum}).then((response) => {
               let res = response.data

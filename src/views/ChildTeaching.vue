@@ -5,7 +5,7 @@
         <div v-for="(item, index) in colors" :key="index" class="color-item" :class="{active:item.active}" :style="{background:item.color}" @click="clickColorItem(item)"></div>
       </div>
       <button @click="clickReset">クリア</button>
-      <button @click="clickFinish"><ruby>相談<rt>そうだん</rt></ruby><ruby>画面<rt>がめん</rt></ruby>に<ruby>戻<rt>もど</rt></ruby>る</button>
+      <button @click="clickFinish"><ruby>課題<rt>かだい</rt></ruby><ruby>画面<rt>がめん</rt></ruby>に<ruby>戻<rt>もど</rt></ruby>る</button>
     </div>
     <div class="board-box">
       <canvas ref="boardCanvas" :width="canvasWidth" :height="canvasHeight" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd"></canvas>
