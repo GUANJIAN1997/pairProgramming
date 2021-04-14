@@ -434,8 +434,8 @@ router.post('/updateDiscussionInfor', function (req,res,next) {
 })
 
 router.post('/updateCheckInfor', function (req,res,next) {
-  var checkPartnerSeatNum = req.body.checkPartnerSeatNum, stepsNum = req.body.stepsNum, result = req.body.result, seatNum = req.body.seatNum
-  User.updateOne({seatNum: seatNum}, {$push:{checkDetails:[{checkPartnerSeatNum:checkPartnerSeatNum, stepsNum: stepsNum, result: result}]}}, function (err, doc) {
+  var checkPartnerSeatNum = req.body.checkPartnerSeatNum, stepsNum = req.body.stepsNum, result = req.body.result, seatNum = req.body.seatNum, time = req.body.time
+  User.updateOne({seatNum: seatNum}, {$push:{checkDetails:[{checkPartnerSeatNum:checkPartnerSeatNum, stepsNum: stepsNum, result: result, time: time}]}}, function (err, doc) {
     if (!err && doc.n) {
       res.json({
         status: '0',

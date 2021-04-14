@@ -27,6 +27,7 @@
 <script>
 import '../assets/css/check.css'
 import axios from 'axios'
+import {getTime} from '../util/getTime'
 export default {
   name: 'Check.vue',
   data () {
@@ -36,7 +37,8 @@ export default {
       checkContent: '',
       checkPwd: '',
       progress: '',
-      mdShow: false
+      mdShow: false,
+      time: ''
     }
   },
   created () {
@@ -64,8 +66,8 @@ export default {
         let res = result.data
         if (res.status === '0') {
           if (this.progress < 3) {
-
-            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum}).then((response) => {
+            this.time = getTime()
+            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum, time: this.time}).then((response) => {
               let res = response.data
               if (res.status === '0') {
                 console.log('updateCheckInfor ok')
@@ -77,7 +79,8 @@ export default {
             axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
             this.$router.push({path: '/programming'})
           } else {
-            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum}).then((response) => {
+            this.time = getTime()
+            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum, time: this.time}).then((response) => {
               let res = response.data
               if (res.status === '0') {
                 console.log('updateCheckInfor ok')
@@ -86,6 +89,7 @@ export default {
               }
             })
             axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
+            clearInterval(this.InitSetInterval)
             this.mdShow = true
           }
         }
@@ -114,7 +118,8 @@ export default {
             }
           })
           console.log('kakinaoshi successfully')
-          axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'failed', checkPartnerSeatNum: this.checkPartnerSeatNum}).then((response) => {
+          this.time = getTime()
+          axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'failed', checkPartnerSeatNum: this.checkPartnerSeatNum, time: this.time}).then((response) => {
             let res = response.data
             if (res.status === '0') {
               console.log('updateCheckInfor ok')

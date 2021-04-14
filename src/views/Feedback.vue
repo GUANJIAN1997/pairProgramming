@@ -87,7 +87,7 @@ export default {
       axios.post('/users/callTA', {userName: this.$route.query.userName, seatNum: this.seatNum_learning}).then((response) => {
         let res = response.data
         if (res.status === '0') {
-          console.log('TAOK')、
+          console.log('TAOK')
           axios.post('/users/updateDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.seatNum_learning}).then((response) => {
             let res = response.data
             if (res.status === '0') {
