@@ -5,13 +5,13 @@
           <ruby>相談<rt>そうだん</rt></ruby>してどうでしたか？
         </div>
         <div style="text-align: center; margin-top: 10rem">
-          <input style="width: 70%" type="range" id="range1" min="-2" max="2" step="1" v-model="feedbackValue"/>
-          <div style="width: 85%; margin: auto; display: flex; justify-content: space-between">
-            <div style="width: 15%; font-size: 2rem"><ruby>全然分<rt>ぜんぜんわ</rt></ruby>からなかった</div>
-            <div style="width: 15%; font-size: 2rem">あまり<ruby>分<rt>わ</rt></ruby>からなかった</div>
-            <div style="width: 15%; font-size: 2rem">どちらとも<ruby>言<rt>い</rt></ruby>えない</div>
-            <div style="width: 15%; font-size: 2rem">ある<ruby>程度分<rt>ていどわ</rt></ruby>かった</div>
-            <div style="width: 15%; font-size: 2rem">とてもよく<ruby>分<rt>わ</rt></ruby>かった</div>
+<!--          <input style="width: 70%" type="range" id="range1" min="-2" max="2" step="1" v-model="feedbackValue"/>-->
+          <div style="width: 85%; margin: auto; display: flex; justify-content: space-between; font-size: 1.5rem">
+            <div ><input type="radio" value="1" v-model="feedbackValue"><ruby>全然分<rt>ぜんぜんわ</rt></ruby>からなかった</div>
+            <div><input type="radio" value="2" v-model="feedbackValue">あまり<ruby>分<rt>わ</rt></ruby>からなかった</div>
+            <div><input type="radio" value="3" v-model="feedbackValue">どちらとも<ruby>言<rt>い</rt></ruby>えない</div>
+            <div><input type="radio" value="4" v-model="feedbackValue">ある<ruby>程度分<rt>ていどわ</rt></ruby>かった</div>
+            <div><input type="radio" value="5" v-model="feedbackValue">とてもよく<ruby>分<rt>わ</rt></ruby>かった</div>
           </div>
         </div>
       </div>
@@ -29,6 +29,25 @@
         </div>
 
       </div>
+      <div class="modal-container"  :class="{'md-show': mdShow2}">
+        <div style="margin-top: 75px">
+          <div class="md-infor">どれかひとつを<ruby>選<rt>えら</rt></ruby>んでください</div>
+          <div class="btn-container">
+            <button class="OK-btn" @click="mdShow2=false">OK</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-container"  :class="{'md-show': mdShow3}">
+        <div style="margin-top: 75px">
+          <div class="md-infor">わからないところをサポーターに<ruby>聞<rt>き</rt></ruby>きませんか</div>
+          <div class="btn-container">
+            <button class="OK-btn" @click="programming2" style="font-size: 1.5rem">いいえ、ステップの<ruby>画面<rt>がめん</rt></ruby>に<ruby>戻<rt>もど</rt></ruby>る</button>
+            <button class="OK-btn" @click="ta" style="font-size: 1.5rem">サポーターに<ruby>聞<rt>き</rt></ruby>く</button>
+          </div>
+        </div>
+
+      </div>
     </div>
 </template>
 
@@ -40,12 +59,14 @@ export default {
   name: 'Feedback.vue',
   data () {
     return {
-      feedbackValue: 0,
+      feedbackValue: '',
       stepsNum: null,
       seatNum_teaching: '',
       seatNum_learning: '',
       userName: '',
       mdShow: false,
+      mdShow2: false,
+      mdShow3: false,
       startTime: '',
       endTime: ''
     }
@@ -64,10 +85,26 @@ export default {
       this.userName = this.$route.query.userName
       this.startTime = this.$route.query.startTime
       this.endTime = this.$route.query.endTime
-      alert(this.startTime)
-      alert(this.endTime)
     },
     programming () {
+      if (!this.feedbackValue) {
+        this.mdShow2 = true
+        return
+      }
+      if (this.feedbackValue < 3) {
+        this.mdShow3 = true
+        return
+      }
+      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('update success')
+        }
+      })
+      this.$router.push({path: '/programming'})
+    },
+    programming2 () {
+      this.mdShow3 = false
       axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -77,6 +114,11 @@ export default {
       this.$router.push({path: '/programming'})
     },
     ta () {
+      this.mdShow3 = false
+      if (!this.feedbackValue) {
+        this.mdShow2 = true
+        return
+      }
       axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
