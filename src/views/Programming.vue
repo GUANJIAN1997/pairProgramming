@@ -242,7 +242,7 @@ export default {
     },
     goToTeach () {
       this.mdShow5 = false
-      this.$router.push({path: '/childTeaching'})
+      this.$router.push({path: '/childTeaching', query: {child_learning_Name: this.child_learning_Name}})
     },
     check () {
       this.mdShow6 = false

@@ -7,9 +7,9 @@
 
       <img class="img-discussion" :src="'static/' + imgAddr">
     </div>
-    <div class="btn-container">
-      <button type="button" @click.stop="discussionEnd" class="button1"><ruby>終<rt>お</rt></ruby>わり</button>
-      <button type="button" @click.stop="writingBoardShow = true" class="button1"><ruby>筆記<rt>ひっき</rt></ruby>ボード</button>
+    <div class="discussion-end-btn-container">
+      <button type="button" @click.stop="discussionEnd" class="discussion-end-btn"><ruby>終<rt>お</rt></ruby>わり</button>
+<!--      <button type="button" @click.stop="writingBoardShow = true" class="button1"><ruby>筆記<rt>ひっき</rt></ruby>ボード</button>-->
     </div>
 
     <hand-writing-board v-show="writingBoardShow" @showWritingBoard="writingBoardShow = false"></hand-writing-board>
@@ -76,5 +76,10 @@ export default {
 </script>
 
 <style  scoped>
-
+.discussion-end-btn-container {
+  text-align: center;
+}
+.discussion-end-btn {
+  font-size: 2rem;
+}
 </style>
