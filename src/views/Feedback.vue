@@ -4,15 +4,13 @@
         <div class="discussion-title">
           <ruby>相談<rt>そうだん</rt></ruby>してどうでしたか？
         </div>
-        <div style="text-align: center; margin-top: 10rem">
+        <div style="margin-top: 10rem; margin-left: 27rem; font-size: 3rem; text-align: left">
 <!--          <input style="width: 70%" type="range" id="range1" min="-2" max="2" step="1" v-model="feedbackValue"/>-->
-          <div style="width: 85%; margin: auto; display: flex; justify-content: space-between; font-size: 1.5rem">
-            <div ><input type="radio" value="1" v-model="feedbackValue"><ruby>全然分<rt>ぜんぜんわ</rt></ruby>からなかった</div>
-            <div><input type="radio" value="2" v-model="feedbackValue">あまり<ruby>分<rt>わ</rt></ruby>からなかった</div>
-            <div><input type="radio" value="3" v-model="feedbackValue">どちらとも<ruby>言<rt>い</rt></ruby>えない</div>
-            <div><input type="radio" value="4" v-model="feedbackValue">ある<ruby>程度分<rt>ていどわ</rt></ruby>かった</div>
-            <div><input type="radio" value="5" v-model="feedbackValue">とてもよく<ruby>分<rt>わ</rt></ruby>かった</div>
-          </div>
+            <div><input style="transform: scale(2,2);" type="radio" value="1" v-model="feedbackValue">&nbsp<ruby>全然分<rt>ぜんぜんわ</rt></ruby>からなかった</div>
+            <div><input style="transform: scale(2,2);" type="radio" value="2" v-model="feedbackValue">&nbspあまり<ruby>分<rt>わ</rt></ruby>からなかった</div>
+            <div><input style="transform: scale(2,2);" type="radio" value="3" v-model="feedbackValue">&nbspどちらとも<ruby>言<rt>い</rt></ruby>えない</div>
+            <div><input style="transform: scale(2,2);" type="radio" value="4" v-model="feedbackValue">&nbspある<ruby>程度分<rt>ていどわ</rt></ruby>かった</div>
+            <div><input style="transform: scale(2,2);" type="radio" value="5" v-model="feedbackValue">&nbspとてもよく<ruby>分<rt>わ</rt></ruby>かった</div>
         </div>
       </div>
       <div class="btn-container">

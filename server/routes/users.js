@@ -239,6 +239,9 @@ router.post('/deleteDiscussionList', function (req, res, next) {
 
 router.post('/discussionChildListConfirm', function (req, res, next) {
   var discussionChildList = req.body.discussionChildList
+
+  var seatNum = req.cookies.seatNum
+
   console.log(discussionChildList)
   if (discussionChildList.length === 1) {
     if (discussionList.indexOf(discussionChildList[0].seatNum) > -1) {
@@ -345,7 +348,7 @@ const checkList = []
 
 router.post('/updateCheckList', function (req, res, next) {
   const seatNum_teaching = req.body.seatNum_teaching, seatNum_learning = req.body.seatNum_learning
-  if (checkList.indexOf(seatNum_learning) == -1) {
+  if (checkList.indexOf(seatNum_learning) === -1 && discussionList.indexOf(seatNum_learning) === -1) {
     checkList.push(seatNum_teaching, seatNum_learning)
     res.json({
       status: '0',

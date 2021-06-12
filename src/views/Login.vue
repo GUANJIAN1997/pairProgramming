@@ -72,7 +72,7 @@ export default {
         axios.post('/users', params).then((response) => {
           let res = response.data
           if (res.status === '0') {
-            alert('登録成功')
+            // alert('登録成功')
             this.$router.push({
               path: '/programming'
             })

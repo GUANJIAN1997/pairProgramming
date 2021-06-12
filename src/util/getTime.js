@@ -6,6 +6,6 @@ export function getTime () {
   // str += time.getDate() + '日';
   str += time.getHours() + '时';
   str += time.getMinutes() + '分';
-  // str += time.getSeconds() + '秒';
+  str += time.getSeconds() + '秒';
   return str;
 }

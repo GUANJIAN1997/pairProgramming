@@ -16,20 +16,25 @@
 <script>
 import {prevent} from '../util/preventBrowserBack'
 import axios from 'axios'
+import {getTime} from '../util/getTime'
 
 export default {
   name: 'Teaching',
   data () {
     return {
       stepsNum: '',
-      feedback: ''
+      feedback: '',
+      startTime: '',
+      endTime: ''
     }
   },
   mounted () {
     prevent()
+    this.startTime = getTime()
   },
   methods: {
     finishTeaching () {
+      this.endTime = getTime()
       if (this.feedback) {
         axios.post('/users/deleteDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.$route.query.seatNum}).then((response) => {
           let res = response.data
@@ -37,7 +42,7 @@ export default {
             console.log('deleted')
           }
         })
-        axios.post('/users/updateDiscussionInfor', {seatNum_teaching: 'TA', stepsNum: this.stepsNum, feedbackValue: this.feedback, seatNum_learning: this.$route.query.seatNum}).then((response) => {
+        axios.post('/users/updateDiscussionInfor', {seatNum_teaching: 'TA', stepsNum: this.stepsNum, feedbackValue: this.feedback, seatNum_learning: this.$route.query.seatNum, startTime: this.startTime, endTime: this.endTime}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             console.log('updated discussion information(TA)')

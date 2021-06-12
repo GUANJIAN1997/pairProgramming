@@ -1,5 +1,6 @@
 .modal-container {
-  visibility: hidden;
+  /*visibility: hidden;*/
+  display: none;
   border: solid black .2rem;
   width: 45rem;
   height: 20rem;
@@ -17,7 +18,8 @@
   margin: 2.5% 0rem;
 }
 .md-show {
-  visibility: visible;
+  /*visibility: visible;*/
+  display: block;
 }
 .OK-btn {
   /*width: 5rem;*/

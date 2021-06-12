@@ -16,7 +16,7 @@
 
       <div class="btn-container">
         <button type="button" @click.stop="Return" class="button1"><ruby>前<rt>まえ</rt></ruby>のステップ</button>
-        <button type="button" @click.stop="Discussion" class="button2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
+        <button type="button" @click.stop="mdShow8 = true" class="button2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
         <button type="button" @click.stop="Next" class="button3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
       </div>
 
@@ -36,6 +36,7 @@
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow5}">
+        <object height="0" width="0" data="static/discussion.mp3"></object>
         <div class="md-infor"><ruby>君<rt>きみ</rt></ruby>の<ruby>助<rt>たす</rt></ruby>けがほしいともだち：</div>
         <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
         <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
@@ -51,11 +52,19 @@
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow7}">
+        <object height="0" width="0" data="static/check.mp3"></object>
         <div class="md-infor">チェックしてほしいともだち：</div>
         <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
         <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
         <div class="btn-container">
           <button class="OK-btn" @click="goToCheck">OK</button>
+        </div>
+      </div>
+      <div class="modal-container" :class="{'md-show': mdShow8}">
+        <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>してほしいですか？</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="Discussion">はい</button>
+          <button class="OK-btn" @click="mdShow8 = false">いいえ</button>
         </div>
       </div>
     </div>
@@ -88,6 +97,7 @@ export default {
       mdShow5: false,
       mdShow6: false,
       mdShow7: false,
+      mdShow8: false,
       imgAddr: '',
       InitSetInterval: '',
       discussionPartner: {},
@@ -192,6 +202,7 @@ export default {
       }
     },
     Discussion () {
+      this.mdShow8 = false
       var discussionChildList = this.progressList.filter((item) => {
         return item.progress >= this.progress
       })
