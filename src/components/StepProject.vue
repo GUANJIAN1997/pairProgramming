@@ -4,8 +4,13 @@
       <div class="title">
         <slot name="steps"></slot>
       </div>
+        <div><img class="img" :src="'static/' + imgAddr"></div>
 
-        <img class="img" :src="'static/' + imgAddr">
+        <div style="text-align: center">
+          <video ref="video" width="50%" controls autoplay>
+<!--          <source  type="video/mp4">-->
+          </video>
+        </div>
     </div>
   </div>
 
@@ -24,7 +29,8 @@ export default {
   },
   data () {
     return {
-      imgAddr: ''
+      imgAddr: '',
+      url: ''
     }
   },
   mounted () {
@@ -37,8 +43,11 @@ export default {
         axios.get('/users/stepProject', {params: param}).then((result) => {
           let res = result.data
           if (res.status === '0') {
-            this.imgAddr = res.result
-            this.$emit('getImgAddr', this.imgAddr)
+            this.imgAddr = res.result[0]
+            this.url = res.result[1]
+            this.$refs.video.src = this.url
+            console.log(this)
+            this.$emit('getImgAddr', this.imgAddr, this.url)
           } else {
             console.log(res.msg)
           }

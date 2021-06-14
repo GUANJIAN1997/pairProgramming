@@ -6,13 +6,18 @@
       </div>
 
       <img class="img-discussion" :src="'static/' + imgAddr">
+      <div style="text-align: center">
+        <video ref="video" width="45%" controls autoplay>
+          <!--          <source  type="video/mp4">-->
+        </video>
+      </div>
     </div>
     <div class="discussion-end-btn-container">
       <button type="button" @click.stop="discussionEnd" class="discussion-end-btn"><ruby>終<rt>お</rt></ruby>わり</button>
 <!--      <button type="button" @click.stop="writingBoardShow = true" class="button1"><ruby>筆記<rt>ひっき</rt></ruby>ボード</button>-->
     </div>
 
-    <hand-writing-board v-show="writingBoardShow" @showWritingBoard="writingBoardShow = false"></hand-writing-board>
+<!--    <hand-writing-board v-show="writingBoardShow" @showWritingBoard="writingBoardShow = false"></hand-writing-board>-->
   </div>
 
 </template>
@@ -53,6 +58,7 @@ export default {
       this.stepsNum = this.$route.query.stepsNum
       this.seatNum_teaching = this.$route.query.seatNum_teaching
       this.seatNum_learning = this.$route.query.seatNum_learning
+      this.$refs.video.src = this.$route.query.url
       this.startTime = getTime()
     },
     discussionEnd () {
@@ -61,12 +67,6 @@ export default {
         let res = response.data
         if (res.status === '0') {
           console.log('deleted')
-        }
-      })
-      axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
-        let res = response.data
-        if (res.status === '0') {
-          console.log('update success')
         }
       })
       this.$router.push({path: '/feedback', query: {stepsNum: this.stepsNum, seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning, userName: this.userName, startTime: this.startTime, endTime: this.endTime}})

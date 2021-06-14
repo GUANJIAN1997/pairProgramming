@@ -7,13 +7,13 @@
 }
 .img {
   width: 100%;
-  margin: 5% 0%;
+  margin: 3% 0%;
 }
 .title {
-  height: 8rem;
+  height: 5rem;
   background: #ccc;
   text-align: center;
-  line-height: 8rem;
+  line-height: 5rem;
 }
 .infor {
   font-size: 2rem;

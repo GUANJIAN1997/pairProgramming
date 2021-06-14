@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="progress-container">
-      <div class="progress-title">できたステップ</div>
+      <div class="progress-title">ともだちの<ruby>進度<rt>しんど</rt></ruby></div>
       <div>
         <table class="table-style">
           <tr>

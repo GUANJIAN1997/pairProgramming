@@ -6,7 +6,14 @@
     </div>
     <div class="checkContainer">
       <div class="checkContent">{{checkContent}}</div>
+
       <div class="checkContent"> チェックパスワード: {{checkPwd}}</div>
+
+      <div style="text-align: center">
+        <video ref="video" width="40%" controls autoplay>
+          <!--          <source  type="video/mp4">-->
+        </video>
+      </div>
 
     </div>
     <div class="btn-container">
@@ -32,13 +39,16 @@ export default {
   name: 'Check.vue',
   data () {
     return {
+      seatNum: '',
       checkPartnerName: '',
       checkPartnerSeatNum: '',
       checkContent: '',
       checkPwd: '',
+      stepsNum: '',
       progress: '',
       mdShow: false,
-      time: ''
+      time: '',
+      url: ''
     }
   },
   created () {
@@ -48,6 +58,7 @@ export default {
   mounted () {
     this.test()
     this.InitSetInterval = setInterval(this.test, 1000)
+    this.$refs.video.src = this.url
   },
   destroyed () {
     clearInterval(this.InitSetInterval)
@@ -60,6 +71,7 @@ export default {
       this.stepsNum = this.$route.query.stepsNum
       this.seatNum = this.$route.query.seatNum
       this.progress = this.$route.query.progress
+      this.url = this.$route.query.url
     },
     test () {
       axios.post('/users/checkPwdListConfirm', {checkPwd: this.checkPwd}).then((result) => {

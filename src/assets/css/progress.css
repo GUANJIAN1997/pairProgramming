@@ -7,13 +7,13 @@
   width: 100%;
   font-size: 2rem;
   background: #ccc;
-  height: 8rem;
-  line-height: 8rem;
+  height: 5rem;
+  line-height: 6rem;
   text-align: center;
   overflow: hidden;
 }
 .table-style {
   font-size: 2rem;
-  margin: 2rem auto auto;
+  margin: 3% auto auto;
 }
 

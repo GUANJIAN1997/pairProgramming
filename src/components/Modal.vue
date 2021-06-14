@@ -13,11 +13,11 @@
 import '../assets/css/modal.css'
 export default {
   name: 'modal',
-  props: ['discussionPartner', 'mdShow', 'imgAddr', 'userName', 'stepsNum', 'seatNum'],
+  props: ['discussionPartner', 'mdShow', 'imgAddr', 'url', 'userName', 'stepsNum', 'seatNum'],
   methods: {
     discussionScreen () {
       this.$emit('close')
-      this.$router.push({path: '/discussion', query: {imgAddr: this.imgAddr, discussionPartner: this.discussionPartner.userName, userName: this.userName, stepsNum: this.stepsNum, seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}})
+      this.$router.push({path: '/discussion', query: {imgAddr: this.imgAddr, url: this.url, discussionPartner: this.discussionPartner.userName, userName: this.userName, stepsNum: this.stepsNum, seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}})
     }
   }
 }

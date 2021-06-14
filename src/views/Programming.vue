@@ -15,12 +15,12 @@
       </div>
 
       <div class="btn-container">
-        <button type="button" @click.stop="Return" class="button1"><ruby>前<rt>まえ</rt></ruby>のステップ</button>
-        <button type="button" @click.stop="mdShow8 = true" class="button2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
-        <button type="button" @click.stop="Next" class="button3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
+        <button type="button" @click.stop="Return" class="button1" ref="btn1"><ruby>前<rt>まえ</rt></ruby>のステップ</button>
+        <button type="button" @click.stop="beforeDiscussion" class="button2" ref="btn2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
+        <button type="button" @click.stop="Next" class="button3" ref="btn3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
       </div>
 
-      <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :userName="userName" :stepsNum="stepsNum" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
+      <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :url= "url" :userName="userName" :stepsNum="stepsNum" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
 
       <div class="modal-container" :class="{'md-show': mdShow3}">
         <div class="md-infor"><ruby>前<rt>まえ</rt></ruby>のステップはありません！</div>
@@ -36,7 +36,8 @@
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow5}">
-        <object height="0" width="0" data="static/discussion.mp3"></object>
+        <audio ref="discussionAudio" autoplay>
+        </audio>
         <div class="md-infor"><ruby>君<rt>きみ</rt></ruby>の<ruby>助<rt>たす</rt></ruby>けがほしいともだち：</div>
         <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
         <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
@@ -48,11 +49,12 @@
         <div class="md-infor">チェックしてほしいですか？</div>
         <div class="btn-container">
           <button class="OK-btn" @click="check">はい</button>
-          <button class="OK-btn" @click="mdShow6 = false">いいえ</button>
+          <button class="OK-btn" @click="noCheck">いいえ</button>
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow7}">
-        <object height="0" width="0" data="static/check.mp3"></object>
+        <audio autoplay ref="checkAudio">
+        </audio>
         <div class="md-infor">チェックしてほしいともだち：</div>
         <div class="md-infor"><ruby>席番号<rt>せきばんごう</rt></ruby>: {{child_learning_seatNum}}</div>
         <div class="md-infor"><ruby>名前<rt>なまえ</rt></ruby>: {{child_learning_Name}}</div>
@@ -64,7 +66,7 @@
         <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>してほしいですか？</div>
         <div class="btn-container">
           <button class="OK-btn" @click="Discussion">はい</button>
-          <button class="OK-btn" @click="mdShow8 = false">いいえ</button>
+          <button class="OK-btn" @click="noDiscussion">いいえ</button>
         </div>
       </div>
     </div>
@@ -99,6 +101,7 @@ export default {
       mdShow7: false,
       mdShow8: false,
       imgAddr: '',
+      url: '',
       InitSetInterval: '',
       discussionPartner: {},
       checkPartner: {},
@@ -106,7 +109,9 @@ export default {
       child_learning_seatNum: '',
       child_learning_Name: '',
       child_learning_Progress: '',
-      checkPwd: ''
+      checkPwd: '',
+      discussionAudioBoolean: true,
+      checkAudioBoolean: true
     }
   },
   created () {
@@ -134,6 +139,13 @@ export default {
             if (discussionList[i] === this.seatNum) {
               this.child_learning_seatNum = discussionList[i + 1]
               this.mdShow5 = true
+              this.$refs.btn1.style.visibility = 'hidden'
+              this.$refs.btn2.style.visibility = 'hidden'
+              this.$refs.btn3.style.visibility = 'hidden'
+              if (this.discussionAudioBoolean) {
+                this.$refs.discussionAudio.src = 'static/discussion.mp3'
+                this.discussionAudioBoolean = false
+              }
               break
             }
           }
@@ -142,6 +154,13 @@ export default {
             if (checkList[i] === this.seatNum) {
               this.child_learning_seatNum = checkList[i + 1]
               this.mdShow7 = true
+              this.$refs.btn1.style.visibility = 'hidden'
+              this.$refs.btn2.style.visibility = 'hidden'
+              this.$refs.btn3.style.visibility = 'hidden'
+              if (this.checkAudioBoolean) {
+                this.$refs.discussionAudio.src = 'static/check.mp3'
+                this.checkAudioBoolean = false
+              }
               break
             }
           }
@@ -191,6 +210,9 @@ export default {
         this.stepsNum += 1
       } else {
         this.mdShow6 = true
+        this.$refs.btn1.style.visibility = 'hidden'
+        this.$refs.btn2.style.visibility = 'hidden'
+        this.$refs.btn3.style.visibility = 'hidden'
       }
     },
     Return () {
@@ -200,6 +222,18 @@ export default {
       } else {
         this.stepsNum -= 1
       }
+    },
+    beforeDiscussion () {
+      this.mdShow8 = true
+      this.$refs.btn1.style.visibility = 'hidden'
+      this.$refs.btn2.style.visibility = 'hidden'
+      this.$refs.btn3.style.visibility = 'hidden'
+    },
+    noDiscussion () {
+      this.mdShow8 = false
+      this.$refs.btn1.style.visibility = 'visible'
+      this.$refs.btn2.style.visibility = 'visible'
+      this.$refs.btn3.style.visibility = 'visible'
     },
     Discussion () {
       this.mdShow8 = false
@@ -229,8 +263,9 @@ export default {
         })
       }
     },
-    getImgAddr (imgAddr) {
+    getImgAddr (imgAddr,url) {
       this.imgAddr = imgAddr
+      this.url = url
     },
     ta () {
       this.mdShow4 = false
@@ -255,6 +290,12 @@ export default {
       this.mdShow5 = false
       this.$router.push({path: '/childTeaching', query: {child_learning_Name: this.child_learning_Name}})
     },
+    noCheck () {
+      this.mdShow6 = false
+      this.$refs.btn1.style.visibility = 'visible'
+      this.$refs.btn2.style.visibility = 'visible'
+      this.$refs.btn3.style.visibility = 'visible'
+    },
     check () {
       this.mdShow6 = false
       var checkChildList = this.progressList
@@ -267,7 +308,7 @@ export default {
             let res = response.data
             if (res.status === '0') {
               console.log('checkList updated')
-              this.$router.push({path: '/check', query: {checkPwd: this.checkPwd, checkPartnerSeatNum: this.checkPartner.seatNum, checkPartnerName: this.checkPartner.userName, seatNum: this.seatNum, stepsNum: this.stepsNum, progress: this.stepsNum}})
+              this.$router.push({path: '/check', query: {checkPwd: this.checkPwd, checkPartnerSeatNum: this.checkPartner.seatNum, checkPartnerName: this.checkPartner.userName, seatNum: this.seatNum, stepsNum: this.stepsNum, progress: this.stepsNum, url: this.url}})
             } else {
               console.log('discussionList updated failed (you are in discussionList now)')
               alert('ただいま，君は相談中です')

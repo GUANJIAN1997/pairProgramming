@@ -102,7 +102,7 @@ router.get('/stepProject',function (req,res,next) {
       res.json({
         status: '0',
         msg: '',
-        result: doc.imgAddr
+        result: [doc.imgAddr,doc.url]
       })
     }
   })

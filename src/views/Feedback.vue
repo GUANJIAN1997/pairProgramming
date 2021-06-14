@@ -93,6 +93,12 @@ export default {
         this.mdShow3 = true
         return
       }
+      axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('update success')
+        }
+      })
       axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -103,6 +109,12 @@ export default {
     },
     programming2 () {
       this.mdShow3 = false
+      axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('update success')
+        }
+      })
       axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -117,6 +129,12 @@ export default {
         this.mdShow2 = true
         return
       }
+      axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          console.log('update success')
+        }
+      })
       axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
