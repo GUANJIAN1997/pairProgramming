@@ -39,7 +39,8 @@ router.post('/', function (req, res, next) {
       })
     } else {
       if (doc.n) {
-        res.cookie('userName', userName, {
+        let userNamedecode = new Buffer(userName).toString('base64')
+        res.cookie('userName', userNamedecode, {
           path: '/',
           maxAge: 24*60*60*1000
         });
@@ -241,8 +242,9 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
   var discussionChildList = req.body.discussionChildList
 
   var seatNum = req.cookies.seatNum
+  // console.log(seatNum)
 
-  console.log(discussionChildList)
+  // console.log(discussionChildList)
   if (discussionChildList.length === 1) {
     if (discussionList.indexOf(discussionChildList[0].seatNum) > -1) {
       res.json({
@@ -261,20 +263,83 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
     var sorted = discussionChildList.sort(function (a, b) {
       return a.discussionTimes - b.discussionTimes
     })
-    for (let item of sorted) {
-      if (discussionList.indexOf(item.seatNum) === -1) {
-        return res.json({
-          status: '0',
-          msg: '',
-          result: item
-        })
+    let discussionInfor = []
+    let discussedSeatNum = []
+    User.findOne({seatNum: seatNum}, function (err,doc) {
+      if (err) {
+        console.log('not found')
+      } else {
+        discussionInfor = doc.discussionDetails
+        for (let item of discussionInfor) {
+          if (item.seatNum_teaching !== 'TA') {
+            discussedSeatNum.push(item.seatNum_teaching)
+          }
+        }
+        for (let i of discussionList) {
+          sorted.splice(sorted.findIndex(item => item.seatNum === i), 1)
+        }
+        console.log('~~~~~~~~~~')
+        console.log(checkList)
+        for (let i of checkList) {
+          sorted.splice(sorted.findIndex(item => item.seatNum === i), 1)
+        }
+        console.log(sorted)
+        if (sorted.length === 0) {
+          return res.json({
+            status: '1',
+            msg: '',
+            result: ''
+          })
+        }
+        for (let item of sorted) {
+          if (discussionList.indexOf(item.seatNum) === -1 && discussedSeatNum.indexOf(item.seatNum) === -1) {
+            console.log(discussedSeatNum)
+            return res.json({
+              status: '0',
+              msg: '',
+              result: item
+            })
+          }
+        }
+
+        var counted = discussedSeatNum.reduce(function (allSeatNum, seatNum) { if (seatNum in allSeatNum) { allSeatNum[seatNum]++; } else { allSeatNum[seatNum] = 1; } return allSeatNum; }, {});
+        var sumDic = {}
+        for (let i in counted) {
+          let sum = 0
+          for (let j of discussionInfor) {
+            if (i === j.seatNum_teaching) {
+              sum += Number(j.feedbackValue)
+            }
+          }
+          sumDic[i] = sum
+        }
+        var averageDic = {}
+        for (let i in counted) {
+          averageDic[i] = Number(sumDic[i]/counted[i])
+        }
+        let averageDicSorted = Object.keys(averageDic).sort(function(a,b){return averageDic[b]-averageDic[a]})
+        console.log('----------------------')
+        console.log(averageDic)
+        console.log('----------------------')
+        console.log(averageDicSorted)
+        for (let item of averageDicSorted) {
+          for(let i of sorted) {
+            if (item === i.seatNum) {
+              return res.json({
+                status: '0',
+                msg: '',
+                result: i
+              })
+            }
+          }
+        }
+        console.log('not found')
       }
-    }
-    res.json({
-      status: '1',
-      msg: '',
-      result: ''
     })
+
+
+
+
   }
 
 })
@@ -437,8 +502,8 @@ router.post('/updateDiscussionInfor', function (req,res,next) {
 })
 
 router.post('/updateCheckInfor', function (req,res,next) {
-  var checkPartnerSeatNum = req.body.checkPartnerSeatNum, stepsNum = req.body.stepsNum, result = req.body.result, seatNum = req.body.seatNum, time = req.body.time
-  User.updateOne({seatNum: seatNum}, {$push:{checkDetails:[{checkPartnerSeatNum:checkPartnerSeatNum, stepsNum: stepsNum, result: result, time: time}]}}, function (err, doc) {
+  var checkPartnerSeatNum = req.body.checkPartnerSeatNum, stepsNum = req.body.stepsNum, result = req.body.result, seatNum = req.body.seatNum, startTime = req.body.startTime, endTime = req.body.endTime
+  User.updateOne({seatNum: seatNum}, {$push:{checkDetails:[{checkPartnerSeatNum:checkPartnerSeatNum, stepsNum: stepsNum, result: result, startTime: startTime, endTime: endTime}]}}, function (err, doc) {
     if (!err && doc.n) {
       res.json({
         status: '0',
@@ -598,36 +663,34 @@ router.post('/submitCheckPwd', function (req, res, next) {
   const index = checkPwdList.indexOf(checkPwd)
   if (index > -1) {
     checkPwdList.splice(index, 1)
-    if (progress > 3) {
-      res.json({
-        status: '1',
-        msg: '',
-        result: ''
-      })
-    } else {
-      User.updateOne({seatNum: child_learning_seatNum},{progress: progress}, function (err, doc) {
-        if (err) {
-          res.json({
-            status: '10',
-            msg: res.message,
-            result: ''
-          })
-        } else if (!doc.n) {
-          res.json({
-            status: '10',
-            msg: 'not found',
-            result: ''
-          })
-        } else {
-          res.json({
-            status: '0',
-            msg: '',
-            result: ''
-          })
-        }
-      })
-    }
-
+    // if (progress > 12) {
+    //   res.json({
+    //     status: '1',
+    //     msg: '',
+    //     result: ''
+    //   })
+    // } else {
+    User.updateOne({seatNum: child_learning_seatNum},{progress: progress}, function (err, doc) {
+      if (err) {
+        res.json({
+          status: '10',
+          msg: res.message,
+          result: ''
+        })
+      } else if (!doc.n) {
+        res.json({
+          status: '10',
+          msg: 'not found',
+          result: ''
+        })
+      } else {
+        res.json({
+          status: '0',
+          msg: '',
+          result: ''
+        })
+      }
+    })
   } else {
     res.json({
       status: '2',

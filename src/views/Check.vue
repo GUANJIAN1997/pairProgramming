@@ -22,7 +22,7 @@
 
     </div>
     <div class="modal-container" :class="{'md-show': mdShow}">
-      <div class="md-infor">これが<ruby>最後<rt>さいご</rt></ruby>のステップです<br>アンケートにいきましょう</div>
+      <div class="md-infor"><ruby>完成<rt>かんせい</rt></ruby>できました<br><ruby>課<rt>か</rt></ruby><ruby>題<rt>だい</rt></ruby><ruby>画<rt>が</rt></ruby><ruby>面<rt>めん</rt></ruby>にもどって、ほかの<ruby>友達<rt>ともだち</rt></ruby>を<ruby>助<rt>たす</rt></ruby>けましょう</div>
       <div class="btn-container">
         <button class="OK-btn" @click="end">はい</button>
       </div>
@@ -47,7 +47,8 @@ export default {
       stepsNum: '',
       progress: '',
       mdShow: false,
-      time: '',
+      startTime: '',
+      endTime: '',
       url: ''
     }
   },
@@ -59,6 +60,7 @@ export default {
     this.test()
     this.InitSetInterval = setInterval(this.test, 1000)
     this.$refs.video.src = this.url
+    this.startTime = getTime()
   },
   destroyed () {
     clearInterval(this.InitSetInterval)
@@ -77,9 +79,9 @@ export default {
       axios.post('/users/checkPwdListConfirm', {checkPwd: this.checkPwd}).then((result) => {
         let res = result.data
         if (res.status === '0') {
-          if (this.progress < 3) {
-            this.time = getTime()
-            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum, time: this.time}).then((response) => {
+          if (this.progress < 12) {
+            this.endTime = getTime()
+            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum, startTime: this.startTime, endTime: this.endTime}).then((response) => {
               let res = response.data
               if (res.status === '0') {
                 console.log('updateCheckInfor ok')
@@ -91,8 +93,8 @@ export default {
             axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
             this.$router.push({path: '/programming'})
           } else {
-            this.time = getTime()
-            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum, time: this.time}).then((response) => {
+            this.endTime = getTime()
+            axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum, startTime: this.startTime, endTime: this.endTime}).then((response) => {
               let res = response.data
               if (res.status === '0') {
                 console.log('updateCheckInfor ok')
@@ -130,8 +132,8 @@ export default {
             }
           })
           console.log('kakinaoshi successfully')
-          this.time = getTime()
-          axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'failed', checkPartnerSeatNum: this.checkPartnerSeatNum, time: this.time}).then((response) => {
+          this.endTime = getTime()
+          axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'failed', checkPartnerSeatNum: this.checkPartnerSeatNum, startTime: this.startTime, endTime: this.endTime}).then((response) => {
             let res = response.data
             if (res.status === '0') {
               console.log('updateCheckInfor ok')
@@ -146,7 +148,7 @@ export default {
       })
     },
     end () {
-      this.$router.push({path: '/questionnaire'})
+      this.$router.push({path: '/programming'})
     }
   }
 }

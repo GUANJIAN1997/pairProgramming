@@ -1,12 +1,14 @@
 .steps-container {
   width: 70%;
+  text-align: center;
   /*background: #42b983;*/
   float: left;
   /*height: 55rem;*/
   /*overflow: hidden;*/
 }
 .img {
-  width: 100%;
+  width: 73%;
+  /*height: 2%;*/
   margin: 3% 0%;
 }
 .title {

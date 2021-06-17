@@ -7,7 +7,7 @@
 
       <img class="img-discussion" :src="'static/' + imgAddr">
       <div style="text-align: center">
-        <video ref="video" width="45%" controls autoplay>
+        <video ref="video" width="35%" controls autoplay>
           <!--          <source  type="video/mp4">-->
         </video>
       </div>

@@ -31,7 +31,11 @@
       <div class="modal-container" :class="{'md-show': mdShow4}">
         <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>できる<ruby>友達<rt>ともだち</rt></ruby>がいません！</div>
         <div class="btn-container">
-          <button class="OK-btn" @click="mdShow4 = false"><ruby>待<rt>ま</rt></ruby>ちます</button>
+          <button class="OK-btn" @click="function (){
+            mdShow4 = false
+            $refs.btn1.style.visibility = 'visible'
+            $refs.btn2.style.visibility = 'visible'
+            $refs.btn3.style.visibility = 'visible'}"><ruby>待<rt>ま</rt></ruby>ちます</button>
           <button class="OK-btn" @click="ta">サポーターに<ruby>聞<rt>き</rt></ruby>く</button>
         </div>
       </div>
@@ -69,6 +73,16 @@
           <button class="OK-btn" @click="noDiscussion">いいえ</button>
         </div>
       </div>
+      <div class="modal-container" :class="{'md-show': mdShow9}">
+        <div class="md-infor">チェックできる<ruby>友達<rt>ともだち</rt></ruby>がいません！</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="function (){
+            mdShow9 = false
+            $refs.btn1.style.visibility = 'visible'
+            $refs.btn2.style.visibility = 'visible'
+            $refs.btn3.style.visibility = 'visible'}"><ruby>待<rt>ま</rt></ruby>ちます</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -100,6 +114,7 @@ export default {
       mdShow6: false,
       mdShow7: false,
       mdShow8: false,
+      mdShow9: false,
       imgAddr: '',
       url: '',
       InitSetInterval: '',
@@ -182,7 +197,7 @@ export default {
       if (!res1 || !res2) {
         console.log('not found')
       } else {
-        this.userName = res1[1]
+        this.userName = decodeURIComponent(escape(window.atob(res1[1])))
         this.seatNum = res2[1]
       }
       // document.cookie.split(';').map((item) => {
@@ -198,9 +213,14 @@ export default {
       } else {
         axios.post('/users/stepProject/getProgress', {seatNum: this.seatNum}).then((response) => {
           var res = response.data
-          if (res.status === '0') {
+          if (res.status === '0' && res.result <= 12) {
             this.stepsNum = res.result
             this.progress = res.result
+          } else {
+            this.stepsNum = 12
+            this.$refs.btn1.style.visibility = 'hidden'
+            this.$refs.btn2.style.visibility = 'hidden'
+            this.$refs.btn3.style.visibility = 'hidden'
           }
         })
       }
@@ -243,7 +263,7 @@ export default {
       if (discussionChildList.length === 0) {
         this.mdShow4 = true
       } else {
-        axios.post('/users/discussionChildListConfirm', {discussionChildList: discussionChildList}).then((response) => {
+        axios.post('/users/discussionChildListConfirm', {discussionChildList: discussionChildList, seatNum: this.seatNum}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             this.discussionPartner = res.result
@@ -255,6 +275,9 @@ export default {
               } else {
                 console.log('discussionList updated failed (you are in discussionList now)')
                 alert('ただいま，君は相談中です')
+                this.$refs.btn1.style.visibility = 'visible'
+                this.$refs.btn2.style.visibility = 'visible'
+                this.$refs.btn3.style.visibility = 'visible'
               }
             })
           } else {
@@ -269,6 +292,9 @@ export default {
     },
     ta () {
       this.mdShow4 = false
+      this.$refs.btn1.style.visibility = 'visible'
+      this.$refs.btn2.style.visibility = 'visible'
+      this.$refs.btn3.style.visibility = 'visible'
       axios.post('/users/callTA', {userName: this.userName, seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -312,6 +338,9 @@ export default {
             } else {
               console.log('discussionList updated failed (you are in discussionList now)')
               alert('ただいま，君は相談中です')
+              this.$refs.btn1.style.visibility = 'visible'
+              this.$refs.btn2.style.visibility = 'visible'
+              this.$refs.btn3.style.visibility = 'visible'
             }
           })
         } else {

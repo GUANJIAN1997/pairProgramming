@@ -4,7 +4,7 @@
         <div class="discussion-title">
           <ruby>相談<rt>そうだん</rt></ruby>してどうでしたか？
         </div>
-        <div style="margin-top: 10rem; margin-left: 27rem; font-size: 3rem; text-align: left">
+        <div style="margin-top: 10rem; margin-left: 27rem; margin-bottom: 10rem;font-size: 3rem; text-align: left">
 <!--          <input style="width: 70%" type="range" id="range1" min="-2" max="2" step="1" v-model="feedbackValue"/>-->
             <div><input style="transform: scale(2,2);" type="radio" value="1" v-model="feedbackValue">&nbsp<ruby>全然分<rt>ぜんぜんわ</rt></ruby>からなかった</div>
             <div><input style="transform: scale(2,2);" type="radio" value="2" v-model="feedbackValue">&nbspあまり<ruby>分<rt>わ</rt></ruby>からなかった</div>
