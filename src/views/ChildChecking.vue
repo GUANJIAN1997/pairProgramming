@@ -11,12 +11,16 @@
 
 <script>
 import axios from 'axios'
+import {prevent} from '../util/preventBrowserBack'
 export default {
   name: 'ChildChecking',
   data () {
     return {
       checkPwd: ''
     }
+  },
+  mounted () {
+    prevent()
   },
   methods: {
     OK () {

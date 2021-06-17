@@ -18,7 +18,7 @@
     </div>
     <div class="btn-container">
 
-      <button type="button" @click.stop="kakinaoshi" class="button_kakinaoshi"><ruby>書<rt>か</rt></ruby>き<ruby>直<rt>なお</rt></ruby>し</button>
+      <button type="button" ref="kakibtn" @click.stop="kakinaoshi" class="button_kakinaoshi"><ruby>書<rt>か</rt></ruby>き<ruby>直<rt>なお</rt></ruby>し</button>
 
     </div>
     <div class="modal-container" :class="{'md-show': mdShow}">
@@ -35,6 +35,7 @@
 import '../assets/css/check.css'
 import axios from 'axios'
 import {getTime} from '../util/getTime'
+import {prevent} from '../util/preventBrowserBack'
 export default {
   name: 'Check.vue',
   data () {
@@ -61,6 +62,7 @@ export default {
     this.InitSetInterval = setInterval(this.test, 1000)
     this.$refs.video.src = this.url
     this.startTime = getTime()
+    prevent()
   },
   destroyed () {
     clearInterval(this.InitSetInterval)
@@ -105,6 +107,7 @@ export default {
             axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
             clearInterval(this.InitSetInterval)
             this.mdShow = true
+            this.$refs.kakibtn.style.visibility = 'hidden'
           }
         }
       })

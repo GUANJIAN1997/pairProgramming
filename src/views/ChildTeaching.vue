@@ -8,10 +8,12 @@
 </template>
 
 <script>
+import {prevent} from '../util/preventBrowserBack'
 export default {
   name: 'ChildTeaching',
   mounted () {
     this.child_learning_Name = this.$route.query.child_learning_Name
+    prevent()
   },
   data () {
     return {

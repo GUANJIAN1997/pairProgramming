@@ -77,6 +77,11 @@ export default {
           res.result.sort(function (a, b) {
             return b.progress - a.progress
           })
+          for(let item of res.result) {
+            if (item.progress > 12) {
+              item.progress = '完成'
+            }
+          }
           this.progressList = res.result
         }
       })
