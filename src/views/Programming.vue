@@ -67,7 +67,7 @@
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow8}">
-        <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>してほしいですか？</div>
+        <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>したいですか？</div>
         <div class="btn-container">
           <button class="OK-btn" @click="Discussion">はい</button>
           <button class="OK-btn" @click="noDiscussion">いいえ</button>
