@@ -246,13 +246,14 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
 
   // console.log(discussionChildList)
   if (discussionChildList.length === 1) {
-    if (discussionList.indexOf(discussionChildList[0].seatNum) > -1) {
+    if (discussionList.indexOf(discussionChildList[0].seatNum) > -1 || checkList.indexOf(discussionChildList[0].seatNum) > -1) {
       res.json({
         status: '1',
         msg: '',
         result: ''
       })
     } else {
+      console.log('比我进度快的只有一个，他在空闲')
       res.json({
         status: '0',
         msg: '',
@@ -292,8 +293,8 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
           })
         }
         for (let item of sorted) {
-          if (discussionList.indexOf(item.seatNum) === -1 && discussedSeatNum.indexOf(item.seatNum) === -1) {
-            console.log(discussedSeatNum)
+          if (discussedSeatNum.indexOf(item.seatNum) === -1) {
+            console.log('在找我有没有没谈过的朋友')
             return res.json({
               status: '0',
               msg: '',
@@ -301,7 +302,7 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
             })
           }
         }
-
+        console.log('都谈过了，我再找平均理解度最高的')
         var counted = discussedSeatNum.reduce(function (allSeatNum, seatNum) { if (seatNum in allSeatNum) { allSeatNum[seatNum]++; } else { allSeatNum[seatNum] = 1; } return allSeatNum; }, {});
         var sumDic = {}
         for (let i in counted) {
