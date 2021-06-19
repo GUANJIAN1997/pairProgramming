@@ -276,13 +276,19 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
             discussedSeatNum.push(item.seatNum_teaching)
           }
         }
+
         for (let i of discussionList) {
-          sorted.splice(sorted.findIndex(item => item.seatNum === i), 1)
+          if (sorted.findIndex(item => item.seatNum === i) !== -1 ) {
+            sorted.splice(sorted.findIndex(item => item.seatNum === i), 1)
+          }
         }
         console.log('~~~~~~~~~~')
+        console.log(sorted)
         console.log(checkList)
         for (let i of checkList) {
-          sorted.splice(sorted.findIndex(item => item.seatNum === i), 1)
+          if (sorted.findIndex(item => item.seatNum === i) !== -1) {
+            sorted.splice(sorted.findIndex(item => item.seatNum === i), 1)
+          }
         }
         console.log(sorted)
         if (sorted.length === 0) {
