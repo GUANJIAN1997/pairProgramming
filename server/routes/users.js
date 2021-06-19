@@ -266,6 +266,9 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
     })
     let discussionInfor = []
     let discussedSeatNum = []
+    console.log('~~~~~~~~~~删除前的sorted~~~~~~~~~~~')
+    console.log(sorted)
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     User.findOne({seatNum: seatNum}, function (err,doc) {
       if (err) {
         console.log('not found')
@@ -282,15 +285,16 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
             sorted.splice(sorted.findIndex(item => item.seatNum === i), 1)
           }
         }
-        console.log('~~~~~~~~~~')
-        console.log(sorted)
-        console.log(checkList)
+
         for (let i of checkList) {
           if (sorted.findIndex(item => item.seatNum === i) !== -1) {
             sorted.splice(sorted.findIndex(item => item.seatNum === i), 1)
           }
         }
+        console.log('~~~~~~~~~~删除后的sorted~~~~~~~~~~~')
         console.log(sorted)
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+
         if (sorted.length === 0) {
           return res.json({
             status: '1',
@@ -332,6 +336,8 @@ router.post('/discussionChildListConfirm', function (req, res, next) {
         for (let item of averageDicSorted) {
           for(let i of sorted) {
             if (item === i.seatNum) {
+              console.log('最高理解度')
+              console.log(i)
               return res.json({
                 status: '0',
                 msg: '',
