@@ -16,7 +16,7 @@
 
       <div class="btn-container">
         <button type="button" @click.stop="Return" class="button1" ref="btn1"><ruby>前<rt>まえ</rt></ruby>のステップ</button>
-        <button type="button" @click.stop="beforeDiscussion" class="button2" ref="btn2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
+        <button type="button" @click.stop="beforeDiscussion" class="button2" ref="btn2">できた<ruby>友達<rt>ともだち</rt></ruby>に<ruby>聞<rt>き</rt></ruby>く</button>
         <button type="button" @click.stop="Next" class="button3" ref="btn3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
       </div>
 
@@ -83,6 +83,13 @@
             $refs.btn3.style.visibility = 'visible'}"><ruby>待<rt>ま</rt></ruby>ちます</button>
         </div>
       </div>
+      <div class="modal-container" :class="{'md-show': mdShow10}">
+        <div class="md-infor">おすすめの時間を超えたので、できた友達に聞いてみませんか？</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="">はい</button>
+          <button class="OK-btn" @click="">いいえ</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -115,6 +122,7 @@ export default {
       mdShow7: false,
       mdShow8: false,
       mdShow9: false,
+      mdShow10: false,
       imgAddr: '',
       url: '',
       InitSetInterval: '',
