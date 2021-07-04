@@ -44,7 +44,12 @@ export default {
           let res = result.data
           if (res.status === '0') {
             this.imgAddr = res.result[0]
-            this.url = res.result[1]
+            this.$refs.video.style.display = 'inline'
+            if (res.result[1]) {
+              this.url = res.result[1]
+            } else {
+              this.$refs.video.style.display = 'none'
+            }
             this.$refs.video.src = this.url
             console.log(this)
             this.$emit('getImgAddr', this.imgAddr, this.url)

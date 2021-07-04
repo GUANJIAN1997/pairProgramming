@@ -1,5 +1,10 @@
 <template>
   <div class="checkPwd-input-container">
+    <div style="margin-top: 10rem; margin-left: 50rem; margin-bottom: 2rem;font-size: 2rem; text-align: left">
+      <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="feedbackValue">&nbspダイバーが上に動けます</div>
+      <div><input style="transform: scale(2,2);" type="checkbox" value="2" v-model="feedbackValue">&nbspダイバーが右に動けます</div>
+      <div><input style="transform: scale(2,2);" type="checkbox" value="3" v-model="feedbackValue">&nbspもう一度緑のはたを押すと、ダイバーが元に戻れる</div>
+    </div>
     <div>チェックパスワードを<ruby>入力<rt>にゅうりょく</rt></ruby>してください</div>
     <input type="text" class="checkPwd-input" v-model="checkPwd">
     <div class="button-input-container">

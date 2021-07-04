@@ -58,7 +58,7 @@ export default {
   data () {
     return {
       feedbackValue: '',
-      stepsNum: null,
+      progress: null,
       seatNum_teaching: '',
       seatNum_learning: '',
       userName: '',
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     init () {
-      this.stepsNum = this.$route.query.stepsNum
+      this.progress = this.$route.query.progress
       this.seatNum_teaching = this.$route.query.seatNum_teaching
       this.seatNum_learning = this.$route.query.seatNum_learning
       this.userName = this.$route.query.userName
@@ -99,7 +99,7 @@ export default {
           console.log('update success')
         }
       })
-      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
+      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, progress: this.progress, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('update success')
@@ -115,7 +115,7 @@ export default {
           console.log('update success')
         }
       })
-      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
+      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, progress: this.progress, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('update success')
@@ -135,7 +135,7 @@ export default {
           console.log('update success')
         }
       })
-      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, stepsNum: this.stepsNum, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
+      axios.post('/users/updateDiscussionInfor', {seatNum_learning: this.seatNum_learning, seatNum_teaching: this.seatNum_teaching, progress: this.progress, feedbackValue: this.feedbackValue, startTime: this.startTime, endTime: this.endTime}).then((response) => {
         let res = response.data
         if (res.status === '0') {
           console.log('update success')

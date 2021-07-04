@@ -42,7 +42,7 @@ export default {
             console.log('deleted')
           }
         })
-        axios.post('/users/updateDiscussionInfor', {seatNum_teaching: 'TA', stepsNum: this.stepsNum, feedbackValue: this.feedback, seatNum_learning: this.$route.query.seatNum, startTime: this.startTime, endTime: this.endTime}).then((response) => {
+        axios.post('/users/updateDiscussionInfor', {seatNum_teaching: 'TA', progress: this.stepsNum, feedbackValue: this.feedback, seatNum_learning: this.$route.query.seatNum, startTime: this.startTime, endTime: this.endTime}).then((response) => {
           let res = response.data
           if (res.status === '0') {
             console.log('updated discussion information(TA)')

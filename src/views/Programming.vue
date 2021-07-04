@@ -20,7 +20,7 @@
         <button type="button" @click.stop="Next" class="button3" ref="btn3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
       </div>
 
-      <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :imgAddr="imgAddr" :url= "url" :userName="userName" :stepsNum="stepsNum" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
+      <Modal :discussionPartner="discussionPartner" :mdShow="mdShow1" :userName="userName" :progress="progress" :seatNum="seatNum" @close="mdShow2 = false"></Modal>
 
       <div class="modal-container" :class="{'md-show': mdShow3}">
         <div class="md-infor"><ruby>前<rt>まえ</rt></ruby>のステップはありません！</div>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow4}">
-        <div class="md-infor"><ruby>相談<rt>そうだん</rt></ruby>できる<ruby>友達<rt>ともだち</rt></ruby>がいません！</div>
+        <div class="md-infor">できた<ruby>友達<rt>ともだち</rt></ruby>がいません！</div>
         <div class="btn-container">
           <button class="OK-btn" @click="function (){
             mdShow4 = false
@@ -84,23 +84,40 @@
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow10}">
-        <div class="md-infor">おすすめの時間を超えたので、できた友達に聞いてみませんか？</div>
+        <div class="md-infor">考えた時間がちょっと長くて、できた友達に聞いてみることをおすすめします</div>
         <div class="btn-container">
-          <button class="OK-btn" @click="">はい</button>
-          <button class="OK-btn" @click="">いいえ</button>
+          <button class="OK-btn" @click="function (){
+            mdShow10 = false
+            $refs.btn1.style.visibility = 'visible'
+            $refs.btn2.style.visibility = 'visible'
+            $refs.btn3.style.visibility = 'visible'}">了解</button>
         </div>
       </div>
+      <div class="modal-container" :class="{'md-show': mdShow11}">
+        <div class="md-infor">できた<ruby>友達<rt>ともだち</rt></ruby>が今相談中です</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="function (){
+            mdShow11 = false
+            $refs.btn1.style.visibility = 'visible'
+            $refs.btn2.style.visibility = 'visible'
+            $refs.btn3.style.visibility = 'visible'}"><ruby>待<rt>ま</rt></ruby>ちます</button>
+          <button class="OK-btn" @click="ta">サポーターに<ruby>聞<rt>き</rt></ruby>く</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
 
-<script>
+<script>var mdShow11
+
 import StepProject from '../components/StepProject'
 import Progress from '../components/Progress'
 import Modal from '../components/Modal'
 import '../assets/css/programming.css'
 import axios from 'axios'
 import {prevent} from '../util/preventBrowserBack'
+
 export default {
   name: 'Programming.vue',
   components: {
@@ -123,6 +140,7 @@ export default {
       mdShow8: false,
       mdShow9: false,
       mdShow10: false,
+      mdShow11: false,
       imgAddr: '',
       url: '',
       InitSetInterval: '',
@@ -138,15 +156,25 @@ export default {
     }
   },
   created () {
+    this.init()
     this.test()
     this.InitSetInterval = setInterval(this.test, 1500)
+    let notification = [5, 15, 7, 7, 7, 15, 15, 13, 13]
+    axios.post('/users/getTime', {seatNum: this.seatNum}).then((response) => {
+      let res = response.data
+      if (res.status === '0') {
+        if (Number(res.result) < notification[this.progress - 1]) {
+          this.InitSetInterval2 = setInterval(this.updateTime, 60000)
+        }
+      }
+    })
   },
   mounted () {
-    this.init()
     prevent()
   },
   destroyed () {
     clearInterval(this.InitSetInterval)
+    clearInterval(this.InitSetInterval2)
   },
   methods: {
     test () {
@@ -196,6 +224,22 @@ export default {
           }
         }
       })
+    },
+    updateTime () {
+      let notification = [5, 15, 7, 7, 7, 15, 15, 13, 13]
+      axios.post('/users/updateTime', {seatNum: this.seatNum}).then((response) => {
+        let res = response.data
+        if (res.status === '0') {
+          if (Number(res.result) >= notification[this.progress - 1]) {
+            this.mdShow10 = true
+            this.$refs.btn1.style.visibility = 'hidden'
+            this.$refs.btn2.style.visibility = 'hidden'
+            this.$refs.btn3.style.visibility = 'hidden'
+            clearInterval(this.InitSetInterval2)
+          }
+        }
+      })
+
     },
     init () {
       var reg1 = new RegExp(`userName=([^;]*)`, 'i')
@@ -271,11 +315,17 @@ export default {
       if (discussionChildList.length === 0) {
         this.mdShow4 = true
       } else {
-        axios.post('/users/discussionChildListConfirm', {discussionChildList: discussionChildList, seatNum: this.seatNum}).then((response) => {
+        axios.post('/users/discussionChildListConfirm', {
+          discussionChildList: discussionChildList,
+          seatNum: this.seatNum
+        }).then((response) => {
           let res = response.data
           if (res.status === '0') {
             this.discussionPartner = res.result
-            axios.post('/users/updateDiscussionList', {seatNum_teaching: this.discussionPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
+            axios.post('/users/updateDiscussionList', {
+              seatNum_teaching: this.discussionPartner.seatNum,
+              seatNum_learning: this.seatNum
+            }).then((response) => {
               let res = response.data
               if (res.status === '0') {
                 console.log('discussionList updated')
@@ -289,12 +339,12 @@ export default {
               }
             })
           } else {
-            this.mdShow4 = true
+            this.mdShow11 = true
           }
         })
       }
     },
-    getImgAddr (imgAddr,url) {
+    getImgAddr (imgAddr, url) {
       this.imgAddr = imgAddr
       this.url = url
     },
@@ -307,7 +357,10 @@ export default {
         let res = response.data
         if (res.status === '0') {
           console.log('TAOK')
-          axios.post('/users/updateDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.seatNum}).then((response) => {
+          axios.post('/users/updateDiscussionList', {
+            seatNum_teaching: 'TA',
+            seatNum_learning: this.seatNum
+          }).then((response) => {
             let res = response.data
             if (res.status === '0') {
               console.log('discussionList updated')
@@ -338,11 +391,25 @@ export default {
         if (res.status === '0') {
           this.checkPartner = res.result
           this.checkPwd = res.msg
-          axios.post('/users/updateCheckList', {seatNum_teaching: this.checkPartner.seatNum, seatNum_learning: this.seatNum}).then((response) => {
+          axios.post('/users/updateCheckList', {
+            seatNum_teaching: this.checkPartner.seatNum,
+            seatNum_learning: this.seatNum
+          }).then((response) => {
             let res = response.data
             if (res.status === '0') {
               console.log('checkList updated')
-              this.$router.push({path: '/check', query: {checkPwd: this.checkPwd, checkPartnerSeatNum: this.checkPartner.seatNum, checkPartnerName: this.checkPartner.userName, seatNum: this.seatNum, stepsNum: this.stepsNum, progress: this.stepsNum, url: this.url}})
+              this.$router.push({
+                path: '/check',
+                query: {
+                  checkPwd: this.checkPwd,
+                  checkPartnerSeatNum: this.checkPartner.seatNum,
+                  checkPartnerName: this.checkPartner.userName,
+                  seatNum: this.seatNum,
+                  stepsNum: this.stepsNum,
+                  progress: this.stepsNum,
+                  url: this.url
+                }
+              })
             } else {
               console.log('discussionList updated failed (you are in discussionList now)')
               alert('ただいま，君は相談中です')
@@ -358,7 +425,14 @@ export default {
     },
     goToCheck () {
       this.mdShow7 = false
-      this.$router.push({path: '/childChecking', query: {child_learning_seatNum: this.child_learning_seatNum, seatNum: this.seatNum, progress: this.child_learning_Progress}})
+      this.$router.push({
+        path: '/childChecking',
+        query: {
+          child_learning_seatNum: this.child_learning_seatNum,
+          seatNum: this.seatNum,
+          progress: this.child_learning_Progress
+        }
+      })
     }
   }
 }

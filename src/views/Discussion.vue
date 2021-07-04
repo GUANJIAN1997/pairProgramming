@@ -35,7 +35,7 @@ export default {
       imgAddr: '',
       userName: '',
       discussionPartner: '',
-      stepsNum: null,
+      progress: null,
       seatNum_teaching: '',
       seatNum_learning: '',
       writingBoardShow: false,
@@ -52,13 +52,13 @@ export default {
   },
   methods: {
     init () {
-      this.imgAddr = this.$route.query.imgAddr
       this.userName = this.$route.query.userName
       this.discussionPartner = this.$route.query.discussionPartner
-      this.stepsNum = this.$route.query.stepsNum
+      this.progress = this.$route.query.progress
       this.seatNum_teaching = this.$route.query.seatNum_teaching
       this.seatNum_learning = this.$route.query.seatNum_learning
-      this.$refs.video.src = this.$route.query.url
+      this.imgAddr = this.progress + '.png'
+      this.$refs.video.src = 'static/crane-step' + this.progress + '.mp4'
       this.startTime = getTime()
     },
     discussionEnd () {
@@ -69,7 +69,7 @@ export default {
           console.log('deleted')
         }
       })
-      this.$router.push({path: '/feedback', query: {stepsNum: this.stepsNum, seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning, userName: this.userName, startTime: this.startTime, endTime: this.endTime}})
+      this.$router.push({path: '/feedback', query: {progress: this.progress, seatNum_teaching: this.seatNum_teaching, seatNum_learning: this.seatNum_learning, userName: this.userName, startTime: this.startTime, endTime: this.endTime}})
     }
   }
 }

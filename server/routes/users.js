@@ -5,7 +5,7 @@ var User = require('../models/user')
 var Step = require('../models/step')
 var util = require('../util/radom')
 
-mongoose.connect('mongodb://localhost/exp',{useNewUrlParser:true, useUnifiedTopology: true},function(err){
+mongoose.connect('mongodb://localhost/exp2',{useNewUrlParser:true, useUnifiedTopology: true},function(err){
   if(err){
     console.log('Connection Error:' + err)
   }else{
@@ -490,11 +490,11 @@ router.post('/updateDiscussionTimes', function (req,res,next) {
 })
 
 router.post('/updateDiscussionInfor', function (req,res,next) {
-  let seatNum_teaching = req.body.seatNum_teaching, stepsNum = req.body.stepsNum, feedbackValue = req.body.feedbackValue, seatNum_learning = req.body.seatNum_learning
+  let seatNum_teaching = req.body.seatNum_teaching, progress = req.body.progress, feedbackValue = req.body.feedbackValue, seatNum_learning = req.body.seatNum_learning
   let startTime = req.body.startTime, endTime = req.body.endTime
   User.updateOne({seatNum: seatNum_learning}, {$push:{discussionDetails:[{
     seatNum_teaching:seatNum_teaching,
-    stepsNum: stepsNum,
+    stepsNum: progress,
     feedbackValue: feedbackValue,
     startTime: startTime,
     endTime: endTime}]}}, function (err, doc) {
@@ -713,5 +713,48 @@ router.post('/submitCheckPwd', function (req, res, next) {
   }
 })
 
+router.post('/updateTime', function (req,res,next) {
+  var seatNum = req.body.seatNum
+  User.updateOne({seatNum: seatNum}, {$inc:{time:1}},function (err,doc) {
+  })
+  User.findOne({seatNum: seatNum}, function (err,doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: res.message,
+        result: ''
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: doc.time
+      })
+    }
+  })
+
+
+})
+
+router.post('/getTime', function (req,res,next) {
+  var seatNum = req.body.seatNum
+  User.findOne({seatNum: seatNum}, function (err,doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: res.message,
+        result: ''
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: doc.time
+      })
+    }
+  })
+
+
+})
 
 module.exports = router
