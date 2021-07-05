@@ -27,6 +27,12 @@
         <button class="OK-btn" @click="end">はい</button>
       </div>
     </div>
+    <div class="modal-container" :class="{'md-show': mdShow2}">
+      <div class="md-infor">チェックできました！<br><ruby>次<rt>つぎ</rt></ruby>のステップ<ruby>行<rt>い</rt></ruby>きましょう</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="gotonext">はい</button>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -48,6 +54,7 @@ export default {
       stepsNum: '',
       progress: '',
       mdShow: false,
+      mdShow2: false,
       startTime: '',
       endTime: '',
       url: ''
@@ -81,7 +88,7 @@ export default {
       axios.post('/users/checkPwdListConfirm', {checkPwd: this.checkPwd}).then((result) => {
         let res = result.data
         if (res.status === '0') {
-          if (this.progress < 12) {
+          if (this.progress < 9) {
             this.endTime = getTime()
             axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum, startTime: this.startTime, endTime: this.endTime}).then((response) => {
               let res = response.data
@@ -93,7 +100,9 @@ export default {
             })
             console.log('friend has checked this step, you can go to the next step')
             axios.post('/users/updateDiscussionTimes', {seatNum_teaching: this.checkPartnerSeatNum, seatNum_learning: this.seatNum})
-            this.$router.push({path: '/programming'})
+            this.mdShow2 = true
+            this.$refs.kakibtn.style.visibility = 'hidden'
+            clearInterval(this.InitSetInterval)
           } else {
             this.endTime = getTime()
             axios.post('/users/updateCheckInfor', {seatNum: this.seatNum, stepsNum: this.stepsNum, result: 'passed', checkPartnerSeatNum: this.checkPartnerSeatNum, startTime: this.startTime, endTime: this.endTime}).then((response) => {
@@ -111,6 +120,11 @@ export default {
           }
         }
       })
+    },
+    gotonext () {
+      axios.post('/users/setTime', {seatNum: this.seatNum})
+      this.mdShow2 = false
+      this.$router.push({path: '/programming'})
     },
     getContent () {
       const param = {stepsNum: this.stepsNum}

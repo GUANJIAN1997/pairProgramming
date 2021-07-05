@@ -109,31 +109,6 @@ router.get('/stepProject',function (req,res,next) {
   })
 })
 
-// router.post('/stepProject/updateProgress',function (req,res,next) {
-//   var seatNum = req.body.seatNum, progress = req.body.progress
-//   User.updateOne({seatNum: seatNum},{progress: progress}, function (err, doc) {
-//     if (err) {
-//       res.json({
-//         status: '1',
-//         msg: res.message,
-//         result: ''
-//       })
-//     } else if (!doc.n) {
-//       res.json({
-//         status: '1',
-//         msg: 'not found',
-//         result: ''
-//       })
-//     } else {
-//       res.json({
-//         status: '0',
-//         msg: '',
-//         result: ''
-//       })
-//     }
-//   })
-// })
-
 router.post('/stepProject/getProgress', function (req,res,next) {
   var seatNum = req.body.seatNum
   User.findOne({seatNum: seatNum}, function (err,doc) {
@@ -753,8 +728,33 @@ router.post('/getTime', function (req,res,next) {
       })
     }
   })
+})
 
-
+router.post('/setTime', function (req, res, next) {
+  var seatNum = req.body.seatNum
+  User.updateOne({seatNum: seatNum}, {time: 0}, function (err, doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: err.message,
+        result: ''
+      })
+    } else {
+      if (doc.n) {
+        res.json({
+          status: '0',
+          msg: '更新成功',
+          result: ''
+        })
+      } else {
+        res.json({
+          status: '1',
+          msg: 'item not found',
+          result: ''
+        })
+      }
+    }
+  })
 })
 
 module.exports = router

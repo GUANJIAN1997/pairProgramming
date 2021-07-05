@@ -159,10 +159,10 @@ export default {
     this.init()
     this.test()
     this.InitSetInterval = setInterval(this.test, 1500)
-    let notification = [5, 15, 7, 7, 7, 15, 15, 13, 13]
+    let notification = [5, 15, 7, 7, 7, 15, 15, 13, 3]
     axios.post('/users/getTime', {seatNum: this.seatNum}).then((response) => {
       let res = response.data
-      if (res.status === '0') {
+      if (res.status === '0' && this.progress < 10) {
         if (Number(res.result) < notification[this.progress - 1]) {
           this.InitSetInterval2 = setInterval(this.updateTime, 60000)
         }
@@ -226,7 +226,7 @@ export default {
       })
     },
     updateTime () {
-      let notification = [5, 15, 7, 7, 7, 15, 15, 13, 13]
+      let notification = [5, 15, 7, 7, 7, 15, 15, 13, 3]
       axios.post('/users/updateTime', {seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -252,24 +252,16 @@ export default {
         this.userName = decodeURIComponent(escape(window.atob(res1[1])))
         this.seatNum = res2[1]
       }
-      // document.cookie.split(';').map((item) => {
-      //   if (item.slice(1, 9) === 'userName') {
-      //     this.userName = item.slice(10)
-      //   }
-      //   if (item.slice(1, 8) === 'seatNum') {
-      //     this.seatNum = item.slice(9)
-      //   }
-      // })
       if (!(this.userName && this.seatNum)) {
         alert('もう一度登録してください')
       } else {
         axios.post('/users/stepProject/getProgress', {seatNum: this.seatNum}).then((response) => {
           var res = response.data
-          if (res.status === '0' && res.result <= 12) {
+          if (res.status === '0' && res.result <= 9) {
             this.stepsNum = res.result
             this.progress = res.result
           } else {
-            this.stepsNum = 12
+            this.stepsNum = 9
             this.$refs.btn1.style.visibility = 'hidden'
             this.$refs.btn2.style.visibility = 'hidden'
             this.$refs.btn3.style.visibility = 'hidden'
@@ -310,7 +302,7 @@ export default {
     Discussion () {
       this.mdShow8 = false
       var discussionChildList = this.progressList.filter((item) => {
-        return item.progress >= this.progress
+        return item.progress > this.progress
       })
       if (discussionChildList.length === 0) {
         this.mdShow4 = true
@@ -429,6 +421,7 @@ export default {
         path: '/childChecking',
         query: {
           child_learning_seatNum: this.child_learning_seatNum,
+          child_learning_Name: this.child_learning_Name,
           seatNum: this.seatNum,
           progress: this.child_learning_Progress
         }
