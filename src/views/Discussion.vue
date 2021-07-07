@@ -58,7 +58,12 @@ export default {
       this.seatNum_teaching = this.$route.query.seatNum_teaching
       this.seatNum_learning = this.$route.query.seatNum_learning
       this.imgAddr = this.progress + '.png'
-      this.$refs.video.src = 'static/crane-step' + this.progress + '.mp4'
+      if (this.progress !== '1') {
+        this.$refs.video.style.display = 'inline'
+        this.$refs.video.src = 'static/crane-step' + this.progress + '.mp4'
+      }else {
+        this.$refs.video.style.display = 'none'
+      }
       this.startTime = getTime()
     },
     discussionEnd () {

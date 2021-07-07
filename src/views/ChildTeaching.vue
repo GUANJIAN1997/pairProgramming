@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div style="font-size: 3rem; text-align: center"><div class="iconfont" style="display: inline-block; font-size: 5rem">&#xe61b;</div>{{child_learning_Name}}さんと<ruby>相談<rt>そうだん</rt></ruby>しています</div>
+    <div style="font-size: 3rem; text-align: center"><div class="iconfont" style="display: inline-block; font-size: 5rem">&#xe61b;</div>
+      <ruby>相談<rt>そうだん</rt></ruby>してほしい人の<ruby>席番号<rt>せきばんごう</rt></ruby>：{{child_learning_seatNum}}
+      <ruby>相談<rt>そうだん</rt></ruby>してほしい人の<ruby>名前<rt>なまえ</rt></ruby>：{{child_learning_Name}}
+    </div>
     <div class="teaching-feedback-box">
       <button class="teaching-end-btn" @click="finishdiscussion"><ruby>終<rt>お</rt></ruby>わり</button>
     </div>
@@ -13,11 +16,13 @@ export default {
   name: 'ChildTeaching',
   mounted () {
     this.child_learning_Name = this.$route.query.child_learning_Name
+    this.child_learning_seatNum = this.$route.query.child_learning_seatNum
     prevent()
   },
   data () {
     return {
-      child_learning_Name: ''
+      child_learning_Name: '',
+      child_learning_seatNum: ''
     }
   },
   methods: {

@@ -13,16 +13,6 @@ mongoose.connect('mongodb://localhost/exp2',{useNewUrlParser:true, useUnifiedTop
   }
 })
 
-// mongoose.connection.on('connected', function () {
-//   console.log('MongoDB connected success')
-// })
-// mongoose.connection.on('error', function () {
-//   console.log('MongoDB connected fail')
-// })
-// mongoose.connection.on('disconnected',function () {
-//   console.log('MongoDB connected disconnected')
-// })
-
 /* GET users listing. */
 router.post('/', function (req, res, next) {
   var gender = req.body.gender, userName = req.body.userName, seatNum = req.body.seatNum, userPwd = req.body.userPwd
@@ -39,7 +29,8 @@ router.post('/', function (req, res, next) {
       })
     } else {
       if (doc.n) {
-        let userNamedecode = new Buffer(userName).toString('base64')
+        let userNamedecode = Buffer.from(userName,'utf-8').toString('base64')
+        // let userNamedecode = new Buffer(userName).toString('base64')
         res.cookie('userName', userNamedecode, {
           path: '/',
           maxAge: 24*60*60*1000

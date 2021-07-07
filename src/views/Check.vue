@@ -9,6 +9,8 @@
 
       <div class="checkContent"> チェックパスワード: {{checkPwd}}</div>
 
+      <div ><img ref="img" width="40%" :src="'static/' + url"></div>
+
       <div style="text-align: center">
         <video ref="video" width="40%" controls autoplay>
           <!--          <source  type="video/mp4">-->
@@ -60,11 +62,9 @@ export default {
       url: ''
     }
   },
-  created () {
+  mounted () {
     this.init()
     this.getContent()
-  },
-  mounted () {
     this.test()
     this.InitSetInterval = setInterval(this.test, 1000)
     this.$refs.video.src = this.url
@@ -83,6 +83,13 @@ export default {
       this.seatNum = this.$route.query.seatNum
       this.progress = this.$route.query.progress
       this.url = this.$route.query.url
+      if (!this.url) {
+        this.$refs.video.style.display = 'none'
+        this.url = '1.png'
+
+      } else {
+        this.$refs.img.style.display = 'none'
+      }
     },
     test () {
       axios.post('/users/checkPwdListConfirm', {checkPwd: this.checkPwd}).then((result) => {

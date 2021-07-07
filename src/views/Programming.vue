@@ -109,7 +109,7 @@
   </div>
 </template>
 
-<script>var mdShow11
+<script>
 
 import StepProject from '../components/StepProject'
 import Progress from '../components/Progress'
@@ -226,7 +226,7 @@ export default {
       })
     },
     updateTime () {
-      let notification = [5, 15, 7, 7, 7, 15, 15, 13, 3]
+      let notification = [5, 15, 7, 7, 7, 15, 15, 13, 13]
       axios.post('/users/updateTime', {seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -367,7 +367,7 @@ export default {
     },
     goToTeach () {
       this.mdShow5 = false
-      this.$router.push({path: '/childTeaching', query: {child_learning_Name: this.child_learning_Name}})
+      this.$router.push({path: '/childTeaching', query: {child_learning_Name: this.child_learning_Name,child_learning_seatNum: this.child_learning_seatNum}})
     },
     noCheck () {
       this.mdShow6 = false
