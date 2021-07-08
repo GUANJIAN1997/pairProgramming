@@ -7,34 +7,34 @@
     <div class="checkPwd-input-container">
       <p style="font-size: 2rem">プログラムは以下の項目ができているかどうかを<ruby>確認<rt>かくにん</rt>してください</ruby></p>
       <div ref="step1" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step1_1">&nbspクレーンを右上に</div>
-        <div><input style="transform: scale(2,2);" type="checkbox" value="2" v-model="step1_2">&nbsp星を右上に</div>
-        <div><input style="transform: scale(2,2);" type="checkbox" value="3" v-model="step1_3">&nbsp景品を左下に</div>
-        <div><input style="transform: scale(2,2);" type="checkbox" value="3" v-model="step1_4">&nbsp受け取り口を右下に</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step1_1">&emsp;クレーンを右上に&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="2" v-model="step1_2">&emsp;星を右上に&emsp;&emsp;&emsp;&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="3" v-model="step1_3">&emsp;景品を左下に&emsp;&emsp;&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="3" v-model="step1_4">&emsp;受け取り口を右下に</div>
       </div>
       <div ref="step2" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step2_1">&nbspスペースキーを押している間、クレーンが左に動く</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step2_1">&emsp;スペースキーを押している間、クレーンが左に動く</div>
       </div>
       <div ref="step3" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step3_1">&nbspスペースキーを離したあと、クレーンが下まで下がる</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step3_1">&emsp;スペースキーを離したあと、クレーンが下まで下がる</div>
       </div>
       <div ref="step4" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step4_1">&nbspクレーンが下まで下がったあと、上まで上がる</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step4_1">&emsp;クレーンが下まで下がったあと、上まで上がる</div>
       </div>
       <div ref="step5" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step5_1">&nbspクレーンが上まで上がったあと、星に触れるまで右に動く</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step5_1">&emsp;クレーンが上まで上がったあと、星に触れるまで右に動く</div>
       </div>
       <div ref="step6" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_1">&nbspクレーンを開け閉めする</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_1">&emsp;クレーンを開け閉めする</div>
       </div>
       <div ref="step7" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step7_1">&nbsp景品がクレーンに持ち上げられる</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step7_1">&emsp;景品がクレーンに持ち上げられる</div>
       </div>
       <div ref="step8" style="display: none; font-size: 2rem; margin: auto">
-      <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step8_1">&nbspクレーンが開けられたら、景品が落ちてくる</div>
+      <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step8_1">&emsp;クレーンが開けられたら、景品が落ちてくる</div>
       </div>
       <div ref="step9" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step9_1">&nbsp景品が取り出し口に落ちたら「ゲット」と言う</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step9_1">&emsp;景品が取り出し口に落ちたら「ゲット」と言う</div>
       </div>
       <div>チェックパスワードを<ruby>入力<rt>にゅうりょく</rt></ruby>してください</div>
       <input type="text" class="checkPwd-input" v-model="checkPwd">
