@@ -61,7 +61,7 @@ export default {
     filter () {
       this.progressListAfter = this.deepClone(this.progressList)
       for(let item of this.progressListAfter) {
-        if (item.progress > 12) {
+        if (item.progress > 9) {
           item.progress = '完成'
         }
       }

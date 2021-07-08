@@ -155,11 +155,11 @@ export default {
       checkAudioBoolean: true
     }
   },
-  created () {
+  mounted () {
     this.init()
     this.test()
     this.InitSetInterval = setInterval(this.test, 1500)
-    let notification = [5, 15, 7, 7, 7, 15, 15, 13, 3]
+    let notification = [5, 15, 7, 7, 7, 15, 15, 13, 13]
     axios.post('/users/getTime', {seatNum: this.seatNum}).then((response) => {
       let res = response.data
       if (res.status === '0' && this.progress < 10) {
@@ -168,8 +168,6 @@ export default {
         }
       }
     })
-  },
-  mounted () {
     prevent()
   },
   destroyed () {

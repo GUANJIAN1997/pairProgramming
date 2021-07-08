@@ -78,7 +78,7 @@ export default {
             return b.progress - a.progress
           })
           for(let item of res.result) {
-            if (item.progress > 12) {
+            if (item.progress > 9) {
               item.progress = '完成'
             }
           }
