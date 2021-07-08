@@ -16,7 +16,7 @@
 
       <div class="btn-container">
         <button type="button" @click.stop="Return" class="button1" ref="btn1"><ruby>前<rt>まえ</rt></ruby>のステップ</button>
-        <button type="button" @click.stop="beforeDiscussion" class="button2" ref="btn2">できた<ruby>友達<rt>ともだち</rt></ruby>に<ruby>聞<rt>き</rt></ruby>く</button>
+        <button type="button" @click.stop="beforeDiscussion" class="button2" ref="btn2"><ruby>相談<rt>そうだん</rt></ruby>する</button>
         <button type="button" @click.stop="Next" class="button3" ref="btn3"><ruby>次<rt>つぎ</rt></ruby>のステップ</button>
       </div>
 
