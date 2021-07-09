@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="modal-container" :class="{'md-show': mdShow10}">
-        <div class="md-infor">考えた時間がちょっと長くて、できた友達に聞いてみることをおすすめします</div>
+        <div class="md-infor">おすすめの時間になりましたので、もし、まだわからなかったら、できた友達に聞いてみたらどうですか？</div>
         <div class="btn-container">
           <button class="OK-btn" @click="function (){
             mdShow10 = false
@@ -104,7 +104,25 @@
           <button class="OK-btn" @click="ta">サポーターに<ruby>聞<rt>き</rt></ruby>く</button>
         </div>
       </div>
+      <div class="modal-container" :class="{'md-show': mdShow12}">
+        <div class="md-infor">ただいま、君は相談中です</div>
+        <div class="btn-container">
+          <button class="OK-btn" @click="function (){
+            mdShow12 = false
+            }">了解</button>
+        </div>
+      </div>
+      <div class="modal-container"  :class="{'md-show': mdShow13}">
+        <div style="margin-top: 75px">
+          <div class="md-infor">サポーターが<ruby>来<rt>き</rt></ruby>ています．<ruby>少々<rt>しょうしょう</rt></ruby>お<ruby>待<rt>ま</rt></ruby>ちください</div>
+          <div class="btn-container">
+            <button class="OK-btn" @click="function (){
+            mdShow13 = false
+            }">OK</button>
+          </div>
+        </div>
 
+      </div>
     </div>
   </div>
 </template>
@@ -141,6 +159,8 @@ export default {
       mdShow9: false,
       mdShow10: false,
       mdShow11: false,
+      mdShow12: false,
+      mdShow13: false,
       imgAddr: '',
       url: '',
       InitSetInterval: '',
@@ -322,7 +342,8 @@ export default {
                 this.mdShow1 = true
               } else {
                 console.log('discussionList updated failed (you are in discussionList now)')
-                alert('ただいま，君は相談中です')
+                // alert('ただいま，君は相談中です')
+                this.mdShow12 = true
                 this.$refs.btn1.style.visibility = 'visible'
                 this.$refs.btn2.style.visibility = 'visible'
                 this.$refs.btn3.style.visibility = 'visible'
@@ -340,6 +361,8 @@ export default {
     },
     ta () {
       this.mdShow4 = false
+      this.mdShow11 = false
+      this.mdShow13 = true
       this.$refs.btn1.style.visibility = 'visible'
       this.$refs.btn2.style.visibility = 'visible'
       this.$refs.btn3.style.visibility = 'visible'
@@ -402,7 +425,8 @@ export default {
               })
             } else {
               console.log('discussionList updated failed (you are in discussionList now)')
-              alert('ただいま，君は相談中です')
+              this.mdShow12 = true
+              // alert('ただいま，君は相談中です')
               this.$refs.btn1.style.visibility = 'visible'
               this.$refs.btn2.style.visibility = 'visible'
               this.$refs.btn3.style.visibility = 'visible'

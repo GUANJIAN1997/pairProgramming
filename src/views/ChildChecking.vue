@@ -4,6 +4,14 @@
       チェックしてほしい人の<ruby>席番号<rt>せきばんごう</rt>：{{child_learning_seatNum}}</ruby>
       チェックしてほしい人の<ruby>名前<rt>なまえ</rt>：{{child_learning_Name}}</ruby>
     </div>
+    <div class="modal-container" :class="{'md-show': mdShow1}">
+      <div class="md-infor">まず<ruby>項目<rt>こうもく</rt></ruby>をチェックしてください</div>
+      <div class="btn-container">
+        <button class="OK-btn" @click="function (){
+            mdShow1 = false
+            }">OK</button>
+      </div>
+    </div>
     <div class="checkPwd-input-container">
       <p style="font-size: 2rem">プログラムは以下の項目ができているかどうかを<ruby>確認<rt>かくにん</rt>してください</ruby></p>
       <div ref="step1" style="display: none; font-size: 2rem; margin: auto">
@@ -13,28 +21,31 @@
         <div><input style="transform: scale(2,2);" type="checkbox" value="3" v-model="step1_4">&emsp;受け取り口を右下に</div>
       </div>
       <div ref="step2" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step2_1">&emsp;スペースキーを押している間、クレーンが左に動く</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step2_1">&emsp;スペースキーを押している間、クレーンが左に動くか？</div>
       </div>
       <div ref="step3" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step3_1">&emsp;スペースキーを離したあと、クレーンが下まで下がる</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step3_1">&emsp;スペースキーを離したあと、クレーンが下まで下がるか？</div>
       </div>
       <div ref="step4" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step4_1">&emsp;クレーンが下まで下がったあと、上まで上がる</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step4_1">&emsp;クレーンが下がったあと、上まで上がるか？</div>
       </div>
       <div ref="step5" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step5_1">&emsp;クレーンが上まで上がったあと、星に触れるまで右に動く</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step5_1">&emsp;クレーンが星に触れたら、止まったか？</div>
       </div>
       <div ref="step6" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_1">&emsp;クレーンを開け閉めする</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_1">&emsp;クレーンが下に下がった時、開けたか？&emsp;&emsp;&emsp;&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_2">&emsp;クレーンが下に着いた時、閉めたか？&emsp;&emsp;&emsp;&emsp;&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_3">&emsp;クレーンが星に触れた時、開けたか？&emsp;&emsp;&emsp;&emsp;&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_4">&emsp;クレーンが星に触れて、一秒間あと、閉めたか？</div>
       </div>
       <div ref="step7" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step7_1">&emsp;景品がクレーンに持ち上げられる</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step7_1">&emsp;景品に触れたら、クレーンにつかまれたか？</div>
       </div>
       <div ref="step8" style="display: none; font-size: 2rem; margin: auto">
-      <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step8_1">&emsp;クレーンが開けられたら、景品が落ちてくる</div>
+      <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step8_1">&emsp;クレーンが開けられたら、景品が落ちてくるか？</div>
       </div>
       <div ref="step9" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step9_1">&emsp;景品が取り出し口に落ちたら「ゲット」と言う</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step9_1">&emsp;景品が取り出し口に落ちたら「ゲット」と言ったか？</div>
       </div>
       <div>チェックパスワードを<ruby>入力<rt>にゅうりょく</rt></ruby>してください</div>
       <input type="text" class="checkPwd-input" v-model="checkPwd">
@@ -66,9 +77,13 @@ export default {
       step4_1: '',
       step5_1: '',
       step6_1: '',
+      step6_2: '',
+      step6_3: '',
+      step6_4: '',
       step7_1: '',
       step8_1: '',
       step9_1: '',
+      mdShow1: ''
     }
   },
   mounted () {
@@ -109,7 +124,7 @@ export default {
   },
   methods: {
     OK () {
-      if ((this.step1_1 && this.step1_2 && this.step1_3 && this.step1_4) || this.step2_1 || this.step3_1 || this.step4_1 || this.step5_1 || this.step6_1 || this.step7_1 || this.step8_1 || this.step9_1) {
+      if ((this.step1_1 && this.step1_2 && this.step1_3 && this.step1_4) || this.step2_1 || this.step3_1 || this.step4_1 || this.step5_1 || (this.step6_1 && this.step6_2 && this.step6_3 && this.step6_4) || this.step7_1 || this.step8_1 || this.step9_1) {
         const child_learning_seatNum = this.child_learning_seatNum
         const progress = Number(this.$route.query.progress) + 1
         const seatNum = this.$route.query.seatNum
@@ -131,7 +146,7 @@ export default {
           }
         })
       } else {
-        alert('まず項目をチェックしてください')
+        this.mdShow1 = true
       }
     },
     Return () {

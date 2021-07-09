@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="modal-container" :class="{'md-show': mdShow2}">
-      <div class="md-infor">チェックできました！<br><ruby>次<rt>つぎ</rt></ruby>のステップ<ruby>行<rt>い</rt></ruby>きましょう</div>
+      <div class="md-infor">チェックできました！<br><ruby>次<rt>つぎ</rt></ruby>のステップ<ruby>に行<rt>い</rt></ruby>きましょう</div>
       <div class="btn-container">
         <button class="OK-btn" @click="gotonext">はい</button>
       </div>
@@ -129,8 +129,8 @@ export default {
       })
     },
     gotonext () {
-      axios.post('/users/setTime', {seatNum: this.seatNum})
       this.mdShow2 = false
+      axios.post('/users/setTime', {seatNum: this.seatNum})
       this.$router.push({path: '/programming'})
     },
     getContent () {
