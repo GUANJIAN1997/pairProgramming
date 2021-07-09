@@ -33,19 +33,19 @@
         <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step5_1">&emsp;クレーンが星に触れたら、止まったか？</div>
       </div>
       <div ref="step6" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_1">&emsp;クレーンが下に下がった時、開けたか？&emsp;&emsp;&emsp;&emsp;</div>
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_2">&emsp;クレーンが下に着いた時、閉めたか？&emsp;&emsp;&emsp;&emsp;&emsp;</div>
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_3">&emsp;クレーンが星に触れた時、開けたか？&emsp;&emsp;&emsp;&emsp;&emsp;</div>
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_4">&emsp;クレーンが星に触れて、一秒間あと、閉めたか？</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_1">&emsp;クレーンが下がる時、開くか？&emsp;&emsp;&emsp;&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_2">&emsp;クレーンが下に着いた時、閉まるか？&emsp;&emsp;&emsp;&emsp;&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_3">&emsp;クレーンが星に触れた時、開くか？&emsp;&emsp;&emsp;&emsp;&emsp;</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step6_4">&emsp;クレーンが星に触れて、一秒後、閉まるか？</div>
       </div>
       <div ref="step7" style="display: none; font-size: 2rem; margin: auto">
         <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step7_1">&emsp;景品に触れたら、クレーンにつかまれたか？</div>
       </div>
       <div ref="step8" style="display: none; font-size: 2rem; margin: auto">
-      <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step8_1">&emsp;クレーンが開けられたら、景品が落ちてくるか？</div>
+      <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step8_1">&emsp;クレーンが開いたら、景品が落ちてくるか？</div>
       </div>
       <div ref="step9" style="display: none; font-size: 2rem; margin: auto">
-        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step9_1">&emsp;景品が取り出し口に落ちたら「ゲット」と言ったか？</div>
+        <div><input style="transform: scale(2,2);" type="checkbox" value="1" v-model="step9_1">&emsp;景品が取り出し口に落ちたら「ゲット」と言うか？</div>
       </div>
       <div>チェックパスワードを<ruby>入力<rt>にゅうりょく</rt></ruby>してください</div>
       <input type="text" class="checkPwd-input" v-model="checkPwd">
