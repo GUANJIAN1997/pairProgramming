@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="font-size: 3rem; text-align: center"><div class="iconfont" style="display: inline-block; font-size: 5rem">&#xe61b;</div>
+    <div style="font-size: 2.5rem; text-align: center"><div class="iconfont" style="display: inline-block; font-size: 5rem">&#xe61b;</div>
       <ruby>相談<rt>そうだん</rt></ruby>してほしい人の<ruby>席番号<rt>せきばんごう</rt></ruby>：{{child_learning_seatNum}}
       <ruby>相談<rt>そうだん</rt></ruby>してほしい人の<ruby>名前<rt>なまえ</rt></ruby>：{{child_learning_Name}}
     </div>
