@@ -109,6 +109,9 @@
         <div class="btn-container">
           <button class="OK-btn" @click="function (){
             mdShow12 = false
+            $refs.btn1.style.visibility = 'visible'
+            $refs.btn2.style.visibility = 'visible'
+            $refs.btn3.style.visibility = 'visible'
             }">了解</button>
         </div>
       </div>
@@ -118,6 +121,9 @@
           <div class="btn-container">
             <button class="OK-btn" @click="function (){
             mdShow13 = false
+            $refs.btn1.style.visibility = 'visible'
+            $refs.btn2.style.visibility = 'visible'
+            $refs.btn3.style.visibility = 'visible'
             }">OK</button>
           </div>
         </div>
@@ -344,9 +350,6 @@ export default {
                 console.log('discussionList updated failed (you are in discussionList now)')
                 // alert('ただいま，君は相談中です')
                 this.mdShow12 = true
-                this.$refs.btn1.style.visibility = 'visible'
-                this.$refs.btn2.style.visibility = 'visible'
-                this.$refs.btn3.style.visibility = 'visible'
               }
             })
           } else {
@@ -363,9 +366,7 @@ export default {
       this.mdShow4 = false
       this.mdShow11 = false
       this.mdShow13 = true
-      this.$refs.btn1.style.visibility = 'visible'
-      this.$refs.btn2.style.visibility = 'visible'
-      this.$refs.btn3.style.visibility = 'visible'
+
       axios.post('/users/callTA', {userName: this.userName, seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
@@ -427,13 +428,10 @@ export default {
               console.log('discussionList updated failed (you are in discussionList now)')
               this.mdShow12 = true
               // alert('ただいま，君は相談中です')
-              this.$refs.btn1.style.visibility = 'visible'
-              this.$refs.btn2.style.visibility = 'visible'
-              this.$refs.btn3.style.visibility = 'visible'
             }
           })
         } else {
-          this.mdShow4 = true
+          this.mdShow9 = true
         }
       })
     },

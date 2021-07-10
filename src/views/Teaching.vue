@@ -2,10 +2,10 @@
   <div>
     <div style="font-size: 3rem; text-align: center"><div class="iconfont" style="display: inline-block; font-size: 5rem">&#xe61b;</div>指導中．．．</div>
     <div class="teaching-feedback-box">
-      <div>指導したステップと指導した内容を入力</div>
+      <div>指導したステップ番号を入力してください</div>
       <span>ステップ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" class="teaching-feedback-content" v-model="stepsNum">
       <br>
-      <span>指導した内容</span><input type="text" class="teaching-feedback-content" v-model="feedback">
+<!--      <span>指導した内容</span><input type="text" class="teaching-feedback-content" v-model="feedback">-->
       <br>
       <button class="teaching-end-btn" @click="finishTeaching">指導完了</button>
     </div>
@@ -23,7 +23,7 @@ export default {
   data () {
     return {
       stepsNum: '',
-      feedback: '',
+      feedback: 'test',
       startTime: '',
       endTime: ''
     }
@@ -35,7 +35,7 @@ export default {
   methods: {
     finishTeaching () {
       this.endTime = getTime()
-      if (this.feedback) {
+      if (this.stepsNum) {
         axios.post('/users/deleteDiscussionList', {seatNum_teaching: 'TA', seatNum_learning: this.$route.query.seatNum}).then((response) => {
           let res = response.data
           if (res.status === '0') {

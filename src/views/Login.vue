@@ -13,7 +13,7 @@
 
            <!-- 名前 -->
           <div class="input">
-              <ruby class="input-name">名前<rt>なまえ</rt></ruby><input type="text" class="input-content" v-model="userName">
+              <span class="input-name">ニックネーム</span><input type="text" class="input-content" v-model="userName">
            </div>
           <!-- パスワード -->
           <div class="input">

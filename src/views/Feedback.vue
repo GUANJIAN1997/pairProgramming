@@ -69,10 +69,8 @@ export default {
       endTime: ''
     }
   },
-  created () {
-    this.init()
-  },
   mounted () {
+    this.init()
     prevent()
   },
   methods: {

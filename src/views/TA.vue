@@ -56,13 +56,11 @@ export default {
       progressList: []
     }
   },
-  created () {
+  mounted () {
     this.getAllProgress()
     this.InitSetInterval1 = setInterval(this.getAllProgress, 2000)
     this.waitListConfirm()
     this.InitSetInterval2 = setInterval(this.waitListConfirm, 1500)
-  },
-  mounted () {
     prevent()
   },
   destroyed () {
