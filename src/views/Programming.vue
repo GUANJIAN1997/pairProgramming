@@ -185,7 +185,7 @@ export default {
     this.init()
     this.test()
     this.InitSetInterval = setInterval(this.test, 1500)
-    let notification = [5, 15, 7, 7, 7, 15, 15, 13, 13]
+    let notification = [5, 12, 6, 6, 6, 12, 12, 11, 11]
     axios.post('/users/getTime', {seatNum: this.seatNum}).then((response) => {
       let res = response.data
       if (res.status === '0' && this.progress < 10) {
@@ -250,7 +250,7 @@ export default {
       })
     },
     updateTime () {
-      let notification = [5, 15, 7, 7, 7, 15, 15, 13, 13]
+      let notification = [5, 12, 6, 6, 6, 12, 12, 11, 11]
       axios.post('/users/updateTime', {seatNum: this.seatNum}).then((response) => {
         let res = response.data
         if (res.status === '0') {
