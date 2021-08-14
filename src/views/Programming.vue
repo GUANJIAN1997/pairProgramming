@@ -205,7 +205,8 @@ export default {
       if (!res1 || !res2) {
         console.log('not found')
       } else {
-        this.userName = decodeURIComponent(escape(window.atob(res1[1])))
+        // this.userName = decodeURIComponent(escape(window.atob(res1[1])))
+        this.userName = res1[1]
         this.seatNum = res2[1]
       }
       // document.cookie.split(';').map((item) => {

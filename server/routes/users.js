@@ -39,7 +39,8 @@ router.post('/', function (req, res, next) {
       })
     } else {
       if (doc.n) {
-        let userNamedecode = new Buffer(userName).toString('base64')
+        // let userNamedecode = new Buffer(userName).toString('base64')
+        let userNamedecode = userName
         res.cookie('userName', userNamedecode, {
           path: '/',
           maxAge: 24*60*60*1000
