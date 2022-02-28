@@ -1,6 +1,6 @@
 # pairprogramming
 
-> A Vue.js project
+> 用于少儿编程线下班的系统
 
 ## Build Setup
 
